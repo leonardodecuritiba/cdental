@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Helpers\DataHelper;
+use App\Helpers\ImageHelper;
 use Illuminate\Database\Eloquent\Model;
 
 class Clinica extends Model
@@ -14,8 +15,19 @@ class Clinica extends Model
         'idcontato',
         'cnpj',
         'email',
+        'foto',
         'nome'
     ];
+
+    public function getFoto()
+    {
+        return ($this->foto != NULL) ? ImageHelper::getFullPath('ajustes') . $this->foto : asset('imgs/cogs.png');
+    }
+
+    public function getThumbFoto()
+    {
+        return ($this->foto != NULL) ? ImageHelper::getFullThumbPath('ajustes') . $this->foto : asset('imgs/cogs.png');
+    }
 
     public function getCreatedAtAttribute($value)
     {

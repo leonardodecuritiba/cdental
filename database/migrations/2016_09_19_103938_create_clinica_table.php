@@ -18,6 +18,7 @@ class CreateClinicaTable extends Migration
             $table->unsignedInteger('idcontato');
             $table->string('nome',100)->unique();
             $table->string('email',100)->unique();
+            $table->string('foto', 100);
             $table->string('cnpj')->nullable();
 
             $table->foreign('idresponsavel')->references('idprofissional')->on('profissional');

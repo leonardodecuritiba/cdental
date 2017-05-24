@@ -3,15 +3,16 @@
 namespace App;
 
 use App\Helpers\DataHelper;
+use App\Helpers\ImageHelper;
 use DB;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Paciente extends Model
 {
+    public $timestamps = true;
     protected $table = 'paciente';
     protected $primaryKey = 'idpaciente';
-    public $timestamps = true;
     protected $fillable = [
         'idplano',
         'idprofissional_criador',
@@ -25,10 +26,18 @@ class Paciente extends Model
     ];
 
     // ******************** FUNCTIONS ****************************
+
     public function getFoto()
     {
-        return ($this->foto!='')?asset('/uploads/pacientes/thumb_'.$this->foto):asset('imgs/user.png');
+        return ($this->foto != NULL) ? ImageHelper::getFullPath('pacientes') . $this->foto : asset('imgs/user.png');
     }
+
+    public function getThumbFoto()
+    {
+        return ($this->foto != NULL) ? ImageHelper::getFullThumbPath('pacientes') . $this->foto : asset('imgs/user.png');
+    }
+
+
     public function hasIdade()
     {
         $value = $this->attributes['data_nascimento'];
@@ -90,14 +99,16 @@ class Paciente extends Model
         return $this->retornos()->first();
     }
 
-    public function has_retorno()
-    {
-        return ($this->retornos()->count()>0)?1:0;
-    }
     public function retornos()
     {
         return $this->hasMany('App\Retorno', 'idpaciente')->where('data_retorno', '>', Carbon::now()->format('Y-m-d'));
     }
+
+    public function has_retorno()
+    {
+        return ($this->retornos()->count() > 0) ? 1 : 0;
+    }
+
     public function retornos_todos()
     {
         return $this->hasMany('App\Retorno', 'idpaciente');

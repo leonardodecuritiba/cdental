@@ -1,6 +1,8 @@
 <tr>
     <td rowspan="3" colspan="3">
-        <img src="imgs/empresa.png">
+        {{--<img src="imgs/empresa.png">--}}
+        <img src="uploads/ajustes/{{$clinica->foto}}">
+        {{--        <img src="{{$clinica->getFoto()}}">--}}
     </td>
     <td colspan="7">{{$clinica->nome}}</td>
 </tr>

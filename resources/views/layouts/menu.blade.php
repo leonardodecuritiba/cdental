@@ -61,10 +61,10 @@
                             </ul>
                         </li>
                     <li><a><i class="fa fa-print"></i>Impressões <span class="fa fa-chevron-down"></span></a>
-                        {{--<ul class="nav child_menu" style="display: none">--}}
-                            {{--<li><a href="#">Logo</a></li>--}}
-                            {{--<li><a href="#">PDF's</a></li>--}}
-                        {{--</ul>--}}
+                        <ul class="nav child_menu" style="display: none">
+                            <li><a href="#">Logo</a></li>
+                            <li><a href="#">PDF's</a></li>
+                        </ul>
                     </li>
                     @endrole
                 </ul>

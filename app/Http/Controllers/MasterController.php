@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Clinica;
 use App\Contato;
+use App\Helpers\ImageHelper;
 use App\Paciente;
 use App\Consulta;
 use App\Profissional;
@@ -111,6 +112,12 @@ class MasterController extends Controller
 
             //store CLINICA
             $data['idcontato'] = $Contato->idcontato;
+            if ($request->hasfile('foto')) {
+                $img = new ImageHelper();
+                $data['foto'] = $img->store($request->file('foto'), 'ajustes');
+            } else {
+                $data['foto'] = NULL;
+            }
             $Clinica = Clinica::create($data);
 
             session()->forget('mensagem');
@@ -134,8 +141,14 @@ class MasterController extends Controller
         } else {
             $dataUpdate = $request->all();
             $Clinica = Clinica::find($id);
+
+            if ($request->hasfile('foto')) {
+                $img = new ImageHelper();
+                $dataUpdate['foto'] = $img->update($request->file('foto'), 'ajustes', $Clinica->foto);
+            }
             $Clinica->update($dataUpdate);
             $Clinica->contato->update($dataUpdate);
+
             session()->forget('mensagem');
             session(['mensagem' => 'Clínica atualizada com sucesso!']);
             return Redirect::route('clinica');

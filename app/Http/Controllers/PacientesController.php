@@ -68,28 +68,6 @@ class PacientesController extends Controller
             ->with('Buscas',$Buscas);
     }
 
-    public function show($id,$tab='sobre')
-    {
-        $this->Page->titulo_primario = "Visualização de ";
-        $this->Page->tab = $tab;
-        $Paciente = Paciente::find($id);
-        $Planos = Plano::where('plano_status',1)->get();
-        $Profissionais = Profissional::all();
-        $Intervencoes = Intervencao::all();
-        $Anamneses = Anamnese::all();
-        $TipoPagamentos = TipoPagamento::all();
-
-//        return $Paciente->pagamentos;
-        return view('pages.'.$this->Page->link.'.show')
-            ->with('Page', $this->Page)
-            ->with('Planos', $Planos)
-            ->with('Anamneses', $Anamneses)
-            ->with('Profissionais', $Profissionais)
-            ->with('Intervencoes', $Intervencoes)
-            ->with('TipoPagamentos', $TipoPagamentos)
-            ->with('Paciente',$Paciente);
-    }
-
     public function create()
     {
         $this->Page->titulo_primario    = "Cadastrar ";
@@ -100,6 +78,35 @@ class PacientesController extends Controller
             ->with('Planos', $Planos)
             ->with('Profissionais', $Profissionais)
             ->with('Page', $this->Page);
+    }
+
+    public function documentosStore(Request $request)
+    {
+        $Documentos = new DocumentoController();
+        return $Documentos->store($request);
+
+//        return $request->file;
+        return $input['idpaciente'];
+        $rules = array(
+            'file' => 'image|max:3000',
+        );
+
+        $validation = Validator::make($input, $rules);
+
+        if ($validation->fails()) {
+            return Response::make($validation->errors->first(), 400);
+        }
+
+        $file = Input::file('file');
+
+        $img = new ImageHelper();
+        $upload_success = $img->store($file, 'documentos');
+        return $upload_success;
+        if ($upload_success > 0) {
+            return Response::json('success', 200);
+        } else {
+            return Response::json('error', 400);
+        }
     }
 
     public function store(Request $request)
@@ -140,34 +147,26 @@ class PacientesController extends Controller
         }
     }
 
-    public function documentosStore(Request $request)
+    public function show($id, $tab = 'sobre')
     {
-        $Documentos = new DocumentoController();
-        return $Documentos->store($request);
+        $this->Page->titulo_primario = "Visualização de ";
+        $this->Page->tab = $tab;
+        $Paciente = Paciente::find($id);
+        $Planos = Plano::where('plano_status', 1)->get();
+        $Profissionais = Profissional::all();
+        $Intervencoes = Intervencao::all();
+        $Anamneses = Anamnese::all();
+        $TipoPagamentos = TipoPagamento::all();
 
-//        return $request->file;
-        return $input['idpaciente'];
-        $rules = array(
-            'file' => 'image|max:3000',
-        );
-
-        $validation = Validator::make($input, $rules);
-
-        if ($validation->fails())
-        {
-            return Response::make($validation->errors->first(), 400);
-        }
-
-        $file = Input::file('file');
-
-        $img = new ImageHelper();
-        $upload_success = $img->store($file,'documentos');
-        return $upload_success;
-        if( $upload_success > 0 ) {
-            return Response::json('success', 200);
-        } else {
-            return Response::json('error', 400);
-        }
+//        return $Paciente->pagamentos;
+        return view('pages.' . $this->Page->link . '.show')
+            ->with('Page', $this->Page)
+            ->with('Planos', $Planos)
+            ->with('Anamneses', $Anamneses)
+            ->with('Profissionais', $Profissionais)
+            ->with('Intervencoes', $Intervencoes)
+            ->with('TipoPagamentos', $TipoPagamentos)
+            ->with('Paciente', $Paciente);
     }
 
     public function update(Request $request, $id)

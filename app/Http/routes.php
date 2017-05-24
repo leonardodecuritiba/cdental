@@ -69,6 +69,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('imprimir/pagamento/{id}', 'PagamentoController@imprimir')->name('pagamento.imprimir');
     Route::get('imprimir/prontuario/{idpaciente}', 'PacientesController@imprimir')->name('prontuario.imprimir');
 
+//Impressoes
+//    Route::get('impressoes/imagem-orcamento', 'ImpressoesController@impressao_orcamento')->name('impressoes.imagem_orcamento');
 
 
     Route::get('ajax', 'AjaxController@ajax');

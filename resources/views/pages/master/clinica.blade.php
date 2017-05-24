@@ -31,24 +31,43 @@
                         <br/>
                         {!! Form::open(['route' => $route, 'files' => true,
                                                         'method' => 'POST',
-                                                        'class' => 'form-horizontal form-label-left', 'data-parsley-validate']) !!}
+                                                        'class' => 'form-horizontal form-label-left',
+                                                        'data-parsley-validate']) !!}
+                        @if(isset($Clinica) && ($Clinica->foto != ""))
                             <div class="form-group">
-                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">Nome da clínica:
-                                </label>
-                                <div class="col-md-4 col-sm-4 col-xs-6 form-group has-feedback">
-                                    <input type="text" class="form-control has-feedback-left" name="nome" placeholder="Nome da clínica"
-                                           value="@if(isset($Clinica->nome)){{$Clinica->nome}}@else{{old('nome')}}@endif"
-                                           required>
-                                    <span class="fa fa-hospital-o form-control-feedback left" aria-hidden="true"></span>
-                                </div>
-                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">CPF/CNPJ:</label>
-                                <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-                                    <input type="text" class="form-control has-feedback-left" name="cnpj" maxlength="20" placeholder="20.711.652/0001-41"
-                                           value="@if(isset($Clinica->cnpj)){{$Clinica->cnpj}}@else{{old('cnpj')}}@endif"
-                                           required>
-                                    <span class="fa fa-hospital-o form-control-feedback left" aria-hidden="true"></span>
+                                <div class="col-md-offset-4 col-sm-offset-4 col-xs-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="peca_image">
+                                        <img src="{{$Clinica->getFoto()}}" width="70%"/>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="ln_solid"></div>
+                        @endif
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">Logo:</label>
+                                <div class="col-md-10 col-sm-10 col-xs-12 form-group">
+                                    <input name="foto" type="file" class="form-control" required>
+                                </div>
+                            </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">Nome da clínica:
+                            </label>
+                            <div class="col-md-4 col-sm-4 col-xs-6 form-group has-feedback">
+                                <input type="text" class="form-control has-feedback-left" name="nome"
+                                       placeholder="Nome da clínica"
+                                       value="@if(isset($Clinica->nome)){{$Clinica->nome}}@else{{old('nome')}}@endif"
+                                       required>
+                                <span class="fa fa-hospital-o form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                            <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">CPF/CNPJ:</label>
+                            <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                                <input type="text" class="form-control has-feedback-left" name="cnpj" maxlength="20"
+                                       placeholder="20.711.652/0001-41"
+                                       value="@if(isset($Clinica->cnpj)){{$Clinica->cnpj}}@else{{old('cnpj')}}@endif"
+                                       required>
+                                <span class="fa fa-hospital-o form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                        </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">Responsável:</label>
                                 <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
