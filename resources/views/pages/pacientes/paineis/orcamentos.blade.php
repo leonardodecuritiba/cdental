@@ -254,6 +254,10 @@
                                 @endif
                             </td>
                             <td>
+                                <a class="btn btn-default btn-xs"
+                                   target="_blank"
+                                   href="{{route('orcamento.imprimir',$orcamento->idorcamento)}}"><i
+                                            class="fa fa-print"></i></a>
                                 @if(!$orcamento->aprovacao)
                                     <a href="{{route('orcamento.aprovar',$orcamento->idorcamento)}}" class="btn btn-aprovar btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Aprovar</a>
                                     <a class="btn btn-info btn-xs edit-orcamento"
@@ -266,10 +270,6 @@
                                             data-toggle="modal"
                                             data-target="#modalRemocao"><i class="fa fa-trash-o fa-sm"></i></button>
                                 @endif
-                                <a class="btn btn-default btn-xs"
-                                   target="_blank"
-                                   href="{{route('orcamento.imprimir',$orcamento->idorcamento)}}"><i
-                                            class="fa fa-print"></i></a>
                             </td>
                         </tr>
                     @endforeach
@@ -404,7 +404,7 @@
         $parents = $($this).parents('div.form-group');
         //if isset item_orcamento
         //;
-        if ($($parents).find('input[name^="iditem_orcamento"]').val() != 'undefined'){
+        if (typeof ($($parents).find('input[name^="iditem_orcamento"]').val()) != 'undefined') {
             var URL = '{{route('item_orcamento.remove', '_0_')}}';
             iditem_orcamento = $($parents).find('input[name^="iditem_orcamento"]').val();
 

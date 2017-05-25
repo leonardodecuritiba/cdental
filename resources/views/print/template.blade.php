@@ -87,6 +87,10 @@
                 height: 50px;
                 overflow: hidden;
             }
+
+            .page-number:before {
+                content: counter(page);
+            }
         </style>
         @yield('style_content')
     </head>
@@ -94,3 +98,5 @@
         @yield('body_content')
     </body>
 </html>
+<style>
+</style>
