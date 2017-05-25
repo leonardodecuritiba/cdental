@@ -100,5 +100,54 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="x_panel tile fixed_height_320">
+                <div class="x_title">
+                    <h2>Débitos vencidos pendentes</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    @if($Page->Data['ParcelaVencidas']->count() > 0)
+                        <table class="table table-striped projects">
+                            <thead>
+                            <tr>
+                                <th>Paciente</th>
+                                <th>Valor</th>
+                                <th>Pago</th>
+                                <th>Pendente</th>
+                                <th>Vencimento</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($Page->Data['ParcelaVencidas'] as $parcela)
+                                <tr>
+                                    <td>
+                                        <a href="{{route('pacientes.show',$parcela->paciente->idpaciente)}}">{{$parcela->paciente->nome}}</a>
+                                    </td>
+                                    <td>
+                                        {{$parcela->getValorTotalReal()}}
+                                    </td>
+                                    <td>
+                                        {{$parcela->getValorPagoReal()}}
+                                    </td>
+                                    <td>
+                                        {{$parcela->getValorPendenteReal()}}
+                                    </td>
+                                    <td>
+                                        {{$parcela->data_vencimento}}
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <div class="jumbotron">
+                            <h1>Ops!</h1>
+                            <h3>Nenhuma consulta marcada para hoje.</h3>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

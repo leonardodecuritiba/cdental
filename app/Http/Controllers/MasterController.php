@@ -7,7 +7,9 @@ use App\Contato;
 use App\Helpers\ImageHelper;
 use App\Paciente;
 use App\Consulta;
+use App\Parcela;
 use App\Profissional;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
@@ -30,10 +32,10 @@ class MasterController extends Controller
         $Page = (object)['Targets'=>'Inteligência','Target'=>'Inteligência','Titulo'=> 'Inteligência',
             'Data' => [
                 'ProximaConsulta' => Consulta::getProximaConsulta(),
-                'ConsultasDoDia' => Consulta::getConsultasDoDia()
+                'ConsultasDoDia' => Consulta::getConsultasDoDia(),
+                'ParcelaVencidas' => Parcela::vencidas()->orderBy('data_vencimento')->get()
             ]
         ];
-//        return $Page->Data;
         return view('pages.master.index')
             ->with('Page', $Page);
     }

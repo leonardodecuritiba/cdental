@@ -21,10 +21,6 @@ class Parcela extends Model
     ];
 
     // ******************** FUNCTIONS ****************************
-    public function paciente()
-    {
-        return $this->pagamento->paciente();
-    }
 
     static public function pagar($data)
     {
@@ -58,6 +54,24 @@ class Parcela extends Model
         return $Parcela;
     }
 
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeVencidas($query)
+    {
+        return $query->where('pago', 0)
+            ->whereNull('data_pagamento')
+            ->where('data_vencimento', '<=', Carbon::now());
+    }
+
+    public function paciente()
+    {
+        return $this->pagamento->paciente();
+    }
+
     public function getDataVencimentoAttribute($value)
     {
         if($value != NULL && $value != 0)
@@ -78,29 +92,31 @@ class Parcela extends Model
     {
         return DataHelper::getFloat2RealMoney($this->attributes['valor']);
     }
-    public function getValorPago()
-    {
-        return $this->parcela_pagamentos->sum('valor');
-    }
-
 
     public function getValorPagoReal()
     {
         return DataHelper::getFloat2RealMoney($this->getValorPago());
     }
 
-    public function getValorPendente()
+    public function getValorPago()
     {
-        return $this->attributes['valor'] - $this->getValorPago();
+        return $this->parcela_pagamentos->sum('valor');
     }
+
     public function getValorPendenteReal()
     {
         return DataHelper::getFloat2RealMoney($this->getValorPendente());
     }
 
+    public function getValorPendente()
+    {
+        return $this->attributes['valor'] - $this->getValorPago();
+    }
+
 
 	// ******************** BELONGSTO ****************************
 	// Relação pagamento - 1 <-> N - parcela.
+
     public function pagamento()
     {
         return $this->belongsTo('App\Pagamento', 'idpagamento');
