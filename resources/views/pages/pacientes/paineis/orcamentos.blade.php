@@ -214,7 +214,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($Paciente->orcamentos_abertos as $orcamento)
+                    {{--@foreach($Paciente->orcamentos_abertos as $orcamento)--}}
+                    @foreach($Paciente->orcamentos as $orcamento)
                         <tr>
                             <td class="td-aprovar">
                                 @if($orcamento->aprovacao == 1)
@@ -255,19 +256,20 @@
                             <td>
                                 @if(!$orcamento->aprovacao)
                                     <a href="{{route('orcamento.aprovar',$orcamento->idorcamento)}}" class="btn btn-aprovar btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Aprovar</a>
+                                    <a class="btn btn-info btn-xs edit-orcamento"
+                                       data-dados="{{$orcamento}}"
+                                       data-valor_entrada="{{$orcamento->valor_entrada_float()}}"
+                                       data-itens="{{$orcamento->itens_orcamento}}"><i class="fa fa-pencil"></i></a>
+                                    <button class="btn btn-danger btn-xs"
+                                            data-nome="{{$orcamento->descricao}}"
+                                            data-href="{{route('orcamentos.destroy',$orcamento->idorcamento)}}"
+                                            data-toggle="modal"
+                                            data-target="#modalRemocao"><i class="fa fa-trash-o fa-sm"></i></button>
                                 @endif
-                                <a class="btn btn-info btn-xs edit-orcamento"
-                                    data-dados="{{$orcamento}}"
-                                    data-valor_entrada="{{$orcamento->valor_entrada_float()}}"
-                                    data-itens="{{$orcamento->itens_orcamento}}"><i class="fa fa-pencil"></i></a>
                                 <a class="btn btn-default btn-xs"
                                    target="_blank"
-                                   href="{{route('orcamento.imprimir',$orcamento->idorcamento)}}"><i class="fa fa-print"></i></a>
-                                <button class="btn btn-danger btn-xs"
-                                    data-nome="{{$orcamento->descricao}}"
-                                    data-href="{{route('orcamentos.destroy',$orcamento->idorcamento)}}"
-                                    data-toggle="modal"
-                                    data-target="#modalRemocao"><i class="fa fa-trash-o fa-sm"></i></button>
+                                   href="{{route('orcamento.imprimir',$orcamento->idorcamento)}}"><i
+                                            class="fa fa-print"></i></a>
                             </td>
                         </tr>
                     @endforeach
