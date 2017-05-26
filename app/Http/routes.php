@@ -69,9 +69,28 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('imprimir/pagamento/{id}', 'PagamentoController@imprimir')->name('pagamento.imprimir');
     Route::get('imprimir/prontuario/{idpaciente}', 'PacientesController@imprimir')->name('prontuario.imprimir');
 
+
+    Route::get('listar-backups', 'MasterController@backups')->name('backups.index');
+    Route::get('function-backups/{option}', 'MasterController@functionBackup')->name('backups.function');
+    Route::get('destroy-backups/{name}', 'MasterController@destroyBackup')->name('backups.destroy');
+
 //Impressoes
 //    Route::get('impressoes/imagem-orcamento', 'ImpressoesController@impressao_orcamento')->name('impressoes.imagem_orcamento');
 
+
+    Route::get('get-files', function () {
+        $files = File::allFiles(storage_path('app' . DIRECTORY_SEPARATOR . "cdental"));
+        foreach ($files as $file) {
+            dd($file);
+            echo (string)$file, "<br>";
+        }
+    });
+
+    Route::get('backupdatabase', function () {
+        set_time_limit(0);
+//        return Artisan::call('backup:list');
+        Artisan::call('backup:run');
+    });
 
     Route::get('ajax', 'AjaxController@ajax');
     Route::get('teste', function(){

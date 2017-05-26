@@ -12,7 +12,9 @@
         "barryvdh/laravel-ide-helper": "v2.2.1",
         "maatwebsite/excel": "~2.1.0",
         "barryvdh/laravel-dompdf": "^0.8.0",
-        "niklasravnsborg/laravel-pdf": "^1.5"
+      "niklasravnsborg/laravel-pdf": "^1.5",
+      "spatie/laravel-backup": "^3.0.0",
+      "spatie/flysystem-dropbox": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

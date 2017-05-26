@@ -24,7 +24,7 @@
                 <h3>. . . . . . . . . . . . . . . . . . . . . . . . . . . </h3>
                 <ul class="nav side-menu">
                     <li><a href="{{ url('/') }}"><i class="fa fa-desktop"></i>Painel de controle</a></li>
-                    <li><a href="{{ url('/') }}"><i class="fa fa-database"></i>Backup</a></li>
+                    <li><a href="{{ route('backups.index') }}"><i class="fa fa-database"></i>Backup</a></li>
                     {{--<li><a><i class="fa fa-print"></i>Impressos <span class="fa fa-chevron-down"></span></a>--}}
                         {{--<ul class="nav child_menu" style="display: none">--}}
                             {{--@role('profissional')--}}

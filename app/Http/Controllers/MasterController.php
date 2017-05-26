@@ -10,7 +10,9 @@ use App\Consulta;
 use App\Parcela;
 use App\Profissional;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
 use Illuminate\Http\Request;
@@ -38,6 +40,32 @@ class MasterController extends Controller
         ];
         return view('pages.master.index')
             ->with('Page', $Page);
+    }
+
+    public function backups()
+    {
+        $Page = (object)['Targets' => 'Backups', 'Target' => 'Backup', 'Titulo' => 'Backup'];
+        $Backups = File::allFiles(public_path('backups' . DIRECTORY_SEPARATOR . config('app.url')));
+        return view('pages.master.backups')
+            ->with('Backups', $Backups)
+            ->with('Page', $Page);
+    }
+
+    public function functionBackup($option)
+    {
+        set_time_limit(0);
+        Artisan::call('backup:' . $option);
+        session()->forget('mensagem');
+        session(['mensagem' => (($option == 'clean') ? 'Backup limpo com sucesso!' : 'Novo Backup realizado com sucesso!')]);
+        return Redirect::route('backups.index');
+    }
+
+    public function destroyBackup($file)
+    {
+        array_map('unlink', glob(public_path('backups' . DIRECTORY_SEPARATOR . config('app.url') . DIRECTORY_SEPARATOR . $file)));
+        session()->forget('mensagem');
+        session(['mensagem' => 'Backup removido com sucesso!']);
+        return Redirect::route('backups.index');
     }
 
     public function agenda()

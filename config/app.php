@@ -162,6 +162,8 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class, // Laravel IDE helper
         Barryvdh\DomPDF\ServiceProvider::class,
 //        niklasravnsborg\LaravelPdf\PdfServiceProvider::class
+        Spatie\Backup\BackupServiceProvider::class,
+        App\Providers\DropboxFilesystemServiceProvider::class
     ],
 
     /*
