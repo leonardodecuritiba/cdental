@@ -45,18 +45,18 @@
             <td colspan="10"></td>
         </tr>
         <tr class="fundo_cinza">
-            <td colspan="2">Tabela de honorários</td>
             <td colspan="2">Valor Total</td>
             <td colspan="2">Valor com desconto</td>
             <td colspan="2">Total já pago</td>
             <td colspan="2">Total a pagar</td>
+            <td colspan="2">Entrada</td>
         </tr>
         <tr>
-            <td colspan="2"></td>
             <td colspan="2">{{$orcamento->valor_total}}</td>
             <td colspan="2">{{$orcamento->valor_final_total()}}</td>
             <td colspan="2">{{$orcamento->total_pago()}}</td>
             <td colspan="2">{{$orcamento->total_pendente()}}</td>
+            <td colspan="2">{{$orcamento->valor_entrada}}</td>
         </tr>
         <tr>
             <td colspan="10"></td>

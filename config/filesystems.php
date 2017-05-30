@@ -48,9 +48,18 @@ return [
             'root' => storage_path('app'),
         ],
 
-        'backups' => [
+        'backups_local' => [
             'driver' => 'local',
             'root' => public_path('backups'),
+        ],
+
+        'backups_server' => [
+            'driver' => 'local',
+            'root' => DIRECTORY_SEPARATOR . 'home'
+                . DIRECTORY_SEPARATOR . 'drvinici'
+                . DIRECTORY_SEPARATOR . 'public_html'
+                . DIRECTORY_SEPARATOR . 'cdental'
+                . DIRECTORY_SEPARATOR . 'backups',
         ],
 
         'public' => [

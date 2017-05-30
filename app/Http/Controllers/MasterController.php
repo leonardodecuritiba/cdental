@@ -22,11 +22,20 @@ use App\Http\Requests;
 class MasterController extends Controller
 {
     private $tipo_consulta;
+    private $backup_path;
     private $idprofissional_criador;
     public function __construct()
     {
         $this->idprofissional_criador = Auth::user()->profissional->idprofissional;
         $this->tipo_consulta = array('Atendimento','Cirurgia','Emergência','Retorno');
+        $this->backup_path = DIRECTORY_SEPARATOR . 'home'
+            . DIRECTORY_SEPARATOR . 'drvinici'
+            . DIRECTORY_SEPARATOR . 'public_html'
+            . DIRECTORY_SEPARATOR . 'cdental'
+            . DIRECTORY_SEPARATOR . 'backups'
+            . DIRECTORY_SEPARATOR . config('app.url');
+//        $path = public_path('backups' . DIRECTORY_SEPARATOR . config('app.url'));
+//        $path = storage_path('backups' . DIRECTORY_SEPARATOR . config('app.url'));
     }
     public function home()
     {
@@ -45,7 +54,8 @@ class MasterController extends Controller
     public function backups()
     {
         $Page = (object)['Targets' => 'Backups', 'Target' => 'Backup', 'Titulo' => 'Backup'];
-        $Backups = File::allFiles(public_path('backups' . DIRECTORY_SEPARATOR . config('app.url')));
+        $Backups = File::allFiles($this->backup_path);
+
         return view('pages.master.backups')
             ->with('Backups', $Backups)
             ->with('Page', $Page);
@@ -62,7 +72,8 @@ class MasterController extends Controller
 
     public function destroyBackup($file)
     {
-        array_map('unlink', glob(public_path('backups' . DIRECTORY_SEPARATOR . config('app.url') . DIRECTORY_SEPARATOR . $file)));
+//        dd($this->backup_path . DIRECTORY_SEPARATOR . $file);
+        array_map('unlink', glob($this->backup_path . DIRECTORY_SEPARATOR . $file));
         session()->forget('mensagem');
         session(['mensagem' => 'Backup removido com sucesso!']);
         return Redirect::route('backups.index');

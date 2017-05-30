@@ -6,7 +6,6 @@
 @endsection
 @section('page_content')
     <!-- /Seach form -->
-    @if(count($Backups) > 0)
         <div class="x_panel">
             <div class="x_title">
                 <h2>{{$Page->Targets}} encontrados</h2>
@@ -21,39 +20,41 @@
                                     class="fa fa-save"></i> Novo Backup</a>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12 animated fadeInDown">
-                        <table class="table table-striped dt-responsive table-bordered nowrap" cellspacing="0"
-                               width="100%">
-                            <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Criação</th>
-                                <th colspan="2">Ações</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($Backups as $backup)
+                @if(count($Backups) > 0)
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12 animated fadeInDown">
+                            <table class="table table-striped dt-responsive table-bordered nowrap" cellspacing="0"
+                                   width="100%">
+                                <thead>
                                 <tr>
-                                    <td>{{$backup->getFilename()}}</td>
-                                    <td>{{\Carbon\Carbon::createFromTimestamp($backup->getMTime())->format('H:i d/m/Y')}}</td>
-                                    <td><a class="btn btn-success btn-xs"
-                                           href="{{$backup->getRealPath()}}"><i class="fa fa-download"></i> Download</a>
-                                        <a class="btn btn-danger btn-xs"
-                                           href="{{route('backups.destroy',$backup->getFilename())}}"><i
-                                                    class="fa fa-trash"></i> Remover</a>
-                                    </td>
+                                    <th>Nome</th>
+                                    <th>Criação</th>
+                                    <th colspan="2">Ações</th>
                                 </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                @foreach ($Backups as $backup)
+                                    <tr>
+                                        <td>{{$backup->getFilename()}}</td>
+                                        <td>{{\Carbon\Carbon::createFromTimestamp($backup->getMTime())->format('H:i d/m/Y')}}</td>
+                                        <td><a class="btn btn-success btn-xs"
+                                               href="{{asset('backups/' . config('app.url') .'/'. $backup->getFilename())}}"><i
+                                                        class="fa fa-download"></i> Download</a>
+                                            <a class="btn btn-danger btn-xs"
+                                               href="{{route('backups.destroy',$backup->getFilename())}}"><i
+                                                        class="fa fa-trash"></i> Remover</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
+                @else
+                    @include('layouts.search.no-results')
+                @endif
             </div>
         </div>
-    @else
-        @include('layouts.search.no-results')
-    @endif
 @endsection
 @section('scripts_content')
     <!-- Datatables -->
