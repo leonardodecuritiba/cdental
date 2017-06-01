@@ -1,8 +1,7 @@
 <tr>
     <td rowspan="3" colspan="3">
-        {{--<img src="imgs/empresa.png">--}}
-        <img src="{{($clinica->foto == NULL) ? 'imgs/empresa.png' : 'uploads/ajustes/' . $clinica->foto}}">
-        {{--        <img src="{{$clinica->getFoto()}}">--}}
+        {{--        <img src="{{($clinica->foto == NULL) ? 'imgs/empresa.png' : 'uploads/ajustes/' . $clinica->foto}}">--}}
+        <img src="{{$clinica->getFotoPath()}}">
     </td>
     <td colspan="7">{{$clinica->nome}}</td>
 </tr>

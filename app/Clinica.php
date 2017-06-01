@@ -21,12 +21,45 @@ class Clinica extends Model
 
     public function getFoto()
     {
-        return ($this->foto != NULL) ? ImageHelper::getFullPath('ajustes') . $this->foto : asset('imgs/cogs.png');
+        return ($this->foto != NULL) ? ImageHelper::getFullPath('ajustes') . $this->foto : asset('imgs/empresa.png');
+    }
+
+    public function getImpressoOrcamentoPath()
+    {
+        return DIRECTORY_SEPARATOR . 'home'
+            . DIRECTORY_SEPARATOR . 'drvinici'
+            . DIRECTORY_SEPARATOR . 'public_html'
+            . DIRECTORY_SEPARATOR . 'cdental'
+            . DIRECTORY_SEPARATOR . 'imgs'
+            . DIRECTORY_SEPARATOR . 'impresso_orcamento.jpg';
+    }
+
+    public function getFotoPath()
+    {
+        if ($this->foto != NULL) {
+            $dir = DIRECTORY_SEPARATOR . 'home'
+                . DIRECTORY_SEPARATOR . 'drvinici'
+                . DIRECTORY_SEPARATOR . 'public_html'
+                . DIRECTORY_SEPARATOR . 'cdental'
+                . DIRECTORY_SEPARATOR . 'imgs'
+                . DIRECTORY_SEPARATOR . 'uploads'
+                . DIRECTORY_SEPARATOR . 'ajustes';
+            return $dir . $this->foto;
+        } else {
+            $dir = DIRECTORY_SEPARATOR . 'home'
+                . DIRECTORY_SEPARATOR . 'drvinici'
+                . DIRECTORY_SEPARATOR . 'public_html'
+                . DIRECTORY_SEPARATOR . 'cdental'
+                . DIRECTORY_SEPARATOR . 'imgs'
+                . DIRECTORY_SEPARATOR;
+
+            return $dir . 'empresa.png';
+        }
     }
 
     public function getThumbFoto()
     {
-        return ($this->foto != NULL) ? ImageHelper::getFullThumbPath('ajustes') . $this->foto : asset('imgs/cogs.png');
+        return ($this->foto != NULL) ? ImageHelper::getFullThumbPath('ajustes') . $this->foto : asset('imgs/empresa.png');
     }
 
     public function getCreatedAtAttribute($value)
