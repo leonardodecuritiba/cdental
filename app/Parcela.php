@@ -30,24 +30,34 @@ class Parcela extends Model
         if($data['valor'] >= $pendente){
             //pagou tudo
             $data['valor'] = $pendente;
-            $Pagamento = ParcelaPagamento::pagar($data['idparcela'], $data);
-            $Parcela->pago = 1;
-            $Parcela->data_pagamento = DataHelper::setDate($data['data_pagamento']);
-//            dd($this);
-            $Parcela->save();
+            ParcelaPagamento::pagar($data['idparcela'], $data);
+            $Parcela->update([
+                'pago' => 1,
+                'data_pagamento' => DataHelper::setDate($data['data_pagamento']),
+            ]);
         } else {
             //nao pagou tudo
-            $Pagamento = ParcelaPagamento::pagar($Parcela->idparcela, $data);
+            ParcelaPagamento::pagar($Parcela->idparcela, $data);
         }
+        return $Parcela;
+    }
+
+    static public function alterarVencimento($data)
+    {
+        $Parcela = self::find($data['idparcela']);
+        $Parcela->update([
+            'data_vencimento' => DataHelper::setDate($data['data_vencimento']),
+        ]);
         return $Parcela;
     }
 
     static public function estornar($idparcela)
     {
         $Parcela = self::find($idparcela);
-        $Parcela->pago = 0;
-        $Parcela->data_pagamento = NULL;
-        $Parcela->save();
+        $Parcela->update([
+            'pago' => 0,
+            'data_pagamento' => NULL,
+        ]);
         foreach($Parcela->parcela_pagamentos as $pagamento){
             $pagamento->delete();
         }

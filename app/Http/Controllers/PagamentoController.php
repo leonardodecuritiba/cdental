@@ -178,11 +178,19 @@ class PagamentoController extends Controller
     {
         $Parcela = Parcela::estornar($idparcela);
         session()->forget('mensagem');
-        session(['mensagem' => 'Parcela cancelada!']);
+        session(['mensagem' => 'Parcela estornada!']);
         return redirect('pacientes/'.$Parcela->pagamento->idpaciente.'/financeiro');
     }
 
-    public function pagar(Request $request)
+    public function alterarVencimento(Request $request)
+    {
+        $Parcela = Parcela::alterarVencimento($request->all());
+        session()->forget('mensagem');
+        session(['mensagem' => 'Vencimento da Parcela alterado!']);
+        return redirect('pacientes/' . $Parcela->pagamento->idpaciente . '/financeiro');
+    }
+
+    public function receber(Request $request)
     {
         $Parcela = Parcela::pagar($request->all());
         session()->forget('mensagem');
