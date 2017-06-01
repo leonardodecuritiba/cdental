@@ -110,7 +110,7 @@
         </ul>
         <div class="clearfix"></div>
     </div>
-    @if($Paciente->orcamentos_abertos->count() > 0)
+    @if($Paciente->orcamentos->count() > 0)
         <div class="x_content">
             <section id="edit-orcamento" style="display: none">
                 {!! Form::open(['route' => ['orcamentos.update', '_0_'], 'method' => 'PATCH',
