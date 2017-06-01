@@ -7,8 +7,8 @@
             <td colspan="10"></td>
         </tr>
         <tr>
-            {{--<td colspan="10"><img src="{{asset('uploads/ajustes/impresso_orcamento.jpg')}}"></td>--}}
-            <td colspan="10"><img src="img/ajustes/impresso_orcamento.jpg"></td>
+            <td colspan="10"><img src="{{asset('img/ajustes/impresso_orcamento.jpg')}}"></td>
+            {{--<td colspan="10"><img src="img/ajustes/impresso_orcamento.jpg"></td>--}}
         </tr>
         <tr class="fundo_cinza linha_titulo">
             <th colspan="10">Previsão de honorários</th>
