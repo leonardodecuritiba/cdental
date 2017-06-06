@@ -154,9 +154,8 @@
             var URL_imprimir = '{{route('pagamento.imprimir','IDP')}}';
             var parcela_pagamentos = $($button).data('parcela_pagamentos');
             var tabela = ''
-            var URL_imprimir  = '{{route('pagamento.imprimir','IDP')}}';
             $.each(parcela_pagamentos, function(i,v){
-                url_imprimir = URL_imprimir.replace('IDP',v.idtipo_pagamento);
+                url_imprimir = URL_imprimir.replace('IDP', v.id);
                 console.log(v);
                 tabela += '<tr>' +
                     '<td>' + v.data_pagamento + '</td>' +
