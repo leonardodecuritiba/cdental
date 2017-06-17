@@ -4,8 +4,10 @@
     @include('helpers.datatables.head')
     <!-- /Datatables -->
 @endsection
-@section('page_content')
+@section('modal_content')
     @include('layouts.modals.modalRetorno')
+@endsection
+@section('page_content')
     @include('layouts.search.form')
     @if(count($Buscas) > 0)
         <div class="x_panel">
@@ -21,7 +23,6 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Cadastro</th>
                                 <th>Nome</th>
                                 <th>Idade</th>
                                 <th>Retorno</th>
@@ -32,7 +33,6 @@
                             @foreach ($Buscas as $paciente)
                                 <tr>
                                     <td>{{$paciente->idpaciente}}</td>
-                                    <td>{{$paciente->created_at}}</td>
                                     <td>{{$paciente->nome}}</td>
                                     <td>{{$paciente->hasIdade() ? $paciente->getIdade() . ' anos' : '-'}}</td>
                                     <td>{{$paciente->has_retorno() ? $paciente->getLastRetorno()->data_retorno : '-'}}</td>

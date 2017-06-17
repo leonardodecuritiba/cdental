@@ -57,9 +57,9 @@ class PacientesController extends Controller
             $Buscas = Paciente::where('nome', 'like', '%'.$busca.'%')
                 ->orwhere('cpf', 'like', '%'.$busca.'%')
                 ->orwhere('rg', 'like', '%'.$busca.'%')
-                ->paginate(10);
+                ->all();
         } else {
-            $Buscas = Paciente::paginate(10);
+            $Buscas = Paciente::all();
         }
 
         return view('pages.'.$this->Page->link.'.index')

@@ -17,6 +17,10 @@
 			.esconde {
 				display: none;
 			}
+
+			.modal {
+				z-index: 9999;
+			}
 		</style>
 	</head>
 	<body class="nav-md">
@@ -25,6 +29,7 @@
 			NProgress.start();
 		</script>
 		<div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+		@yield('modal_content')
 		<!---- Visualização de popup ----->
 		{{--		@include('layouts.alerts.popup')--}}
 		{{--@include('layouts.alerts.notifications')--}}
@@ -44,9 +49,8 @@
 			@include('layouts.menu')
 			<!-- page content -->
 				<div class="right_col" role="main">
-					@yield('modal_content')
-					@yield('page_content')
-					<!-- /page content -->
+				@yield('page_content')
+				<!-- /page content -->
 				</div>
 			</div>
 		</div>
