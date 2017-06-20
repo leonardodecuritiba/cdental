@@ -15,10 +15,8 @@
         'files' => true, 'class' => 'form-horizontal form-label-left', 'data-parsley-validate']) !!}
         @include('pages.pacientes.form.cadastro')
         <div class="form-group">
-            <div class="col-md-12 col-sm-12 col-xs-12 col-md-offset-1">
-                <button type="button" class="btn btn-round btn-danger">Cancelar</button>
-                <button type="submit" class="btn btn-round btn-success">Salvar</button>
-            </div>
+            <button type="submit" class="btn btn-round btn-success pull-right">Salvar</button>
+            <button type="button" class="btn btn-round btn-danger pull-right">Cancelar</button>
         </div>
     {{ Form::close() }}
 </div>
