@@ -22,6 +22,15 @@ class Parcela extends Model
 
     // ******************** FUNCTIONS ****************************
 
+    static public function total_receber()
+    {
+        return DataHelper::getFloat2RealMoney(self::where('pago', 0)->sum('valor'));
+    }
+
+    static public function total_recebido()
+    {
+        return DataHelper::getFloat2RealMoney(self::where('pago', 1)->sum('valor'));
+    }
     static public function pagar($data)
     {
         $Parcela = self::find($data['idparcela']);

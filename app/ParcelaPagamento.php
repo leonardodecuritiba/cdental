@@ -19,6 +19,11 @@ class ParcelaPagamento extends Model
 
     // ******************** BELONGSTO ****************************
     // Relação ParcelaPagamento - 1 <-> N - parcela.
+    static public function total_recebido()
+    {
+        return DataHelper::getFloat2RealMoney(self::sum('valor'));
+    }
+
     static public function pagar($idparcela, $data)
     {
         return self::create([
@@ -45,5 +50,25 @@ class ParcelaPagamento extends Model
     public function parcela()
     {
         return $this->belongsTo('App\Parcela', 'idparcela');
+    }
+
+    public function paciente()
+    {
+        return $this->pagamento()->paciente;
+    }
+
+    public function pagamento()
+    {
+        return $this->parcela->pagamento;
+    }
+
+    public function profissional()
+    {
+        return $this->orcamento()->profissional;
+    }
+
+    public function orcamento()
+    {
+        return $this->pagamento()->orcamento;
     }
 }

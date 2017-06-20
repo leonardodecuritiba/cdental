@@ -25,6 +25,7 @@
     @include('pages.pacientes.modals.financeiro.receber')
     @include('pages.pacientes.modals.financeiro.recibo')
     @include('pages.pacientes.modals.financeiro.alterar')
+    @include('pages.pacientes.modals.alerts.alerta')
     @include('pages.pacientes.modals.evolucao')
 @endsection
 @section('page_content')
@@ -473,7 +474,7 @@
                                 <tr>
                                     <th>Status</th>
                                     <th>Dentista/Data</th>
-                                    <th style="width: 15%">Descrição</th>
+                                    <th>Descrição</th>
                                     <th>Valor</th>
                                     <th>Desconto</th>
                                     <th>Total</th>
@@ -564,11 +565,11 @@
                 </div>
                 <div class="x_content">
                     <?php $valores = $Paciente->totais_valores(); ?>
-                    <div class="product_price">
+                    <div class="col-md-6 col-sm-6 col-xs-12 product_price">
                         <h1 class="price text-center" style="color:#d9534f;">{{$valores['valor_pendente']}}</h1>
                         <p class="price-tax text-center">À receber</p>
                     </div>
-                    <div class="product_price">
+                    <div class="col-md-6 col-sm-6 col-xs-12 product_price">
                         <h1 class="price text-center" style="color:#1A82C3;">{{$valores['valor_pago']}}</h1>
                         <p class="price-tax text-center">Total pago</p>
                     </div>

@@ -8,6 +8,7 @@ use App\Helpers\ImageHelper;
 use App\Paciente;
 use App\Consulta;
 use App\Parcela;
+use App\ParcelaPagamento;
 use App\Profissional;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Artisan;
@@ -107,7 +108,14 @@ class MasterController extends Controller
     public function recebimentos()
     {
         $Page = (object)['Targets'=>'Recebimentos','Target'=>'Recebimentos','Titulo'=> 'Recebimentos'];
+        $Resumo = [
+            'valor_pago' => ParcelaPagamento::total_recebido(),
+            'valor_pendente' => Parcela::total_receber(),
+        ];
+        $Buscas = ParcelaPagamento::all();
         return view('pages.master.recebimentos')
+            ->with('Resumo', $Resumo)
+            ->with('Buscas', $Buscas)
             ->with('Page', $Page);
     }
 
@@ -202,4 +210,5 @@ class MasterController extends Controller
         return view('pages.master.login')
             ->with('Page', $Page);
     }
+
 }

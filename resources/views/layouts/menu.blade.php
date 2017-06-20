@@ -66,6 +66,8 @@
                             <li><a href="#">PDF's</a></li>
                         </ul>
                     </li>
+                    <li><a href="{{route('recebimentos')}}"><i class="fa fa-line-chart"></i> Recebimentos</a>
+                    </li>
                     @endrole
                 </ul>
             </div>

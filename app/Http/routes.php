@@ -25,7 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('clinica/{idclinica}/update', 'MasterController@clinica_update')->name('clinica.update');
 
 //Financeiro
-    Route::get('recebimentos', 'MasterController@recebimentos');
+    Route::get('recebimentos', 'MasterController@recebimentos')->name('recebimentos');
     Route::get('recibos', 'MasterController@recibos');
 
 //Ajustes
