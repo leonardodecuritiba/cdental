@@ -571,7 +571,7 @@
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12 product_price">
                         <h1 class="price text-center" style="color:#1A82C3;">{{$valores['valor_pago']}}</h1>
-                        <p class="price-tax text-center">Total pago</p>
+                        <p class="price-tax text-center">Total recebido</p>
                     </div>
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12 animated fadeInDown">

@@ -14,11 +14,11 @@
                 </div>
                 <div class="x_content">
                     <div class="col-md-6 col-sm-6 col-xs-12 product_price">
-                        <h1 class="price text-center" style="color:#d9534f;">{{$Resumo['valor_pendente']}}</h1>
+                        <h1 class="price text-center" style="color:#d9534f;">{{$Resumo['total_pendente']}}</h1>
                         <p class="price-tax text-center">À receber</p>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12 product_price">
-                        <h1 class="price text-center" style="color:#1A82C3;">{{$Resumo['valor_pago']}}</h1>
+                        <h1 class="price text-center" style="color:#1A82C3;">{{$Resumo['total_recebido']}}</h1>
                         <p class="price-tax text-center">Total pago</p>
                     </div>
                 </div>
@@ -37,6 +37,7 @@
                                    width="100%">
                                 <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>Data</th>
                                     <th>Paciente</th>
                                     <th>Tratamento</th>
@@ -48,6 +49,7 @@
                                 <tbody>
                                 @foreach ($Buscas as $recebimento)
                                     <tr>
+                                        <td>{{$recebimento->id}}</td>
                                         <td data-order="{{$recebimento->data_pagamento}}">{{$recebimento->getDataPagamento()}}</td>
                                         <td>
                                             <a target="_blank"
@@ -56,18 +58,14 @@
                                         <td>{{$recebimento->orcamento()->descricao}}</td>
                                         <td data-order="{{$recebimento->valor}}">{{$recebimento->getValorReal()}}</td>
                                         <td>{{$recebimento->profissional()->nome}}</td>
-                                        <td>{{$recebimento->profissional()->nome}}</td>
-                                        {{--<td>{{$intervencao->regiao}}</td>--}}
-                                        {{--<td data-order="{{$intervencao->getValorFloat()}}">R$ {{$intervencao->valor}}</td>--}}
-                                        {{--<td>{{$intervencao->created_at}}</td>--}}
-                                        {{--<td>--}}
-                                        {{--<a class="btn btn-primary btn-xs" href="{{route(strtolower($Page->link).'.edit',$intervencao->idintervencao)}}"><i class="fa fa-edit"></i>Editar</a>--}}
-                                        {{--<a class="btn btn-danger btn-xs"--}}
-                                        {{--data-nome="{{$intervencao->nome}}"--}}
-                                        {{--data-href="{{route(strtolower($Page->link).'.destroy',$intervencao->idintervencao)}}"--}}
-                                        {{--data-toggle="modal"--}}
-                                        {{--data-target="#modalRemocao"><i class="fa fa-trash-o fa-sm"></i>Excluir </a>--}}
-                                        {{--</td>--}}
+                                        <td>
+                                            <a target="_blank"
+                                               href="{{route('pagamento.imprimir',$recebimento->idparcela)}}"
+                                               class="btn btn-info btn-xs"><i class="fa fa-print"></i> Recibo</a>
+                                            <a href="{{route('parcelas.estornar',$recebimento->idparcela)}}"
+                                               class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Estornar</a>
+
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -92,7 +90,7 @@
                     "pageLength": 10,
                     "bLengthChange": false, //used to hide the property
                     "bFilter": false,
-                    "order": [0, "desc"]
+                    "order": [1, "desc"]
                 }
             );
         });
