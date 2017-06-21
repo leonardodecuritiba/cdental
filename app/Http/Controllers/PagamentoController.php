@@ -198,6 +198,18 @@ class PagamentoController extends Controller
         return redirect('pacientes/'.$Parcela->pagamento->idpaciente.'/financeiro');
     }
 
+    public function parcelas_pagas($id)
+    {
+        $data = Pagamento::find($id);
+        return $data->parcelas_pagas();
+    }
+
+    public function parcelas_pendentes($id)
+    {
+        $data = Pagamento::find($id);
+        return $data->parcelas_pagas();
+    }
+
     public function destroy($id)
     {
         $data=Orcamento::find($id);

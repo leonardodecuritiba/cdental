@@ -55,6 +55,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('alterar/parcelas', 'PagamentoController@alterarVencimento')->name('parcelas.alterar_vencimento');
     Route::get('parcelas/estornar/{idparcela}', 'PagamentoController@estornar')->name('parcelas.estornar');
 
+    Route::get('json/parcelas-pagas/{idorcamento}', 'PagamentoController@parcelas_pagas')->name('json.parcelas.pagas');
+    Route::get('json/parcelas-pendentes/{idorcamento}', 'PagamentoController@parcelas_pendentes')->name('json.parcelas.pendentes');
+
+
+
     Route::resource('pacientes', 'PacientesController');
     Route::get('pacientes/{idparcela}/{tab}', 'PacientesController@show')->name('pacientes.tab');
     Route::post('documentos/pacientes/store', 'PacientesController@documentosStore')->name('documentos.pacientes.store');
@@ -74,6 +79,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('listar-backups', 'MasterController@backups')->name('backups.index');
     Route::get('function-backups/{option}', 'MasterController@functionBackup')->name('backups.function');
     Route::get('destroy-backups/{name}', 'MasterController@destroyBackup')->name('backups.destroy');
+
 
 //Impressoes
 //    Route::get('impressoes/imagem-orcamento', 'ImpressoesController@impressao_orcamento')->name('impressoes.imagem_orcamento');

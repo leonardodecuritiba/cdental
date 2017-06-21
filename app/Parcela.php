@@ -73,6 +73,7 @@ class Parcela extends Model
         return $Parcela;
     }
 
+    // ******************** SCOPE ****************************
     /**
      * Scope a query to only include popular users.
      *
@@ -85,6 +86,9 @@ class Parcela extends Model
             ->whereNull('data_pagamento')
             ->where('data_vencimento', '<=', Carbon::now());
     }
+
+
+    // ******************** BELONGSTO ****************************
 
     public function paciente()
     {

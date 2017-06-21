@@ -24,6 +24,7 @@
     @include('pages.pacientes.modals.financeiro.forma_pagamento')
     @include('pages.pacientes.modals.financeiro.receber')
     @include('pages.pacientes.modals.financeiro.recibo')
+    @include('pages.pacientes.modals.financeiro.recebimentos')
     @include('pages.pacientes.modals.financeiro.alterar')
     @include('pages.pacientes.modals.alerts.alerta')
     @include('pages.pacientes.modals.evolucao')
@@ -596,7 +597,7 @@
                                                 <small>Data: {{$orcamento->created_at}}</small>
                                             </td>
                                             <td>
-                                                <p>{{$orcamento->valor_total}}</p>
+                                                <p>{{$orcamento->valor_final_total()}}</p>
                                             </td>
                                             <td>
                                                 @if($orcamento->valor_entrada>0)
@@ -616,11 +617,18 @@
                                                 <small style="color:red">{{$valores->valor_pendente}}</small>
                                             </td>
                                             <td>
+                                                <?php $parcelas = $orcamento->pagamento->parcelas_json(); ?>
                                                 <a class="btn btn-primary btn-xs receber"
                                                    data-toggle="modal" data-target="#modalReceber"
-                                                   data-parcelas="{{$orcamento->pagamento->parcelas_json()}}"><i
+                                                   data-parcelas="{{$parcelas}}"><i
                                                             class="fa fa-money"></i>
                                                     Receber</a>
+                                                <a class="btn btn-default btn-xs"
+                                                   data-toggle="modal"
+                                                   data-target="#modalRecebimentos"
+                                                   data-href="{{route('json.parcelas.pagas', $orcamento->pagamento->idpagamento)}}"><i
+                                                            class="fa fa-eye"></i>
+                                                    Pagamentos</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -1118,10 +1126,12 @@
     {{--FINANCEIRO--}}
     <script>
         $(document).ready(function () {
+            var _URL_IMPRIMIR_PARCELA_ = '{{route('pagamento.imprimir','_IDPARCELA_')}}';
             $_MODAL_RECEBER_ = $('#modalReceber');
             $_MODAL_FORMA_PAGAMENTO_ = $('#modalFormaPgto');
             $_MODAL_RECIBO_ = $('#modalRecibo');
             $_MODAL_ALTERAR_VENCIMENTO_ = $('#modalAlterarVencimento');
+            $_MODAL_RECEBIMENTOS_ = $('#modalRecebimentos');
 
             $($_MODAL_RECEBER_).on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
@@ -1237,6 +1247,38 @@
 
             $($_MODAL_ALTERAR_VENCIMENTO_).on('hide.bs.modal', function (event) {
                 $($_MODAL_RECEBER_).toggle();
+            });
+
+            //MODAL RECEBIMENTOS
+            $($_MODAL_RECEBIMENTOS_).on('show.bs.modal', function (event) {
+                var $button = $(event.relatedTarget);
+                var $modal = $(this);
+                var href = $($button).data('href');
+                $.ajax({
+                    url: href,
+                    type: 'GET',
+                    beforeSend: function () {
+                        $('div.loading').show();
+                    },
+                    success: function (json) {
+                        console.log(json);
+                        var tabela = '';
+                        $.each(json, function (i, v) {
+                            var url_imprimir = _URL_IMPRIMIR_PARCELA_.replace('_IDPARCELA_', v.idparcela);
+                            tabela += '<tr>' +
+                                '<td>' + v.data_pagamento + '</td>' +
+                                '<td>' + v.valor_formatado + '</td>' +
+                                '<td class="td-receber">' +
+                                '<a target="_blank" href="' + url_imprimir + '" class="btn btn-info btn-xs"><i class="fa fa-print"></i> Recibo</a>' +
+                                '</td>' +
+                                '</tr>';
+                        });
+                        $($modal).find('.modal-body table tbody').html(tabela);
+                        $('div.loading').hide();
+                    }
+                });
+
+
             });
         });
     </script>

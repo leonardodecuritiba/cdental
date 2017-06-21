@@ -21,7 +21,12 @@ class Pagamento extends Model
     public function getStatusText()
     {
         $abertas = $this->parcelas()->where('pago',0)->count();
-        return ($abertas>0)? 'Aguardando de pagamento':'Pago';
+        return ($abertas > 0) ? 'Aguardando pagamento' : 'Recebido';
+    }
+
+    public function parcelas()
+    {
+        return $this->hasMany('App\Parcela', 'idpagamento');
     }
 
     public function valores_total_parcelas($float=false)
@@ -48,22 +53,35 @@ class Pagamento extends Model
         return $retorno;
     }
 
+    public function parcelas_pagas()
+    {
+        return $this->parcelas->where('pago', 1)->map(function ($parcela) {
+            $parcela->valor_formatado = $parcela->getValorTotalReal();
+            return $parcela;
+        });
+    }
 	// ******************** BELONGSTO ****************************
 	// Relação orcamento - 1 <-> 1 - pagamento.
+
+    public function parcelas_pendentes()
+    {
+        return $this->parcelas->where('pago', 0)->map(function ($parcela) {
+            $parcela->valor_formatado = $parcela->getValorTotalReal();
+            return $parcela;
+        });
+    }
+
     public function orcamento()
     {
         return $this->belongsTo('App\Orcamento', 'idorcamento');
     }
-    public function paciente()
-    {
-        return $this->belongsTo('App\Paciente', 'idpaciente');
-    }
 
     // ******************** HASMANY ****************************
 	// Relação pagamento - 1 <-> N - parcela.
-    public function parcelas()
+
+    public function paciente()
     {
-        return $this->hasMany('App\Parcela', 'idpagamento');
+        return $this->belongsTo('App\Paciente', 'idpaciente');
     }
 
     public function parcelas_json()
