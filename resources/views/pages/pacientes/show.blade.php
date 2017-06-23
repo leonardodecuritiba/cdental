@@ -588,19 +588,23 @@
                     success: function (json) {
                         console.log(json);
                         var tabela = '';
-                        $.each(json, function (i, v) {
-                            var url_imprimir = _URL_IMPRIMIR_PARCELA_PAGAMENTO_.replace('_IDPARCELA_PAGAMENTO_', v.id);
-                            var url_estornar = _URL_ESTORNAR_PARCELA_PAGAMENTO_.replace('_IDPARCELA_PAGAMENTO_', v.id);
-                            tabela += '<tr>' +
-                                '<td>' + v.id + '</td>' +
-                                '<td><p class="price-recebido">' + v.valor_formatado + '</p></td>' +
-                                '<td>' + v.data_pagamento_formatado + '</td>' +
-                                '<td class="td-receber">' +
-                                '<a target="_blank" href="' + url_imprimir + '" class="btn btn-info btn-xs"><i class="fa fa-print"></i> Recibo</a>' +
-                                '<a href="' + url_estornar + '" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Estornar</a>';
+                        if ($(json).length > 0) {
+                            $.each(json, function (i, v) {
+                                var url_imprimir = _URL_IMPRIMIR_PARCELA_PAGAMENTO_.replace('_IDPARCELA_PAGAMENTO_', v.id);
+                                var url_estornar = _URL_ESTORNAR_PARCELA_PAGAMENTO_.replace('_IDPARCELA_PAGAMENTO_', v.id);
+                                tabela += '<tr>' +
+                                    '<td>' + v.id + '</td>' +
+                                    '<td><p class="price-recebido">' + v.valor_formatado + '</p></td>' +
+                                    '<td>' + v.data_pagamento_formatado + '</td>' +
+                                    '<td class="td-receber">' +
+                                    '<a target="_blank" href="' + url_imprimir + '" class="btn btn-info btn-xs"><i class="fa fa-print"></i> Recibo</a>' +
+                                    '<a href="' + url_estornar + '" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Estornar</a>';
                                 '</td>' +
                                 '</tr>';
-                        });
+                            });
+                        } else {
+                            tabela += '<tr><td class="text-center" colspan="4">Não há nenhum recebimento para essa parcela!</td></tr>';
+                        }
                         $($table_body).html(tabela);
                         $('div.loading').hide();
                     }
