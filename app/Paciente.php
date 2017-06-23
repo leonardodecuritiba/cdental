@@ -122,16 +122,31 @@ class Paciente extends Model
         return $this->hasMany('App\Documento', 'idpaciente');
     }
 
+    public function total_pendente($float = false)
+    {
+        $total = Parcela::getFromPagamento($this->pagamentos->pluck('idpagamento'))->sum('total_pendente');
+        return ($float) ? $total : DataHelper::getFloat2RealMoney($total);
+    }
+
+    public function total_recebido($float = false)
+    {
+        $total = Parcela::getFromPagamento($this->pagamentos->pluck('idpagamento'))->sum('total_pago');
+        return ($float) ? $total : DataHelper::getFloat2RealMoney($total);
+    }
+
     public function totais_valores($float=false)
     {
         //<?php $valores = $orcamento->pagamento->valores_total_parcelas();
 
+        dd($this->pagamentos());
         $pagamentos = $this->pagamentos;
         if($this->pagamentos->count()>0){
             $valores = [
                 'valor_pendente' => 0,
                 'valor_pago' => 0,
             ];
+
+
             foreach($pagamentos as $pagamento){
                 $parcelas = $pagamento->parcelas_json();
                 $valores['valor_pendente'] += $parcelas->sum('valor_pendente_float');
@@ -149,18 +164,22 @@ class Paciente extends Model
     }
     
 	// Relação paciente - 1 <-> N - consultas.
-    public function consultas()
-    {
-        return $this->hasMany('App\Consulta', 'idconsulta');
-    }
-    public function orcamentos()
-    {
-        return $this->hasMany('App\Orcamento', 'idpaciente')->orderBy('aprovacao','DESC');
-    }
+
     public function pagamentos()
     {
         return $this->hasMany('App\Pagamento', 'idpaciente');
     }
+
+    public function consultas()
+    {
+        return $this->hasMany('App\Consulta', 'idconsulta');
+    }
+
+    public function orcamentos()
+    {
+        return $this->hasMany('App\Orcamento', 'idpaciente')->orderBy('aprovacao','DESC');
+    }
+
     public function respostas()
     {
         return $this->hasMany('App\Resposta', 'idpaciente');

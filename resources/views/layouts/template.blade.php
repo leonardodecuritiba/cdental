@@ -18,6 +18,22 @@
 				display: none;
 			}
 
+			.price-total, .price-recebido, .price-pendente {
+				font-weight: 700 !important;
+			}
+
+			.price-recebido {
+				color: #26B99A !important;
+			}
+
+			.price-total {
+				color: #1A82C3 !important;
+			}
+
+			.price-pendente {
+				color: #d9534f !important;
+			}
+
 			.modal {
 				z-index: 9999;
 			}

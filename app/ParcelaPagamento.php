@@ -34,6 +34,24 @@ class ParcelaPagamento extends Model
         ]);
     }
 
+
+    static public function estornar($id)
+    {
+        $ParcelaPagamento = self::find($id);
+        $ParcelaPagamento->delete();
+        return $Parcela = $ParcelaPagamento->parcela;
+    }
+
+    static public function parcelasPagas($idparcelas)
+    {
+        return self::whereIn('idparcela', $idparcelas)->get()->map(function ($p) {
+            $p->valor_formatado = $p->getValorReal();
+            $p->data_pagamento_formatado = $p->getDataPagamento();
+            return $p;
+        });;
+    }
+
+
     public function valor_extenso()
     {
         return DataHelper::extenso($this->attributes['valor'], true);

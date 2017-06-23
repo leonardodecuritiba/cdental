@@ -1,6 +1,7 @@
 <div id="modalFormaPgto" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="modalShow" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
+            <div class="loading"></div>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title">Receber parcela (#<b></b>)</h4>

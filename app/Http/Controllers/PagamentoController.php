@@ -30,44 +30,7 @@ class PagamentoController extends Controller
             'Titulo'    => 'Orçamento',
             'funcao'    => 'index'];
     }
-
     /*
-    public function index(Request $request)
-    {
-        $this->Page->Titulo = "Busca de Intervenções";
-        if(isset($request['busca'])){
-            $busca = $request['busca'];
-            $Buscas = Intervencao::where('nome', 'like', '%'.$busca.'%')
-                ->orderBy('nome','ASC')
-                ->get();
-        } else {
-            $Buscas = Intervencao::orderBy('nome','ASC')->get();
-        }
-
-        return view('pages.ajustes.'.$this->Page->link.'.index')
-            ->with('Buscas', $Buscas)
-            ->with('Page', $this->Page);
-    }
-
-    public function create()
-    {
-        $this->Page->Titulo = "Cadastro de Intervenções";
-        $this->Page->funcao = "create";
-        return view('pages.ajustes.'.$this->Page->link.'.master')
-            ->with('Page', $this->Page);
-    }
-
-    public function edit($id)
-    {
-        $Intervencao = Intervencao::find($id);
-        $this->Page->Titulo = "Edição de Intervenção";
-        $this->Page->funcao = "edit";
-        return view('pages.ajustes.'.$this->Page->link.'.master')
-            ->with('Intervencao', $Intervencao)
-            ->with('Page', $this->Page);
-    }
-
-    */
     public function update(Request $request)
     {
         $data=Orcamento::find($request['idconsulta']);
@@ -99,7 +62,7 @@ class PagamentoController extends Controller
             return redirect('agenda');
         }
     }
-    
+    */
     public function store(Request $request)
     {
         $idpaciente = $request->get('idpaciente');
@@ -164,7 +127,7 @@ class PagamentoController extends Controller
 
             session()->forget('mensagem');
             session(['mensagem' => $this->Page->Target . ' cadastrado!']);
-            return redirect('pacientes/'.$idpaciente);
+            return redirect()->route('pacientes.show', $idpaciente);
         }
 
     }
@@ -174,12 +137,12 @@ class PagamentoController extends Controller
         return PrintHelper::recibo(ParcelaPagamento::findOrFail($id));
     }
 
-    public function estornar($idparcela)
+    public function estornar($idparcela_pagamento)
     {
-        $Parcela = Parcela::estornar($idparcela);
+        $Parcela = Parcela::estornar($idparcela_pagamento);
         session()->forget('mensagem');
-        session(['mensagem' => 'Parcela estornada!']);
-        return redirect('pacientes/'.$Parcela->pagamento->idpaciente.'/financeiro');
+        session(['mensagem' => 'Pagamento estornado!']);
+        return redirect()->route('pacientes.show', $Parcela->pagamento->idpaciente);
     }
 
     public function alterarVencimento(Request $request)
@@ -187,7 +150,7 @@ class PagamentoController extends Controller
         $Parcela = Parcela::alterarVencimento($request->all());
         session()->forget('mensagem');
         session(['mensagem' => 'Vencimento da Parcela alterado!']);
-        return redirect('pacientes/' . $Parcela->pagamento->idpaciente . '/financeiro');
+        return redirect()->route('pacientes.show', $Parcela->pagamento->idpaciente);
     }
 
     public function receber(Request $request)
@@ -195,19 +158,19 @@ class PagamentoController extends Controller
         $Parcela = Parcela::pagar($request->all());
         session()->forget('mensagem');
         session(['mensagem' => 'Pagamento efetuado!']);
-        return redirect('pacientes/'.$Parcela->pagamento->idpaciente.'/financeiro');
+        return redirect()->route('pacientes.show', $Parcela->pagamento->idpaciente);
     }
 
     public function parcelas_pagas($id)
     {
         $data = Pagamento::find($id);
-        return $data->parcelas_pagas();
+        return ParcelaPagamento::parcelasPagas($data->parcelas->pluck('idparcela'));
     }
 
     public function parcelas_pendentes($id)
     {
         $data = Pagamento::find($id);
-        return $data->parcelas_pagas();
+        return $data->parcelas_pendentes();
     }
 
     public function destroy($id)

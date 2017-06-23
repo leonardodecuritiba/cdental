@@ -53,7 +53,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('receber/parcelas', 'PagamentoController@receber')->name('parcelas.receber');
     Route::post('alterar/parcelas', 'PagamentoController@alterarVencimento')->name('parcelas.alterar_vencimento');
-    Route::get('parcelas/estornar/{idparcela}', 'PagamentoController@estornar')->name('parcelas.estornar');
+//    Route::get('parcelas/estornar/{idparcela}', 'PagamentoController@estornar')->name('parcelas.estornar');
+
+    Route::get('parcelas/estornar/{idparcela_pagamento}', 'PagamentoController@estornar')->name('parcelas_pagamento.estornar');
+    Route::get('parcelas/imprimir/{idparcela_pagamento}', 'PagamentoController@imprimir')->name('parcelas_pagamento.imprimir');
 
     Route::get('json/parcelas-pagas/{idorcamento}', 'PagamentoController@parcelas_pagas')->name('json.parcelas.pagas');
     Route::get('json/parcelas-pendentes/{idorcamento}', 'PagamentoController@parcelas_pendentes')->name('json.parcelas.pendentes');
@@ -100,8 +103,8 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::get('ajax', 'AjaxController@ajax');
-    Route::get('teste', function(){
-        return \App\Pagamento::find(1)->parcelas_json();
+    Route::get('total-paciente/{id}', function ($id) {
+        return \App\Paciente::find($id)->total_pentente();
 //
 //        $data = [
 //            'foo' => 'bar'

@@ -21,12 +21,18 @@ class Pagamento extends Model
     public function getStatusText()
     {
         $abertas = $this->parcelas()->where('pago',0)->count();
-        return ($abertas > 0) ? 'Aguardando pagamento' : 'Recebido';
+        return ($abertas > 0) ? 'Pendente' : 'Recebido';
     }
 
     public function parcelas()
     {
         return $this->hasMany('App\Parcela', 'idpagamento');
+    }
+
+    public function getStatusColor()
+    {
+        $abertas = $this->parcelas()->where('pago', 0)->count();
+        return ($abertas > 0) ? 'danger' : 'success';
     }
 
     public function valores_total_parcelas($float=false)
@@ -65,9 +71,14 @@ class Pagamento extends Model
 
     public function parcelas_pendentes()
     {
-        return $this->parcelas->where('pago', 0)->map(function ($parcela) {
-            $parcela->valor_formatado = $parcela->getValorTotalReal();
-            return $parcela;
+        return $this->parcelas->where('pago', 0)->map(function ($p) {
+            $p->total_pago = $p->parcela_pagamentos->sum('valor');
+            $p->total_pendente = $p->valor - $p->total_pago;
+
+            $p->valor_formatado = DataHelper::getFloat2RealMoney($p->valor);
+            $p->total_pago_formatado = DataHelper::getFloat2RealMoney($p->total_pago);
+            $p->total_pendente_formatado = DataHelper::getFloat2RealMoney($p->total_pendente);
+            return $p;
         });
     }
 
@@ -82,25 +93,5 @@ class Pagamento extends Model
     public function paciente()
     {
         return $this->belongsTo('App\Paciente', 'idpaciente');
-    }
-
-    public function parcelas_json()
-    {
-        return $this->parcelas->map(function ($parcela) {
-            //total, pago, pendente, vencimento
-            $parcela->valor_total = $parcela->getValorTotalReal();
-            $parcela->valor_pago = $parcela->getValorPagoReal();
-            $parcela->valor_pendente = $parcela->getValorPendenteReal();
-            $parcela->valor_total_float = $parcela->valor;
-            $parcela->valor_pago_float = $parcela->getValorPago();
-            $parcela->valor_pendente_float = $parcela->getValorPendente();
-            $parcela->parcela_pagamentos = $parcela->parcela_pagamentos->map(function ($pagamento) {
-                //total, pago, pendente, vencimento
-                $pagamento->valor = $pagamento->getValorReal();
-                $pagamento->data_pagamento = $pagamento->getDataPagamento();
-                return $pagamento;
-            });
-            return $parcela;
-        });
     }
 }

@@ -21,16 +21,27 @@ class Parcela extends Model
     ];
 
     // ******************** FUNCTIONS ****************************
+    static public function getFromPagamento($ids)
+    {
+        return self::whereIn('idpagamento', $ids)->get()->map(function ($p) {
+            $p->total_pago = $p->parcela_pagamentos->sum('valor');
+            $p->total_pago_real = DataHelper::getFloat2RealMoney($p->total_pago);
+            $p->total_pendente = $p->valor - $p->parcela_pagamentos->sum('valor');
+            $p->total_pendente_real = DataHelper::getFloat2RealMoney($p->total_pendente);
+            return $p;
+        });
+    }
 
-    static public function total_receber()
+    static public function sistema_total_receber()
     {
         return DataHelper::getFloat2RealMoney(self::where('pago', 0)->sum('valor'));
     }
 
-    static public function total_recebido()
+    static public function sistema_total_recebido()
     {
         return DataHelper::getFloat2RealMoney(self::where('pago', 1)->sum('valor'));
     }
+
     static public function pagar($data)
     {
         $Parcela = self::find($data['idparcela']);
@@ -60,16 +71,21 @@ class Parcela extends Model
         return $Parcela;
     }
 
-    static public function estornar($idparcela)
+    static public function estornar($idparcela_pagamento)
     {
-        $Parcela = self::find($idparcela);
-        $Parcela->update([
-            'pago' => 0,
-            'data_pagamento' => NULL,
-        ]);
-        foreach($Parcela->parcela_pagamentos as $pagamento){
-            $pagamento->delete();
+        $Parcela = ParcelaPagamento::estornar($idparcela_pagamento);
+        $pendente = $Parcela->getValorPendente();
+        if ($pendente > 0) {
+            $update = [
+                'pago' => 0,
+                'data_pagamento' => NULL,
+            ];
+        } else {
+            $update = [
+                'pago' => 1
+            ];
         }
+        $Parcela->update($update);
         return $Parcela;
     }
 

@@ -2,6 +2,7 @@
      aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
+            <div class="loading"></div>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title">Alterar Vencimento</h4>
