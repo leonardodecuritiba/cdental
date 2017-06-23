@@ -34,6 +34,10 @@
         position: absolute;
         z-index: 9999999;
     }
+
+    .select2-container {
+        z-index: 9999999;
+    }
     .loading {
         position: absolute;
         top: 0;
@@ -44,7 +48,7 @@
         background: #fff url("{{asset('images/ajax-loader.gif')}}") no-repeat center center;
         opacity: .75;
         filter: alpha(opacity=75);
-        z-index: 20140628;
+        z-index: 999999999;
     }
 </style>
 

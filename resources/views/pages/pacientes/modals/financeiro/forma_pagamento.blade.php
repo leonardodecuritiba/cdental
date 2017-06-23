@@ -14,17 +14,17 @@
                 <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">Total:</label>
                     <div class="col-md-4 col-sm-4 col-xs-12 form-group">
-                        <input type="text" class="form-control show-valor" id="valor_total" disabled>
+                        <input type="text" class="form-control show-valor" id="valor_formatado" disabled>
                     </div>
                     <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">Pago:</label>
                     <div class="col-md-4 col-sm-4 col-xs-12 form-group">
-                        <input type="text" class="form-control show-valor" id="valor_pago" disabled>
+                        <input type="text" class="form-control show-valor" id="total_pago_formatado" disabled>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">Pendente:</label>
                     <div class="col-md-4 col-sm-4 col-xs-12 form-group">
-                        <input type="text" class="form-control show-valor" id="valor_pendente" disabled>
+                        <input type="text" class="form-control show-valor" id="total_pendente_formatado" disabled>
                     </div>
                     <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">Vencimento:</label>
                     <div class="col-md-4 col-sm-4 col-xs-12 form-group">

@@ -109,8 +109,8 @@ class MasterController extends Controller
     {
         $Page = (object)['Targets'=>'Recebimentos','Target'=>'Recebimentos','Titulo'=> 'Recebimentos'];
         $Resumo = [
-            'total_recebido' => ParcelaPagamento::total_recebido(),
-            'total_pendente' => Parcela::total_receber(),
+            'total_recebido' => Parcela::getSistemaTotalPagoReal(),
+            'total_pendente' => Parcela::getSistemaTotalPendenteReal(),
         ];
         $Buscas = ParcelaPagamento::all();
         return view('pages.master.recebimentos')

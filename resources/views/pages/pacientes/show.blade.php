@@ -502,11 +502,11 @@
                                     '<td>' + v.data_vencimento + '</td>' +
                                     '<td class="td-receber">' +
                                     '<a data-toggle="modal" ' +
-                                    'data-idparcela="' + v.idparcela + '"' +
+                                    'data-parcela="' + v + '"' +
                                     'data-numero="' + v.numero + '"' +
-                                    'data-valor_total="' + v.total_pago_formatado + '"' +
-                                    'data-valor_pago="' + v.total_pago_formatado + '"' +
-                                    'data-valor_pendente="' + v.total_pendente_formatado + '"' +
+                                    'data-valor_formatado="' + v.valor_formatado + '"' +
+                                    'data-total_pago_formatado="' + v.total_pago_formatado + '"' +
+                                    'data-total_pendente_formatado="' + v.total_pendente_formatado + '"' +
                                     'data-data_vencimento="' + v.data_vencimento + '"' +
                                     'data-target="#modalFormaPgto" class="btn btn-primary btn-xs"><i class="fa fa-money"></i> Receber</a>';
                                 '</td>' +
@@ -531,7 +531,7 @@
                 $($loading).show();
 
                 $($modal).find('div.modal-header h4.modal-title b').html($($button).data("numero"));
-                var list = ['idparcela', 'valor_total', 'valor_pago', 'valor_pendente', 'data_vencimento'];
+                var list = ['idparcela', 'valor_formatado', 'total_pago_formatado', 'total_pendente_formatado', 'data_vencimento'];
                 $.each(list, function (i, v) {
                     $($modal).find('input#' + v).val($($button).data(v));
                 })

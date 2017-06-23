@@ -32,14 +32,23 @@ class Parcela extends Model
         });
     }
 
-    static public function sistema_total_receber()
+    static public function getSistemaTotalPagoReal()
     {
-        return DataHelper::getFloat2RealMoney(self::where('pago', 0)->sum('valor'));
+        return DataHelper::getFloat2RealMoney(self::sistema_total()->sum('total_pago'));
     }
 
-    static public function sistema_total_recebido()
+    static public function sistema_total()
     {
-        return DataHelper::getFloat2RealMoney(self::where('pago', 1)->sum('valor'));
+        return self::all()->map(function ($p) {
+            $p->total_pago = $p->parcela_pagamentos->sum('valor');
+            $p->total_pendente = $p->valor - $p->parcela_pagamentos->sum('valor');
+            return $p;
+        });
+    }
+
+    static public function getSistemaTotalPendenteReal()
+    {
+        return DataHelper::getFloat2RealMoney(self::sistema_total()->sum('total_pendente'));
     }
 
     static public function pagar($data)

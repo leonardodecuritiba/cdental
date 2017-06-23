@@ -66,7 +66,10 @@
                             <li><a href="#">PDF's</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{route('recebimentos')}}"><i class="fa fa-line-chart"></i> Recebimentos</a>
+                    <li><a><i class="fa fa-money"></i>Financeiro <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu" style="display: none">
+                            <li><a href="{{route('recebimentos')}}"> Recebimentos</a>
+                        </ul>
                     </li>
                     @endrole
                 </ul>

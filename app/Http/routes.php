@@ -55,8 +55,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('alterar/parcelas', 'PagamentoController@alterarVencimento')->name('parcelas.alterar_vencimento');
 //    Route::get('parcelas/estornar/{idparcela}', 'PagamentoController@estornar')->name('parcelas.estornar');
 
-    Route::get('parcelas/estornar/{idparcela_pagamento}', 'PagamentoController@estornar')->name('parcelas_pagamento.estornar');
-    Route::get('parcelas/imprimir/{idparcela_pagamento}', 'PagamentoController@imprimir')->name('parcelas_pagamento.imprimir');
+    Route::get('recebimento/estornar/{idparcela_pagamento}', 'PagamentoController@estornar')->name('parcelas_pagamento.estornar');
+    Route::get('recebimento/imprimir/{idparcela_pagamento}', 'PagamentoController@imprimir')->name('parcelas_pagamento.imprimir');
 
     Route::get('json/parcelas-pagas/{idorcamento}', 'PagamentoController@parcelas_pagas')->name('json.parcelas.pagas');
     Route::get('json/parcelas-pendentes/{idorcamento}', 'PagamentoController@parcelas_pendentes')->name('json.parcelas.pendentes');

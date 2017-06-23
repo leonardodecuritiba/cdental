@@ -60,9 +60,9 @@
                                         <td>{{$recebimento->profissional()->nome}}</td>
                                         <td>
                                             <a target="_blank"
-                                               href="{{route('pagamento.imprimir',$recebimento->idparcela)}}"
+                                               href="{{route('parcelas_pagamento.imprimir',$recebimento->id)}}"
                                                class="btn btn-info btn-xs"><i class="fa fa-print"></i> Recibo</a>
-                                            <a href="{{route('parcelas.estornar',$recebimento->idparcela)}}"
+                                            <a href="{{route('parcelas_pagamento.estornar',$recebimento->id)}}"
                                                class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Estornar</a>
 
                                         </td>
