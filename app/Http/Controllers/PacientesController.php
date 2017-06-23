@@ -57,7 +57,7 @@ class PacientesController extends Controller
             $Buscas = Paciente::where('nome', 'like', '%'.$busca.'%')
                 ->orwhere('cpf', 'like', '%'.$busca.'%')
                 ->orwhere('rg', 'like', '%'.$busca.'%')
-                ->all();
+                ->get();
         } else {
             $Buscas = Paciente::all();
         }

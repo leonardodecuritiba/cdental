@@ -603,7 +603,7 @@
                                 '</tr>';
                             });
                         } else {
-                            tabela += '<tr><td class="text-center" colspan="4">Não há nenhum recebimento para essa parcela!</td></tr>';
+                            tabela += '<tr><td class="text-center" colspan="4">Não há nenhum recebimento!</td></tr>';
                         }
                         $($table_body).html(tabela);
                         $('div.loading').hide();
