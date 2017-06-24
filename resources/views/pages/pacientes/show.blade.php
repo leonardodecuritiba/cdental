@@ -499,10 +499,16 @@
                                     '<td><p class="price-total">' + v.valor_formatado + '</p></td>' +
                                     '<td><p class="price-recebido">' + v.total_pago_formatado + '</p></td>' +
                                     '<td><p class="price-pendente">' + v.total_pendente_formatado + '</p></td>' +
-                                    '<td>' + v.data_vencimento + '</td>' +
+                                    '<td>' + v.data_vencimento +
+                                    ' <a data-toggle="modal" ' +
+                                    'data-idparcela="' + v.idparcela + '"' +
+                                    'data-numero="' + v.numero + '"' +
+                                    'data-data_vencimento="' + v.data_vencimento + '"' +
+                                    'data-target="#modalAlterarVencimento" class="btn btn-default btn-xs"><i class="fa fa-calendar"></i></a>' +
+                                    '</td>' +
                                     '<td class="td-receber">' +
                                     '<a data-toggle="modal" ' +
-                                    'data-parcela="' + v + '"' +
+                                    'data-idparcela="' + v.idparcela + '"' +
                                     'data-numero="' + v.numero + '"' +
                                     'data-valor_formatado="' + v.valor_formatado + '"' +
                                     'data-total_pago_formatado="' + v.total_pago_formatado + '"' +
@@ -606,7 +612,7 @@
                             tabela += '<tr><td class="text-center" colspan="4">Não há nenhum recebimento!</td></tr>';
                         }
                         $($table_body).html(tabela);
-                        $('div.loading').hide();
+                        $($loading).hide();
                     }
                 });
 

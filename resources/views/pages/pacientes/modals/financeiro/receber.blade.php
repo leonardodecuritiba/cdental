@@ -1,5 +1,5 @@
 <div id="modalReceber" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalReceber" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="loading"></div>
             <div class="modal-header">
@@ -15,7 +15,7 @@
                         <th>Pago</th>
                         <th>Pendente</th>
                         <th>Vencimento</th>
-                        <th colspan="2">Ações</th>
+                        <th>Ações</th>
                     </tr>
                     </thead>
                     <tbody>

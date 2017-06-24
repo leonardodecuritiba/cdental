@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">Forma:</label>
                     <div class="col-md-4 col-sm-4 col-xs-12 form-group">
-                        <select class="select2 form-control" tabindex="-1" style="width: 100%;" name="idtipo_pagamento"
+                        <select class="form-control" tabindex="-1" style="width: 100%;" name="idtipo_pagamento"
                                 required>
                             @foreach($TipoPagamentos as $tipo)
                                 <option value="{{$tipo->idtipo_pagamento}}">{{$tipo->nome}}</option>
