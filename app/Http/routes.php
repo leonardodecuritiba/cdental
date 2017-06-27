@@ -87,6 +87,7 @@ Route::group(['middleware' => 'auth'], function () {
 //Impressoes
 //    Route::get('impressoes/imagem-orcamento', 'ImpressoesController@impressao_orcamento')->name('impressoes.imagem_orcamento');
 
+    Route::resource('uploads_docs', 'UploadController');
 
     Route::get('get-files', function () {
         $files = File::allFiles(storage_path('app' . DIRECTORY_SEPARATOR . "cdental"));

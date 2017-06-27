@@ -62,8 +62,8 @@
                         </li>
                     <li><a><i class="fa fa-print"></i>Impressões <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu" style="display: none">
-                            <li><a href="#">Logo</a></li>
-                            <li><a href="#">PDF's</a></li>
+                            {{--<li><a href="#">Logo</a></li>--}}
+                            <li><a href="{{route('uploads_docs.index')}}"> PDF's</a>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-money"></i>Financeiro <span class="fa fa-chevron-down"></span></a>

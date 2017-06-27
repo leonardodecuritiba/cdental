@@ -97,7 +97,9 @@ class ImageHelper
         $this->setFilename($file);
         // uploading file to given path
         if ($file->move($this->destinationPath, $this->filename)) { // Faz o upload da imagem para seu respectivo caminho
-            $this->GenerateThumb();
+            if (getimagesize($this->destinationPath . $this->filename)) {
+                $this->GenerateThumb(); // é imagem
+            }
         } else { // Erro no envio
             return false;
         }
