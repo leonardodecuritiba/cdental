@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 class ImageHelper
 {
-    const PATH_NAME = 'uploads' . DIRECTORY_SEPARATOR;
+    const PATH_NAME = 'uploads';
     const THUMB_PREFIX = 'thumb_';
     public $path;
     public $destinationPath;
@@ -14,7 +14,8 @@ class ImageHelper
 
     public function __construct()
     {
-        $this->path = public_path(self::PATH_NAME);
+        $this->path = "/home/drvinici/public_html/cdental/" . self::PATH_NAME;
+//        $this->path = public_path(self::PATH_NAME . DIRECTORY_SEPARATOR);
     }
 
     static public function getFullThumbPath($folder)
@@ -24,7 +25,7 @@ class ImageHelper
 
     static public function getFullPath($folder)
     {
-        return asset(self::PATH_NAME . $folder . DIRECTORY_SEPARATOR);
+        return asset(self::PATH_NAME . DIRECTORY_SEPARATOR . $folder . DIRECTORY_SEPARATOR);
     }
 
     static public function GenerateThumbStatic($data)
