@@ -26,7 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 //Financeiro
     Route::get('recebimentos', 'MasterController@recebimentos')->name('recebimentos');
-    Route::get('recibos', 'MasterController@recibos');
+    Route::get('recibos', 'MasterController@recibos')->name('recibos');
 
 //Ajustes
     Route::resource('planos', 'PlanoController');

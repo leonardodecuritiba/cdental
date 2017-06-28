@@ -166,5 +166,4 @@ class ImageHelper
         array_map('unlink', glob($this->destinationPath . DIRECTORY_SEPARATOR . self::THUMB_PREFIX . $filename));
     }
 
-
 }

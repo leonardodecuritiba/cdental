@@ -47,6 +47,11 @@ class DataHelper
         return (($value != NULL) && ($value != '')) ? Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d') : NULL;
     }
 
+    static public function setDateToDateTime($value)
+    {
+        return (($value != NULL) && ($value != '')) ? Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d H:i:s') : NULL;
+    }
+
     static public function getOnlyNumbers($value)
     {
         return ($value != NULL) ? preg_replace("/[^0-9]/", "", $value) : $value;

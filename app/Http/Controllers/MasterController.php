@@ -105,16 +105,16 @@ class MasterController extends Controller
             ->with('Page', $Page);
     }
 
-    public function recebimentos()
+    public function recebimentos(Request $request)
     {
-        $Page = (object)['Targets'=>'Recebimentos','Target'=>'Recebimentos','Titulo'=> 'Recebimentos'];
-        $Resumo = [
-            'total_recebido' => Parcela::getSistemaTotalPagoReal(),
-            'total_pendente' => Parcela::getSistemaTotalPendenteReal(),
-        ];
-        $Buscas = ParcelaPagamento::all();
+        $Page = (object)[
+            'Targets' => 'Recebimentos',
+            'Target' => 'Recebimentos',
+            'Titulo' => 'Recebimentos',
+            'Pacientes' => Paciente::all(),
+            'Profissionais' => Profissional::all()];
+        $Buscas = ParcelaPagamento::filter($request->all());
         return view('pages.master.recebimentos')
-            ->with('Resumo', $Resumo)
             ->with('Buscas', $Buscas)
             ->with('Page', $Page);
     }
@@ -129,7 +129,9 @@ class MasterController extends Controller
     public function editar_perfil()
     {
         $Page = (object)['Targets'=>'Editar','Target'=>'Editar','Titulo'=> 'Editar'];
+
         return view('pages.master.editar_perfil')
+            ->with('Profissionais', $Profissionais)
             ->with('Page', $Page);
     }
 

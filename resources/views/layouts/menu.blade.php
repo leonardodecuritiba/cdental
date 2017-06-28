@@ -66,9 +66,10 @@
                             <li><a href="{{route('uploads_docs.index')}}"> PDF's</a>
                         </ul>
                     </li>
-                    <li><a><i class="fa fa-money"></i>Financeiro <span class="fa fa-chevron-down"></span></a>
+                    <li><a><i class="fa fa-money"></i>Relatórios <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu" style="display: none">
                             <li><a href="{{route('recebimentos')}}"> Recebimentos</a>
+                            <li><a href="{{route('recibos')}}"> Recibos</a>
                         </ul>
                     </li>
                     @endrole

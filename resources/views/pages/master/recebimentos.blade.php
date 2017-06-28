@@ -1,5 +1,6 @@
 @extends('layouts.template')
 @section('style_content')
+    @include('helpers.select2.head')
     <!-- Datatables -->
     @include('helpers.datatables.head')
     <!-- /Datatables -->
@@ -9,18 +10,67 @@
         <div class="row">
             <div class="x_panel">
                 <div class="x_title">
-                    <h3>Relatório</h3>
+                    <h2>Filtros</h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <div class="col-md-6 col-sm-6 col-xs-12 product_price">
-                        <h1 class="price text-center" style="color:#d9534f;">{{$Resumo['total_pendente']}}</h1>
-                        <p class="price-tax text-center">À receber</p>
+                    {!! Form::open(array('route'=>'recebimentos',
+                        'method'=> 'GET',
+                        'class' => 'form-horizontal form-label-left')) !!}
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <label class="control-label col-md-2 col-sm-2 col-xs-12">Data Inicial:</label>
+                            <div class="col-md-2 col-sm-2 col-xs-12">
+                                <input value="{{Request::get('data_inicial')}}"
+                                       type="text" class="form-control data-to-now" name="data_inicial"
+                                       placeholder="Data" required>
+                            </div>
+                            <label class="control-label col-md-2 col-sm-2 col-xs-12">Data Final:</label>
+                            <div class="col-md-2 col-sm-2 col-xs-12">
+                                <input value="{{Request::get('data_final')}}"
+                                       type="text" class="form-control data-to-now" name="data_final" placeholder="Data"
+                                       required>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-6 col-sm-6 col-xs-12 product_price">
-                        <h1 class="price text-center" style="color:#1A82C3;">{{$Resumo['total_recebido']}}</h1>
-                        <p class="price-tax text-center">Total pago</p>
+                    <div class="ln_solid"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">Cirurgião:</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                                <select class="form-control select2_single" name="idprofissional">
+                                    <option value="">Todos</option>
+                                    @foreach($Page->Profissionais as $selecao)
+                                        <option value="{{$selecao->idprofissional}}"
+                                                @if(Request::has('idprofissional') && (Request::get('idprofissional') == $selecao->idprofissional)) selected @endif
+                                        >{{$selecao->nome}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
+                    <div class="ln_solid"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <label class="control-label col-md-2 col-sm-2 col-xs-12">Paciente:</label>
+                            <div class="col-md-5 col-sm-5 col-xs-12">
+                                <select class="form-control select2_single" name="idpaciente">
+                                    <option value="">Todos</option>
+                                    @foreach($Page->Pacientes as $selecao)
+                                        <option value="{{$selecao->idpaciente}}"
+                                                @if(Request::has('idpaciente') && (Request::get('paciente') == $selecao->idpaciente)) selected @endif
+                                        >{{$selecao->nome}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-1 col-sm-1 col-xs-12">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-block btn-info" type="submit">Filtrar</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
@@ -28,6 +78,15 @@
             <div class="x_panel">
                 <div class="x_title">
                     <h2>{{$Page->Targets}}</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <button class="btn btn-default"
+                                    data-toggle="modal"
+                                    data-target="#modalOrdemServico">
+                                <i class="fa fa-print fa-2"></i> Imprimir
+                            </button>
+                        </li>
+                    </ul>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -80,7 +139,15 @@
     @endif
 @endsection
 @section('scripts_content')
+    @include('helpers.select2.foot')
     <!-- Datatables -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".select2_single").select2({
+                width: 'resolve'
+            });
+        });
+    </script>
     @include('helpers.datatables.foot')
     <script>
         $(document).ready(function () {
