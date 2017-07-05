@@ -103,7 +103,7 @@
         <div class="col-md-6 col-sm-12 col-xs-12">
             <div class="x_panel tile fixed_height_320">
                 <div class="x_title">
-                    <h2>Retornos</h2>
+                    <h2>Próximos Retornos</h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
