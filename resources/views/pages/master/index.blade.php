@@ -103,6 +103,51 @@
         <div class="col-md-6 col-sm-12 col-xs-12">
             <div class="x_panel tile fixed_height_320">
                 <div class="x_title">
+                    <h2>Retornos</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    @if($Page->Data['Retornos'] != NULL)
+                        <table class="table table-striped projects">
+                            <thead>
+                            <tr>
+                                <th>Paciente</th>
+                                <th>Telefone/Celular</th>
+                                <th>Data</th>
+                                <th>Ações</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($Page->Data['Retornos'] as $retorno)
+                                <tr>
+                                    <td>
+                                    {{$retorno->getNome()}}
+                                    <td>
+                                        {{$retorno->getTelefone()}}
+                                    </td>
+                                    <td>
+                                        {{$retorno->data_retorno}}
+                                    </td>
+                                    <td>
+                                        <a href="{{route('pacientes.show',$retorno->idpaciente)}}"
+                                           class="btn btn-default btn-xs"><i class="fa fa-eye"></i> Ver prontuário </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <div class="jumbotron">
+                            <h1>Ops!</h1>
+                            <h3>Nenhuma retorno marcado.</h3>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="x_panel tile fixed_height_320">
+                <div class="x_title">
                     <h2>Débitos vencidos pendentes</h2>
                     <div class="clearfix"></div>
                 </div>

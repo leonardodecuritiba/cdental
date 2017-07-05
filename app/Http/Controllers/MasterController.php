@@ -11,6 +11,7 @@ use App\Parcela;
 use App\ParcelaPagamento;
 use App\Plano;
 use App\Profissional;
+use App\Retorno;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -46,7 +47,8 @@ class MasterController extends Controller
             'Data' => [
                 'ProximaConsulta' => Consulta::getProximaConsulta(),
                 'ConsultasDoDia' => Consulta::getConsultasDoDia(),
-                'ParcelaVencidas' => Parcela::vencidas()->orderBy('data_vencimento')->get()
+                'ParcelaVencidas' => Parcela::vencidas()->orderBy('data_vencimento')->get(),
+                'Retornos' => Retorno::proximos()->get()
             ]
         ];
         return view('pages.master.index')
@@ -88,16 +90,21 @@ class MasterController extends Controller
             $consulta->title = $consulta->getNome().' '.$consulta->getTelefone();
             $consulta->start = $consulta->data_consulta_inicio_date();
             $consulta->end = $consulta->data_consulta_termino();
-            $consulta->allDay = $consulta->dia_inteiro;
+            $consulta->allDay = ($consulta->dia_inteiro) ? 'true' : 'false';
            return $consulta;
         });
-
-//        return $Consultas;
+        $Retornos = Retorno::all()->map(function ($retorno) {
+            $retorno->data = json_encode($retorno);
+            $retorno->title = $retorno->getNome() . ' ' . $retorno->getTelefone();
+            $retorno->start = $retorno->data_retorno_date();
+            return $retorno;
+        });
 
         $Page = (object)[
             'Targets'       => 'Agendamento',
             'Target'        => 'Agendamento',
             'Consultas'     => $Consultas,
+            'Retornos' => $Retornos,
             'Pacientes'     => Paciente::all(),
             'Profissionais' => Profissional::all(),
             'TipoConsultas' => $this->tipo_consulta,

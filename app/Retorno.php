@@ -20,6 +20,27 @@ class Retorno extends Model
 
 
     // ******************** FUNCTIONS ****************************
+
+    public function scopeProximos($query)
+    {
+        return $query->where('data_retorno', '>', Carbon::now());;
+    }
+
+    public function getNome()
+    {
+        return $this->paciente->nome;
+    }
+
+    public function getTelefone()
+    {
+        return $this->paciente->contato->telefone;
+    }
+
+    public function data_retorno_date()
+    {
+        return ($this->attributes['data_retorno']);
+    }
+
     public function getDataRetornoAttribute($value)
     {
         if($value != NULL && $value != 0)

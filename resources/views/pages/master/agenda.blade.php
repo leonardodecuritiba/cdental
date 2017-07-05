@@ -48,19 +48,27 @@
     {!! Html::script('js/calendar/lang/pt-br.js') !!}
 
     <script>
-        var EVENTS = [];
-        EVENTS = [<?php
-        foreach($Page->Consultas as $consulta){
-        ?>{
-            title: "{{$consulta->title}}",
+        var formattedEventData = [];
+        @foreach($Page->Consultas as $consulta)
+            formattedEventData.push({
+            title: "CONSULTA: {{$consulta->title}}",
             start: new Date("{{$consulta->start}}"),
             end: new Date("{{$consulta->end}}"),
             allDay: {{$consulta->allDay}},
-            data: JSON.parse('<?php echo ($consulta->data);?>')
-        },
-        <?php
-        }
-        ?>];
+            data: JSON.parse('<?php echo($consulta->data);?>')
+        });
+        @endforeach
+        @foreach($Page->Retornos as $retorno)
+            formattedEventData.push({
+            title: "RETORNO: {{$retorno->title}}",
+            color: 'yellow',
+            textColor: 'black', // an option!
+            start: new Date("{{$retorno->start}}"),
+            data: JSON.parse('<?php echo($retorno->data);?>')
+        });
+        @endforeach
+
+        console.log(formattedEventData);
 
         $(document).ready(function () {
             $('input[name="anonimo"]').change(function(){
@@ -231,7 +239,7 @@
                 },
                 /**/
                 editable: true,
-                events: EVENTS
+                events: formattedEventData
             });
         });
     </script>
