@@ -20,9 +20,9 @@ class Plano extends Model
         return $this->hasMany('App\PlanoIntervencao', 'idplano');
     }
 	// Relação plano - 1 <-> N - paciente.
-    public function paciente()
+    public function pacientes()
     {
-        return $this->belongsTo('App\Paciente', 'idpaciente');
+        return $this->hasMany('App\Paciente', 'idplano');
     }	
 	
 }

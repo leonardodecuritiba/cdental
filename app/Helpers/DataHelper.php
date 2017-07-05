@@ -49,7 +49,12 @@ class DataHelper
 
     static public function setDateToDateTime($value)
     {
-        return (($value != NULL) && ($value != '')) ? Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d H:i:s') : NULL;
+        if ($value != NULL) {
+            $value = self::getOnlyNumbers($value);
+            if (strlen($value) < 8) $value = NULL;
+            else $value = Carbon::createFromFormat('dmY', $value)->format('Y-m-d H:i:s');
+        }
+        return $value;
     }
 
     static public function getOnlyNumbers($value)

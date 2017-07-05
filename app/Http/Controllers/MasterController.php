@@ -9,12 +9,13 @@ use App\Paciente;
 use App\Consulta;
 use App\Parcela;
 use App\ParcelaPagamento;
+use App\Plano;
 use App\Profissional;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
+use App\Helpers\ExcelFile;
 use Validator;
 use Illuminate\Http\Request;
 
@@ -107,16 +108,50 @@ class MasterController extends Controller
 
     public function recebimentos(Request $request)
     {
+        $Buscas = ParcelaPagamento::filter($request->all());
+
+//        return Paciente::whereIn('idpaciente', )->get();
         $Page = (object)[
             'Targets' => 'Recebimentos',
             'Target' => 'Recebimentos',
-            'Titulo' => 'Recebimentos',
-            'Pacientes' => Paciente::all(),
+            'Titulo' => 'Recebimentos encontrados',
+            'Pacientes' => Paciente::orderBy('nome', 'ASC')->get(),
+            'Planos' => Plano::all(),
             'Profissionais' => Profissional::all()];
-        $Buscas = ParcelaPagamento::filter($request->all());
         return view('pages.master.recebimentos')
             ->with('Buscas', $Buscas)
             ->with('Page', $Page);
+    }
+
+    public function recebimentosExportar(Request $request, ExcelFile $export)
+    {
+        $ParcelaPagamentos = ParcelaPagamento::filter($request->all());
+        return $export->sheet('sheetName', function ($sheet) use ($ParcelaPagamentos) {
+            $dados = array(
+                'ID',
+                'Data',
+                'Paciente',
+                'CPF',
+                'Tratamento',
+                'Valor',
+                'Responsável',
+            ); //porcentagem
+
+            $sheet->row(1, $dados);
+            $i = 2;
+            foreach ($ParcelaPagamentos as $recebimento) {
+                $sheet->row($i, array(
+                    $recebimento->id,
+                    $recebimento->getDataPagamento(),
+                    $recebimento->paciente()->nome,
+                    $recebimento->paciente()->cpf,
+                    $recebimento->orcamento()->descricao,
+                    $recebimento->getValorReal(),
+                    $recebimento->profissional()->nome
+                ));
+                $i++;
+            }
+        })->export('xls');
     }
 
     public function recibos()
@@ -144,6 +179,7 @@ class MasterController extends Controller
             ->with('Clinica', Clinica::first())
             ->with('Profissionais', Profissional::all());
     }
+
     public function clinica_store(Request $request)
     {
         $validator = Validator::make($request->all(), [

@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 //Financeiro
     Route::get('recebimentos', 'MasterController@recebimentos')->name('recebimentos');
+    Route::get('recebimentos/imprimir', 'MasterController@recebimentosExportar')->name('recebimentos.imprimir');
     Route::get('recibos', 'MasterController@recibos')->name('recibos');
 
 //Ajustes
@@ -84,6 +85,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('destroy-backups/{name}', 'MasterController@destroyBackup')->name('backups.destroy');
 
 
+    Route::delete('pagamento/{id}', 'PagamentoController@destroy')->name('pagamento.destroy');
 //Impressoes
 //    Route::get('impressoes/imagem-orcamento', 'ImpressoesController@impressao_orcamento')->name('impressoes.imagem_orcamento');
 

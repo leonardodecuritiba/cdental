@@ -21,6 +21,16 @@ class Orcamento extends Model
         'aprovacao'
     ];
 
+    public function aprovar()
+    {
+        return $this->update(['aprovacao' => 1]);
+    }
+
+    public function desaprovar()
+    {
+        return $this->update(['aprovacao' => 0]);
+    }
+
     public function total_pago()
     {
         $pagamento = $this->pagamento;
@@ -32,6 +42,16 @@ class Orcamento extends Model
         return ($pagamento != NULL)?$pagamento->valores_total_parcelas()->valor_pendente:$this->valor_final_total();
     }
     // ******************** FUNCTIONS ****************************
+
+    public function valor_final_total($float = false)
+    {
+        $total = $this->attributes['valor_total'];
+        $desconto = $this->attributes['desconto'];
+        $valor_final = $total - ($total * $desconto / 100);
+        if ($float) return $valor_final;
+        return DataHelper::getFloat2RealMoney($valor_final);
+    }
+
     public function getCreatedAtAttribute($value)
     {
         return ($value != NULL)? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format('d/m/Y H:i'):NULL;
@@ -61,15 +81,6 @@ class Orcamento extends Model
     {
         $total = $this->attributes['valor_total'];
         $valor_final = ($total*$this->attributes['desconto']/100);
-        if($float) return $valor_final;
-        return DataHelper::getFloat2RealMoney($valor_final);
-    }
-
-    public function valor_final_total($float=false)
-    {
-        $total = $this->attributes['valor_total'];
-        $desconto = $this->attributes['desconto'];
-        $valor_final = $total - ($total*$desconto/100);
         if($float) return $valor_final;
         return DataHelper::getFloat2RealMoney($valor_final);
     }

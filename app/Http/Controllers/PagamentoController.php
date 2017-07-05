@@ -175,9 +175,12 @@ class PagamentoController extends Controller
 
     public function destroy($id)
     {
-        $data=Orcamento::find($id);
-        $data->delete();
-        return response()->json(['status' => '1',
-            'response' => 'Removido com sucesso']);
+        $Pagamento = Pagamento::find($id);
+        $idpaciente = $Pagamento->idpaciente;
+        $Pagamento->orcamento->desaprovar();
+        $Pagamento->delete();
+        session()->forget('mensagem');
+        session(['mensagem' => $this->Page->Target . ' removido!']);
+        return redirect()->route('pacientes.show', $idpaciente);
     }
 }

@@ -14,8 +14,8 @@
         </div>
         <div class="x_content">
             @if($Paciente->has_evolucao())
-                @foreach($Paciente->evolucoes as $evolucao)
-                    <ul class="list-unstyled timeline">
+                <ul class="list-unstyled timeline">
+                    @foreach($Paciente->evolucoes as $evolucao)
                         <li>
                             <div class="block">
                                 <div class="tags">
@@ -26,13 +26,18 @@
                                 <div class="block_content">
                                     <h2 class="title">
                                         <a>{{$evolucao->profissional_criador->nome}}</a>
+                                        <a class="btn btn-danger btn-xs"
+                                           data-nome="Evolução: ({{$evolucao->data_evolucao}}) {{$evolucao->texto}}"
+                                           data-href="{{route('evolucoes.destroy', $evolucao->idevolucao)}}"
+                                           data-toggle="modal"
+                                           data-target="#modalExclusao"><i class="fa fa-trash-o fa-sm"></i></a>
                                     </h2>
                                     <p class="excerpt">{{$evolucao->texto}}</p>
                                 </div>
                             </div>
                         </li>
-                    </ul>
-                @endforeach
+                    @endforeach
+                </ul>
                 <div class="clearfix"></div>
             @else
                 <div class="bs-example" data-example-id="simple-jumbotron">

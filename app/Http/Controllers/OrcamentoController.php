@@ -199,10 +199,9 @@ class OrcamentoController extends Controller
     {
         $orcamento=Orcamento::find($idorcamento);
         if($orcamento->aprovacao==1){
-            return redirect('pacientes/'.$orcamento->idpaciente.'/orcamentos');
+            return redirect()->route('pacientes.show', $orcamento->idpaciente);
         }
-        $orcamento->aprovacao = 1;
-        $orcamento->save();
+        $orcamento->aprovar();
 
         $numero_parcelas = $orcamento->numero_parcelas;
         $valor_parcelas  = $orcamento->valor_parcelas(true);

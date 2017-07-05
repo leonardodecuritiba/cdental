@@ -103,9 +103,11 @@ class EvolucaoController extends Controller
 
     public function destroy($id)
     {
-        $data=Pergunta::find($id);
+        $data = Evolucao::find($id);
+        $idpaciente = $data->idpaciente;
         $data->delete();
-        return response()->json(['status' => '1',
-            'response' => 'Removido com sucesso']);
+        session()->forget('mensagem');
+        session(['mensagem' => $this->Page->Target . ' removida!']);
+        return redirect()->route('pacientes.show', $idpaciente);
     }
 }

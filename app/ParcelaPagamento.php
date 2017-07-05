@@ -21,39 +21,41 @@ class ParcelaPagamento extends Model
     // Relação ParcelaPagamento - 1 <-> N - parcela.
     static public function filter($data)
     {
-        if (isset($data['data_inicial'])) {
-            if (isset($data['idpaciente']) && ($data['idpaciente'] != '')) {
-                $idsparcela = Parcela::whereIn('idparcela',
-                    Pagamento::where('idpaciente', $data['idpaciente'])->pluck('idpagamento')
-                )->pluck('idparcela');
-            }
-            if (isset($data['idprofissional']) && ($data['idprofissional'] != '')) {
-                $idsparcela_pro = Parcela::whereIn('idparcela',
-                    Pagamento::whereIn('idorcamento',
-                        Orcamento::where('idprofissional', $data['idprofissional'])->pluck('idorcamento')
-                    )->pluck('idpagamento')
-                )->pluck('idparcela');
-            }
-            if (isset($idsparcela) && isset($idsparcela_pro) && ($idsparcela != NULL) && ($idsparcela_pro != NULL)) {
-                $idsparcela = array_merge($idsparcela, $idsparcela_pro);
-            } elseif (isset($idsparcela_pro) && $idsparcela_pro != NULL) {
-                $idsparcela = $idsparcela_pro;
-            }
+        //buscando a partir dos orçamentos
+        $query = Orcamento::orderBy('idorcamento', 'desc');
+        $queryPacientes = Paciente::orderBy('idpaciente', 'desc');
 
-            if (isset($idsparcela) && $idsparcela != NULL) {
-                $query = self::whereIn('idparcela', $idsparcela)->whereBetween('data_pagamento', [
-                    DataHelper::setDateToDateTime($data['data_inicial']),
-                    DataHelper::setDateToDateTime($data['data_final'])
-                ]);
-            } else {
-                $query = self::whereBetween('data_pagamento', [
-                    DataHelper::setDateToDateTime($data['data_inicial']),
-                    DataHelper::setDateToDateTime($data['data_final'])
-                ]);
-            }
+        //filtro planos
+        if (isset($data['idplano']) && ($data['idplano'] != '')) {
+            $queryPacientes->where('idplano', $data['idplano']);
         }
 
-        return (isset($query) ? $query->get() : self::all());
+        //filtro pacientes
+        if (isset($data['idpaciente']) && ($data['idpaciente'] != '')) {
+            $queryPacientes->where('idpaciente', $data['idpaciente']);
+        }
+
+        $query->whereIn('idpaciente', $queryPacientes->pluck('idpaciente'));
+
+        //filtro profissionais
+        if (isset($data['idprofissional']) && ($data['idprofissional'] != '')) {
+            $query->where('idprofissional', $data['idprofissional']);
+        }
+
+        $query = ParcelaPagamento::whereIn('idparcela',
+            Parcela::whereIn('idpagamento',
+                Pagamento::whereIn('idorcamento', $query->pluck('idorcamento'))->pluck('idpagamento')
+            )->pluck('idparcela')
+        );
+
+        if (isset($data['data_inicial']) && (isset($data['data_final']))) {
+            $query = $query->whereBetween('data_pagamento', [
+                DataHelper::setDateToDateTime($data['data_inicial']),
+                DataHelper::setDateToDateTime($data['data_final'])
+            ]);
+        }
+
+        return $query->get();
     }
     static public function total_recebido()
     {

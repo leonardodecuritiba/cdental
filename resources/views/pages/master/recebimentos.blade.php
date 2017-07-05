@@ -6,87 +6,100 @@
     <!-- /Datatables -->
 @endsection
 @section('page_content')
+    <div class="row">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Filtros</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                {!! Form::open(array('route'=>'recebimentos',
+                    'method'=> 'GET',
+                    'class' => 'form-horizontal form-label-left', 'data-parsley-validate')) !!}
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12">Data Inicial:</label>
+                        <div class="col-md-2 col-sm-2 col-xs-12">
+                            <input value="{{Request::get('data_inicial')}}"
+                                   type="text" class="form-control show-data" name="data_inicial"
+                                   placeholder="Data" required>
+                        </div>
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12">Data Final:</label>
+                        <div class="col-md-2 col-sm-2 col-xs-12">
+                            <input value="{{Request::get('data_final')}}"
+                                   type="text" class="form-control show-data" name="data_final" placeholder="Data"
+                                   placeholder="MM/DD/YYYY"
+                                   data-date-format="MM/DD/YYYY"
+                                   required>
+                        </div>
+                    </div>
+                </div>
+                <div class="ln_solid"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">Cirurgião:</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <select class="form-control select2_single" name="idprofissional">
+                                <option value="">Todos</option>
+                                @foreach($Page->Profissionais as $selecao)
+                                    <option value="{{$selecao->idprofissional}}"
+                                            @if(Request::has('idprofissional') && (Request::get('idprofissional') == $selecao->idprofissional)) selected @endif
+                                    >{{$selecao->nome}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="ln_solid"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">Plano:</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <select class="form-control select2_single" name="idplano">
+                                <option value="">Todos</option>
+                                @foreach($Page->Planos as $selecao)
+                                    <option value="{{$selecao->idplano}}"
+                                            @if(Request::has('idplano') && (Request::get('idplano') == $selecao->idplano)) selected @endif
+                                    >{{$selecao->nome}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="ln_solid"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12">Paciente:</label>
+                        <div class="col-md-5 col-sm-5 col-xs-12">
+                            <select class="form-control select2_single" name="idpaciente">
+                                <option value="">Todos</option>
+                                @foreach($Page->Pacientes as $selecao)
+                                    <option value="{{$selecao->idpaciente}}"
+                                            @if(Request::has('idpaciente') && (Request::get('idpaciente') == $selecao->idpaciente)) selected @endif
+                                    >{{$selecao->nome}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-1 col-sm-1 col-xs-12">
+                            <span class="input-group-btn">
+                                <button class="btn btn-block btn-info" type="submit">Filtrar</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {!! Form::close() !!}
+            </div>
+        </div>
+    </div>
     @if(count($Buscas) > 0)
         <div class="row">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Filtros</h2>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-                    {!! Form::open(array('route'=>'recebimentos',
-                        'method'=> 'GET',
-                        'class' => 'form-horizontal form-label-left')) !!}
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <label class="control-label col-md-2 col-sm-2 col-xs-12">Data Inicial:</label>
-                            <div class="col-md-2 col-sm-2 col-xs-12">
-                                <input value="{{Request::get('data_inicial')}}"
-                                       type="text" class="form-control data-to-now" name="data_inicial"
-                                       placeholder="Data" required>
-                            </div>
-                            <label class="control-label col-md-2 col-sm-2 col-xs-12">Data Final:</label>
-                            <div class="col-md-2 col-sm-2 col-xs-12">
-                                <input value="{{Request::get('data_final')}}"
-                                       type="text" class="form-control data-to-now" name="data_final" placeholder="Data"
-                                       required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ln_solid"></div>
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">Cirurgião:</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12 form-group">
-                                <select class="form-control select2_single" name="idprofissional">
-                                    <option value="">Todos</option>
-                                    @foreach($Page->Profissionais as $selecao)
-                                        <option value="{{$selecao->idprofissional}}"
-                                                @if(Request::has('idprofissional') && (Request::get('idprofissional') == $selecao->idprofissional)) selected @endif
-                                        >{{$selecao->nome}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ln_solid"></div>
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <label class="control-label col-md-2 col-sm-2 col-xs-12">Paciente:</label>
-                            <div class="col-md-5 col-sm-5 col-xs-12">
-                                <select class="form-control select2_single" name="idpaciente">
-                                    <option value="">Todos</option>
-                                    @foreach($Page->Pacientes as $selecao)
-                                        <option value="{{$selecao->idpaciente}}"
-                                                @if(Request::has('idpaciente') && (Request::get('paciente') == $selecao->idpaciente)) selected @endif
-                                        >{{$selecao->nome}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-1 col-sm-1 col-xs-12">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-block btn-info" type="submit">Filtrar</button>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    {!! Form::close() !!}
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2>{{$Page->Targets}}</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li>
-                            <button class="btn btn-default"
-                                    data-toggle="modal"
-                                    data-target="#modalOrdemServico">
-                                <i class="fa fa-print fa-2"></i> Imprimir
-                            </button>
-                        </li>
-                    </ul>
+                    <h2><b>{{$Buscas->count()}}</b> {{$Page->Titulo}}</h2>
+                    <a class="btn btn-default pull-right" href="{{route('recebimentos.imprimir', Request::all())}}"
+                       target="_blank">
+                        <i class="fa fa-print fa-2"></i> Imprimir
+                    </a>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -99,6 +112,8 @@
                                     <th>#</th>
                                     <th>Data</th>
                                     <th>Paciente</th>
+                                    <th>CPF</th>
+                                    {{--<th>Plano</th>--}}
                                     <th>Tratamento</th>
                                     <th>Valor</th>
                                     <th>Responsável</th>
@@ -114,6 +129,8 @@
                                             <a target="_blank"
                                                href="{{route('pacientes.show',$recebimento->paciente()->idpaciente)}}">{{$recebimento->paciente()->nome}}</a>
                                         </td>
+                                        <td>{{$recebimento->paciente()->cpf}}</td>
+                                        {{--<td>{{$recebimento->paciente()->plano->nome}}</td>--}}
                                         <td>{{$recebimento->orcamento()->descricao}}</td>
                                         <td data-order="{{$recebimento->valor}}">{{$recebimento->getValorReal()}}</td>
                                         <td>{{$recebimento->profissional()->nome}}</td>
@@ -139,6 +156,8 @@
     @endif
 @endsection
 @section('scripts_content')
+    <!-- form validation -->
+    {!! Html::script('js/parsley/parsley.min.js') !!}
     @include('helpers.select2.foot')
     <!-- Datatables -->
     <script type="text/javascript">

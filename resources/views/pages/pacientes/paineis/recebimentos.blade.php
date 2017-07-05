@@ -73,6 +73,11 @@
                                            data-href="{{route('json.parcelas.pagas', $orcamento->pagamento->idpagamento)}}"><i
                                                     class="fa fa-eye"></i>
                                             Recebimentos</a>
+                                        <a class="btn btn-danger btn-xs"
+                                           data-nome="Recebimento: #{{$orcamento->pagamento->idpagamento}}"
+                                           data-href="{{route('pagamento.destroy', $orcamento->pagamento->idpagamento)}}"
+                                           data-toggle="modal"
+                                           data-target="#modalExclusao"><i class="fa fa-trash-o fa-sm"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
