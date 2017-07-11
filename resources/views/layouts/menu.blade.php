@@ -35,7 +35,7 @@
                     {{--<li><a href="#"><i class="fa fa-key"></i>Segurança</a></li>--}}
                     <li><a><i class="fa fa-user"></i>Pacientes <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu" style="display: none">
-                            @role(['profissional','equipe'])
+                            @role(['admin','profissional','equipe'])
                                 <li><a href="{{ route('pacientes.create') }}">Cadastrar pacientes</a></li>
                             @endrole
                             <li><a href="{{ route('pacientes.index') }}">Visualizar pacientes</a></li>
@@ -43,7 +43,7 @@
                     </li>
                     <li><a href="{{ url('agenda') }}"><i class="fa fa-table"></i> Agenda</a>
                     </li>
-                    @role('profissional')
+                    @role('admin')
                         {{--<li><a><i class="fa fa-money"></i> Financeiro <span class="label label-danger pull-right">Incompleto</span></a>--}}
                             {{--<ul class="nav child_menu" style="display: none">--}}
                                 {{--<li><a href="{{ url('recebimentos') }}">Recebimentos</a></li>--}}
@@ -60,6 +60,8 @@
                                 <li><a href="{{ route('backups.index') }}">Backup</a></li>
                             </ul>
                         </li>
+                    @endrole
+                    @role(['admin', 'profissional'])
                     <li><a><i class="fa fa-print"></i>Impressões <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu" style="display: none">
                             {{--<li><a href="#">Logo</a></li>--}}

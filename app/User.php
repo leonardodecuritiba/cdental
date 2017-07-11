@@ -30,6 +30,7 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Profissional', 'idusers');
     }
+
     public function nome()
     {
         return $this->profissional->nome;
@@ -46,5 +47,6 @@ class User extends Authenticatable
             }
         }
     }
-	
+
+
 }

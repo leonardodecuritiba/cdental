@@ -13,7 +13,9 @@ use App\Contato;
 use App\Plano;
 use App\Profissional;
 use App\Paciente;
+use App\Role;
 use App\TipoPagamento;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -73,7 +75,7 @@ class PacientesController extends Controller
         $this->Page->titulo_primario    = "Cadastrar ";
         $this->Page->titulo_secundario  = "Dados Pessoais";
         $Planos = Plano::where('plano_status',1)->get();
-        $Profissionais = Profissional::all();
+        $Profissionais = Profissional::profissionais();
         return view('pages.'.$this->Page->link.'.master')
             ->with('Planos', $Planos)
             ->with('Profissionais', $Profissionais)

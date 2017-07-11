@@ -12,6 +12,8 @@
         <div class="x_panel">
             <div class="x_title">
                 <h2>Filtros</h2>
+                <a class="btn btn-primary pull-right" href="{{ route(strtolower($Page->link).'.create') }}"
+                >Cadastrar {{$Page->Target}}</a>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">

@@ -65,7 +65,7 @@ class UserController extends Controller
         $this->Page->titulo_primario = "Cadastro de ";
         $this->Page->Titulo = "Cadatrar Usuário";
         $this->Page->funcao = "create";
-        $this->Page->extras['Role'] = Role::all();
+        $this->Page->extras = ['Role' => Role::all()];
         return view('pages.'.$this->Page->link.'.master')
             ->with('Page', $this->Page);
     }

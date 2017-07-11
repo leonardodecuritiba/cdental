@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Profissional extends Model
 {
@@ -18,6 +19,15 @@ class Profissional extends Model
         'cro',
         'foto',
     ];
+
+    public function scopeProfissionais($query)
+    {
+        return $query->whereIn('idusers',
+            User::whereHas('roles', function ($query) {
+                $query->where('name', 'profissional');
+            })->pluck('idusers')
+        )->get();
+    }
 
     public function get_status()
     {
