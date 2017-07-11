@@ -330,12 +330,11 @@
                                            data-valor_entrada="{{$orcamento->valor_entrada_float()}}"
                                            data-itens="{{$orcamento->itens_orcamento}}"><i
                                                     class="fa fa-pencil"></i></a>
-                                        <button class="btn btn-danger btn-xs"
-                                                data-nome="{{$orcamento->descricao}}"
-                                                data-href="{{route('orcamentos.destroy',$orcamento->idorcamento)}}"
-                                                data-toggle="modal"
-                                                data-target="#modalRemocao"><i class="fa fa-trash-o fa-sm"></i>
-                                        </button>
+                                        <a class="btn btn-danger btn-xs"
+                                           data-nome="Orçamento: {{$orcamento->descricao}}"
+                                           data-href="{{route('orcamentos.destroy', $orcamento->idorcamento)}}"
+                                           data-toggle="modal"
+                                           data-target="#modalExclusao"><i class="fa fa-trash-o fa-sm"></i></a>
                                     @endif
                                 </td>
                             </tr>

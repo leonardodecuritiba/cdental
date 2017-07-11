@@ -91,13 +91,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('uploads_docs', 'UploadController');
 
-    Route::get('get-files', function () {
-        $files = File::allFiles(storage_path('app' . DIRECTORY_SEPARATOR . "cdental"));
-        foreach ($files as $file) {
-            dd($file);
-            echo (string)$file, "<br>";
-        }
-    });
+
+    Route::resource('cheques', 'ChequeController');
+    Route::get('imprimir/cheques', 'ChequeController@exportar')->name('cheques.imprimir');
+
 
     Route::get('backupdatabase', function () {
         set_time_limit(0);

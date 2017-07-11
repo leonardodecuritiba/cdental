@@ -7,7 +7,8 @@
                 <h4 class="modal-title">Recibo de pagamentos</h4>
             </div>
             <div class="modal-body">
-                <table class="table table-striped projects">
+                <table class="table table-striped dt-responsive table-bordered nowrap" cellspacing="0"
+                       width="100%">
                     <thead>
                     <tr>
                         <th>Data de Pagamento</th>

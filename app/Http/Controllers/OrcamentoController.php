@@ -245,15 +245,17 @@ class OrcamentoController extends Controller
 
         session()->forget('mensagem');
         session(['mensagem' => $this->Page->Target . ' atualizado com sucesso!']);
-        return redirect('pacientes/'.$orcamento->idpaciente.'/orcamentos');
+        return redirect()->route('pacientes.show', $orcamento->idpaciente);
     }
 
     public function destroy($id)
     {
         $data=Orcamento::find($id);
+        $idpaciente = $data->idpaciente;
         $data->delete();
-        return response()->json(['status' => '1',
-            'response' => 'Removido com sucesso']);
+        session()->forget('mensagem');
+        session(['mensagem' => $this->Page->Target . ' removido!']);
+        return redirect()->route('pacientes.show', $idpaciente);
     }
     public function destroy_item($id)
     {

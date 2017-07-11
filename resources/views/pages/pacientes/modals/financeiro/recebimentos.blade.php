@@ -8,7 +8,8 @@
                 <h4 class="modal-title">Recebimentos</h4>
             </div>
             <div class="modal-body">
-                <table class="table table-striped projects">
+                <table class="table table-striped dt-responsive table-bordered nowrap" cellspacing="0"
+                       width="100%">
                     <thead>
                     <tr>
                         <th>#</th>

@@ -1,4 +1,9 @@
 @extends('layouts.template')
+@section('style_content')
+
+    <!-- Datatables -->
+    @include('helpers.datatables.head')
+@endsection
 @section('page_content')
     <!-- top tiles -->
     <div class="row">
@@ -10,7 +15,8 @@
                 </div>
                 <div class="x_content">
                     @if($Page->Data['ProximaConsulta'] != NULL)
-                        <table class="table table-striped projects">
+                        <table class="table table-striped dt-responsive table-bordered nowrap" cellspacing="0"
+                               width="100%">
                             <thead>
                             <tr>
                                 <th>Paciente</th>
@@ -57,7 +63,8 @@
                 </div>
                 <div class="x_content">
                     @if($Page->Data['ConsultasDoDia']->count() > 0)
-                        <table class="table table-striped projects">
+                        <table class="table table-striped dt-responsive table-bordered nowrap" cellspacing="0"
+                               width="100%">
                             <thead>
                             <tr>
                                 <th>Paciente</th>
@@ -108,7 +115,8 @@
                 </div>
                 <div class="x_content">
                     @if($Page->Data['Retornos'] != NULL)
-                        <table class="table table-striped projects">
+                        <table class="table table-striped dt-responsive table-bordered nowrap" cellspacing="0"
+                               width="100%">
                             <thead>
                             <tr>
                                 <th>Paciente</th>
@@ -153,7 +161,8 @@
                 </div>
                 <div class="x_content">
                     @if($Page->Data['ParcelaVencidas']->count() > 0)
-                        <table class="table table-striped projects">
+                        <table class="table table-striped dt-responsive table-bordered nowrap" cellspacing="0"
+                               width="100%">
                             <thead>
                             <tr>
                                 <th>Paciente</th>
@@ -195,4 +204,23 @@
             </div>
         </div>
     </div>
+@endsection
+@section('scripts_content')
+
+    <!-- Datatables -->
+    @include('helpers.datatables.foot')
+    <script>
+        $(document).ready(function () {
+            $('.dt-responsive').DataTable(
+                {
+                    "language": language_pt_br,
+                    "pageLength": 10,
+                    "bLengthChange": false, //used to hide the property
+                    "bFilter": false,
+                    "order": [0, "desc"]
+                }
+            );
+        });
+    </script>
+    <!-- /Datatables -->
 @endsection
