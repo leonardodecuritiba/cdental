@@ -33,7 +33,7 @@ class ValoresRequest extends Request
             case 'POST': {
                 return [
                     'tipo' => 'required',
-                    'data' => 'required',
+                    'data' => 'required|date_format:d/m/Y',
                     'valor' => 'required',
                     'fonte' => 'required|min:1|max:100',
                     'documento' => 'required|min:1|max:30',
@@ -43,7 +43,7 @@ class ValoresRequest extends Request
             case 'PATCH': {
                 return [
                     'tipo' => 'required',
-                    'data' => 'required',
+                    'data' => 'required|date_format:d/m/Y',
                     'valor' => 'required',
                     'fonte' => 'required|min:1|max:100',
                     'documento' => 'required|min:1|max:30',

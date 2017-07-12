@@ -15,18 +15,20 @@
                     @include('pages.'.strtolower($Page->link).'.forms.form')
                     <div class="divider"></div>
                     <div class="col-md-6 col-sm-6 col-xs-6 form-group">
-                        <a href="{{ url(strtolower($Page->link)) }}" class="btn btn-warning btn-lg btn-block">Voltar</a>
+                        <a href="{{ route(strtolower($Page->link).'.index',$Page->extras['tipo']) }}"
+                           class="btn btn-warning btn-lg btn-block">Voltar</a>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 form-group">
                         {!! Form::submit('Cadastrar',array('class' => 'btn btn-success btn-lg btn-block')) !!}
                     </div>
                     {!! Form::close() !!}
                 @else
-                    {!! Form::open(['route'=>[strtolower($Page->link).'.update', $Cheque->id], 'method' => 'PATCH', 'class' => 'form-horizontal form-label-left']) !!}
-                    @include('pages.ajustes.'.strtolower($Page->link).'.forms.form')
+                    {!! Form::open(['route'=>[strtolower($Page->link).'.update', $Data->id], 'method' => 'PATCH', 'class' => 'form-horizontal form-label-left']) !!}
+                    @include('pages.'.strtolower($Page->link).'.forms.form')
                     <div class="divider"></div>
                     <div class="col-md-6 col-sm-6 col-xs-6 form-group">
-                        <a href="{{ url(strtolower($Page->link)) }}" class="btn btn-warning btn-lg btn-block">Voltar</a>
+                        <a href="{{ route(strtolower($Page->link).'.index',$Page->extras['tipo']) }}"
+                           class="btn btn-warning btn-lg btn-block">Voltar</a>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 form-group">
                         {!! Form::submit('Cadastrar',array('class' => 'btn btn-success btn-lg btn-block')) !!}

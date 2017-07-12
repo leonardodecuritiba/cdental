@@ -34,7 +34,7 @@ class ChequeRequest extends Request
                 return [
                     'nome' => 'required|min:1|max:100',
                     'idplano' => 'required|exists:plano',
-                    'data' => 'required',
+                    'data' => 'required|date_format:d/m/Y',
                     'valor' => 'required',
                     'banco' => 'required|min:1|max:50',
                     'numeracao' => 'required|min:1|max:100',
@@ -46,7 +46,7 @@ class ChequeRequest extends Request
                 return [
                     'nome' => 'required|min:1|max:100',
                     'idplano' => 'required|exists:plano',
-                    'data' => 'required',
+                    'data' => 'required|date_format:d/m/Y',
                     'valor' => 'required',
                     'banco' => 'required|min:1|max:50',
                     'numeracao' => 'required|min:1|max:100',

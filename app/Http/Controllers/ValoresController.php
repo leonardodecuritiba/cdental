@@ -51,63 +51,64 @@ class ValoresController extends Controller
 
     public function edit($id)
     {
-        $Cheque = Valores::findOrFail($id);
+        $Data = Valores::findOrFail($id);
+        $this->Page->Targets = $Data->getTipoText();
         $this->Page->Target = $this->Page->Targets;
         $this->Page->Titulo = "Editar " . $this->Page->Target;
+        $this->Page->extras = ['tipo' => $Data->getTipoName()];
         $this->Page->funcao = "edit";
         return view('pages.' . $this->Page->link . '.master')
-            ->with('Cheque', $Cheque)
+            ->with('Data', $Data)
             ->with('Page', $this->Page);
     }
 
     public function store(ValoresRequest $request)
     {
         //store Cheque
-        $data = Valores::create($request->all());
+        $Data = Valores::create($request->all());
+        $this->Page->Targets = $Data->getTipoText();
+        $this->Page->Target = $this->Page->Targets;
         session()->forget('mensagem');
         session(['mensagem' => $this->Page->Target . ' adicionado com sucesso!']);
-        return Redirect::route('valores.index', $data->getTipoName());
+        return Redirect::route('valores.index', $Data->getTipoName());
 
     }
 
     public function update(ValoresRequest $request, $id)
     {
-        return $request->all();
-        $Cheque = Valores::findOrFail($id);
-        $Cheque->update($request->all());
+        $Data = Valores::findOrFail($id);
+        $Data->update($request->all());
+        $this->Page->Targets = $Data->getTipoText();
+        $this->Page->Target = $this->Page->Targets;
         session()->forget('mensagem');
         session(['mensagem' => $this->Page->Target . ' atualizado com sucesso!']);
-        return Redirect::route('cheques.index');
+        return Redirect::route('valores.index', $Data->getTipoName());
 
     }
 
-    public function exportar(Request $request, ExcelFile $export)
+    public function exportar(Request $request, $tipo, ExcelFile $export)
     {
-        $Cheques = Cheque::filter($request->all());
-        return $export->sheet('sheetName', function ($sheet) use ($Cheques) {
+        $request->merge(['tipo' => $tipo]);
+        $Valores = Valores::filter($request->all());
+        $Targets = Valores::getTipo($tipo);
+        return $export->sheet('sheetName', function ($sheet) use ($Valores, $Targets) {
+            $sheet->row(1, array($Targets));
             $dados = array(
                 'ID',
                 'Data',
-                'Nome',
+                'Fonte',
                 'Valor',
-                'Banco',
-                'Número',
-                'Plano',
-                'Destino'
+                'CNPJ/CPF'
             );
-
-            $sheet->row(1, $dados);
-            $i = 2;
-            foreach ($Cheques as $sel) {
+            $sheet->row(2, $dados);
+            $i = 3;
+            foreach ($Valores as $sel) {
                 $sheet->row($i, array(
                     $sel->id,
                     $sel->getData(),
-                    $sel->nome,
+                    $sel->fonte,
                     $sel->getValor(),
-                    $sel->banco,
-                    $sel->numeracao,
-                    $sel->getNomePlano(),
-                    $sel->destino,
+                    $sel->documento
                 ));
                 $i++;
             }

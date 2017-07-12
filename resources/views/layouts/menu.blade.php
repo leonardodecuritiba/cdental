@@ -43,24 +43,6 @@
                     </li>
                     <li><a href="{{ url('agenda') }}"><i class="fa fa-table"></i> Agenda</a>
                     </li>
-                    @role('admin')
-                        {{--<li><a><i class="fa fa-money"></i> Financeiro <span class="label label-danger pull-right">Incompleto</span></a>--}}
-                            {{--<ul class="nav child_menu" style="display: none">--}}
-                                {{--<li><a href="{{ url('recebimentos') }}">Recebimentos</a></li>--}}
-                                {{--<li><a href="{{ url('recibos') }}">Controle de recibo</a></li>--}}
-                            {{--</ul>--}}
-                        {{--</li>--}}
-                        <li><a><i class="fa fa-cog"></i> Ajustes <span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu" style="display: none">
-                                <li><a href="{{ url('intervencoes') }}">Intervenções</a></li>
-                                <li><a href="{{ url('planos') }}">Planos</a></li>
-                                <li><a href="{{ url('caixas') }}">Caixas</a></li>
-                                <li><a href="{{ url('anamneses') }}">Anamnese</a></li>
-                                <li><a href="{{ route('usuarios.index') }}">Equipe</a></li>
-                                <li><a href="{{ route('backups.index') }}">Backup</a></li>
-                            </ul>
-                        </li>
-                    @endrole
                     @role(['admin', 'profissional'])
                     <li><a><i class="fa fa-print"></i>Impressões <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu" style="display: none">
@@ -77,6 +59,18 @@
                             <li><a href="{{route('valores.index','despesas')}}"> Despesas</a>
                         </ul>
                     </li>
+                    @endrole
+                    @role('admin')
+                        <li><a><i class="fa fa-cog"></i> Ajustes <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu" style="display: none">
+                                <li><a href="{{ url('intervencoes') }}">Intervenções</a></li>
+                                <li><a href="{{ url('planos') }}">Planos</a></li>
+                                <li><a href="{{ url('caixas') }}">Caixas</a></li>
+                                <li><a href="{{ url('anamneses') }}">Anamnese</a></li>
+                                <li><a href="{{ route('usuarios.index') }}">Equipe</a></li>
+                                <li><a href="{{ route('backups.index') }}">Backup</a></li>
+                            </ul>
+                        </li>
                     @endrole
                 </ul>
             </div>
