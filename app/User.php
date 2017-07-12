@@ -40,8 +40,8 @@ class User extends Authenticatable
     {
         if($role==NULL){
             $roles = Role::all();
-            foreach($roles as $role){
-                if($this->hasRole($role)){
+            foreach ($roles as $role) {
+                if ($this->hasRole($role)) {
                     return ucfirst($role->name);
                 }
             }
