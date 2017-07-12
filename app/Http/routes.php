@@ -95,6 +95,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('cheques', 'ChequeController');
     Route::get('imprimir/cheques', 'ChequeController@exportar')->name('cheques.imprimir');
 
+    //valores
+    Route::resource('valores', 'ValoresController');
+    Route::get('{tipo}/valores', 'ValoresController@index')->name('valores.index');
+    Route::get('{tipo}/valores/create', 'ValoresController@create')->name('valores.create');
+    Route::get('imprimir/{tipo}/valores', 'ValoresController@exportar')->name('valores.imprimir');
 
     Route::get('backupdatabase', function () {
         set_time_limit(0);

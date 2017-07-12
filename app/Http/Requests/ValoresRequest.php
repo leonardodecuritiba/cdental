@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use Illuminate\Support\Facades\Redirect;
 
-class ChequeRequest extends Request
+class ValoresRequest extends Request
 {
 
     /**
@@ -32,25 +32,21 @@ class ChequeRequest extends Request
             }
             case 'POST': {
                 return [
-                    'nome' => 'required|min:1|max:100',
-                    'idplano' => 'required|exists:plano',
+                    'tipo' => 'required',
                     'data' => 'required',
                     'valor' => 'required',
-                    'banco' => 'required|min:1|max:50',
-                    'numeracao' => 'required|min:1|max:100',
-                    'destino' => 'required|min:1|max:100'
+                    'fonte' => 'required|min:1|max:100',
+                    'documento' => 'required|min:1|max:30',
                 ];
             }
             case 'PUT':
             case 'PATCH': {
                 return [
-                    'nome' => 'required|min:1|max:100',
-                    'idplano' => 'required|exists:plano',
+                    'tipo' => 'required',
                     'data' => 'required',
                     'valor' => 'required',
-                    'banco' => 'required|min:1|max:50',
-                    'numeracao' => 'required|min:1|max:100',
-                    'destino' => 'required|min:1|max:100'
+                    'fonte' => 'required|min:1|max:100',
+                    'documento' => 'required|min:1|max:30',
                 ];
             }
             default:

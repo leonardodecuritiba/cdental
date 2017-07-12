@@ -73,6 +73,8 @@
                             <li><a href="{{route('recebimentos')}}"> Recebimentos</a>
                             {{--                            <li><a href="{{route('recibos')}}"> Recibos</a>--}}
                             <li><a href="{{route('cheques.index')}}"> Cheques</a>
+                            <li><a href="{{route('valores.index','receitas')}}"> Receitas</a>
+                            <li><a href="{{route('valores.index','despesas')}}"> Despesas</a>
                         </ul>
                     </li>
                     @endrole
