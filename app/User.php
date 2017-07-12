@@ -39,10 +39,10 @@ class User extends Authenticatable
     public function is($role = NULL)
     {
         if($role==NULL){
-            $modelos = ['equipe', 'profissional'];
-            foreach($modelos as $modelo){
-                if($this->hasRole($modelo)){
-                    return ucfirst($modelo);
+            $roles = Role::all();
+            foreach($roles as $role){
+                if($this->hasRole($role)){
+                    return ucfirst($role->name);
                 }
             }
         }
