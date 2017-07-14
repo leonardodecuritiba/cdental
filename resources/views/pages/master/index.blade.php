@@ -29,11 +29,12 @@
                             <tr>
                                 <td>
                                 {{$Page->Data['ProximaConsulta']->getNome()}}
-                                <td>
-                                    {{$Page->Data['ProximaConsulta']->getTelefone()}}
                                 </td>
                                 <td>
                                     {{$Page->Data['ProximaConsulta']->data_consulta_inicio()}}
+                                </td>
+                                <td>
+                                    {{$Page->Data['ProximaConsulta']->getTelefone()}}
                                 </td>
                                 <td>
                                     @if($Page->Data['ProximaConsulta']->idpaciente == NULL)
@@ -78,11 +79,12 @@
                                     <tr>
                                         <td>
                                             {{$consulta->getNome()}}
-                                        <td>
-                                            {{$consulta->getTelefone()}}
                                         </td>
                                         <td>
                                             {{$consulta->data_consulta_inicio()}}
+                                        </td>
+                                        <td>
+                                            {{$consulta->getTelefone()}}
                                         </td>
                                         <td>
                                             @if($consulta->idpaciente == NULL)
@@ -129,12 +131,13 @@
                             @foreach($Page->Data['Retornos'] as $retorno)
                                 <tr>
                                     <td>
-                                    {{$retorno->getNome()}}
-                                    <td>
-                                        {{$retorno->getTelefone()}}
+                                        {{$retorno->getNome()}}
                                     </td>
                                     <td>
                                         {{$retorno->data_retorno}}
+                                    </td>
+                                    <td>
+                                        {{$retorno->getTelefone()}}
                                     </td>
                                     <td>
                                         <a href="{{route('pacientes.show',$retorno->idpaciente)}}"

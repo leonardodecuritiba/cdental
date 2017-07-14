@@ -1,46 +1,54 @@
 <div class="row">
-    <div class="x_panel">
-        <div class="x_title">
-            <h2>Documentos</h2>
-            <ul class="nav navbar-right panel_toolbox">
-                <li>
-                    <button class="btn btn-success" id="refresh-documento"><i class="fa fa-refresh fa-2"></i>
-                        Atualizar
-                    </button>
-                </li>
-            </ul>
-            <div class="clearfix"></div>
-        </div>
-        <div class="x_content">
-            {!! Form::open([
-                'route' => 'documentos.pacientes.store', 'files' => true,
-                'method' => 'POST',
-                'class' => 'dropzone']) !!}
-            <input type="hidden" name="idpaciente" value="{{$Paciente->idpaciente}}">
-            <div class="dz-message" data-dz-message><span>Arraste seus arquivos aqui!</span></div>
-            </form>
-            <div class="ln_solid"></div>
-            <div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Documentos</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <button class="btn btn-primary"
+                                data-toggle="modal"
+                                data-type="document"
+                                data-idpaciente="{{$Paciente->idpaciente}}"
+                                data-target="#modalUploads">
+                            <i class="fa fa-upload fa-2"></i> Novo Documento
+                        </button>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
                 @if($Paciente->has_documentos())
-                    @foreach($Paciente->documentos as $documento)
-                        <div class="col-md-55">
-                            <div class="thumbnail">
-                                <div class="image view view-first">
-                                    <img style="width: 100%; display: block;"
-                                         src="{{$documento->getDocumentoThumb()}}" alt="image"/>
-                                    <div class="mask">
-                                        <div class="tools tools-bottom">
-                                            <a href="#" class="ver-documento"><i class="fa fa-eye"></i></a>
-                                            <a href="#"
-                                               class="del-documento"
-                                               data-href="{{route('documentos.destroy',$documento->iddocumento)}}"
-                                            ><i class="fa fa-times"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+                    <table class="table table-striped dt-responsive table-bordered nowrap" cellspacing="0"
+                           width="100%">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Título</th>
+                            <th>Descrição</th>
+                            <th>Ações</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($Paciente->documentos as $selecao)
+                            <tr>
+                                <td>
+                                    {{$selecao->id}}
+                                </td>
+                                <td>{{$selecao->titulo}}</td>
+                                <td>{{$selecao->descricao}}</td>
+                                <td>
+                                    <a class="btn btn-default btn-xs" target="_blank"
+                                       href="{{$selecao->getDocumentoThumb()}}"><i class="fa fa-eye"></i> Abrir</a>
+                                    <a class="btn btn-danger btn-xs"
+                                       data-nome="Documento #{{$selecao->id}}"
+                                       data-href="{{route('documentos.pacientes.destroy',$selecao->id)}}"
+                                       data-toggle="modal"
+                                       data-target="#modalExclusao"><i class="fa fa-trash-o fa-sm"></i> Excluir </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 @else
                     <div class="jumbotron">
                         <h1>Ops!</h1>
@@ -49,48 +57,90 @@
                 @endif
             </div>
         </div>
-        <script>
-            $(document).ready(function () {
-                $('button#refresh-documento').click(function () {
-                    url = "{{route('pacientes.show',$Paciente->idpaciente)}}" + '?tab=documentos';
-                    window.location.href = url;
-                });
-                $('a.del-documento').click(function () {
-                    $parent = $(this).parents('div.col-md-55');
-
-                    href_ = $(this).data('href');
-                    $.ajax({
-                        url: href_,
-                        type: 'post',
-                        data: {"_method": 'delete', "_token": "{{ csrf_token() }}"},
-//                    dataType: "json",
-                        beforeSend: function () {
-                            $(".loading").show();
-                        },
-                        complete: function (xhr, textStatus) {
-                            $(".loading").hide();
-                        },
-                        error: function (xhr, textStatus) {
-                            console.log('xhr-error: ' + xhr);
-                            console.log('textStatus-error: ' + textStatus);
-                        },
-                        success: function (json) {
-                            if (json.status) {
-                                $($parent).remove();
-                                new PNotify({
-                                    title: 'Sucesso!',
-                                    text: json.response,
-                                    type: 'success',
-                                    delay: 2000,
-                                    styling: 'bootstrap3'
-                                });
-                            } else {
-                                alert(json.response);
-                            }
-                        }
-                    });
-                });
-            });
-        </script>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Imagens</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <button class="btn btn-primary"
+                                data-toggle="modal"
+                                data-type="image"
+                                data-idpaciente="{{$Paciente->idpaciente}}"
+                                data-target="#modalUploads">
+                            <i class="fa fa-upload fa-2"></i> Nova Imagem
+                        </button>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                @if($Paciente->has_images())
+                    <table class="table table-striped dt-responsive table-bordered nowrap" cellspacing="0"
+                           width="100%">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Título</th>
+                            <th>Descrição</th>
+                            <th>Ações</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($Paciente->images as $selecao)
+                            <tr>
+                                <td>
+                                    {{$selecao->id}}
+                                </td>
+                                <td>{{$selecao->titulo}}</td>
+                                <td>{{$selecao->descricao}}</td>
+                                <td>
+                                    <a class="btn btn-default btn-xs" target="_blank"
+                                       href="{{$selecao->getLink()}}"><i class="fa fa-eye"></i> Abrir</a>
+                                    <a class="btn btn-danger btn-xs"
+                                       data-nome="Documento #{{$selecao->id}}"
+                                       data-href="{{route('documentos.pacientes.destroy',$selecao->id)}}"
+                                       data-toggle="modal"
+                                       data-target="#modalExclusao"><i class="fa fa-trash-o fa-sm"></i> Excluir </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <div class="jumbotron">
+                        <h1>Ops!</h1>
+                        <h3>Nenhum documento encontrado!</h3>
+                    </div>
+                @endif
+            </div>
+        </div>
     </div>
 </div>
+
+{{--Upload Documentos/Imagens--}}
+<script>
+    $('#modalUploads').on('show.bs.modal', function (event) {
+        var $btn = event.relatedTarget;
+        var $this = $(this);
+        var $form = $($this).find('div.modal-content form');
+        switch ($($btn).data('type')) {
+            case 'document' : {
+                $($this).find('div.modal-header h4').html('Upload de documentos');
+                $($form).find('input[name=type]').val($($btn).data('type'));
+                $($form).find('input[name=idpaciente]').val($($btn).data('idpaciente'));
+                $($form).attr('action', "{{route('documentos.pacientes.store')}}");
+                break;
+            }
+            case 'image' : {
+                $($this).find('div.modal-header h4').html('Upload de imagens');
+                $($form).find('input[name=type]').val($($btn).data('type'));
+                $($form).find('input[name=idpaciente]').val($($btn).data('idpaciente'));
+                $($form).attr('action', "{{route('imagens.pacientes.store')}}");
+                break;
+            }
+        }
+
+    })
+</script>

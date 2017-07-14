@@ -4,7 +4,6 @@
     {!! Html::style('vendors/pnotify/dist/pnotify.css') !!}
 @endsection
 @section('page_content')
-    {{--@include('admin.master.forms.search')--}}
     <div class="page-title">
         <div class="title_left">
             <h3>{{$Page->titulo_primario.$Page->Targets}}</h3>

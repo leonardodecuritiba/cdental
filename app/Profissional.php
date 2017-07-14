@@ -24,7 +24,8 @@ class Profissional extends Model
     {
         return $query->whereIn('idusers',
             User::whereHas('roles', function ($query) {
-                $query->where('name', 'profissional');
+                $query->where('name', 'profissional')
+                    ->orWhere('name', 'dentista');
             })->pluck('idusers')
         )->get();
     }

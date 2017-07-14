@@ -15,7 +15,7 @@ class PrintHelper {
 
     static public function recibo(ParcelaPagamento $ParcelaPagamento)
     {
-//        return view('print.recibo')->with('parcela',$parcela);
+        return view('print.recibo')->with('ParcelaPagamento', $ParcelaPagamento)->with('clinica', Clinica::find(1));
         $pdf = PDF::loadView('print.recibo',['ParcelaPagamento'=>$ParcelaPagamento, 'clinica'=>Clinica::find(1)]);
         $hora = Carbon::now()->format('HidmY');
         $filename = 'recibo-'.$hora;

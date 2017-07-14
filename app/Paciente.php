@@ -119,7 +119,17 @@ class Paciente extends Model
     }
     public function documentos()
     {
-        return $this->hasMany('App\Documento', 'idpaciente');
+        return $this->hasMany('App\PacienteDocumentos', 'idpaciente');
+    }
+
+    public function has_images()
+    {
+        return $this->images()->count();
+    }
+
+    public function images()
+    {
+        return $this->hasMany('App\PacienteImages', 'idpaciente');
     }
 
     public function total_pendente($float = false)

@@ -35,7 +35,7 @@
                     {{--<li><a href="#"><i class="fa fa-key"></i>Segurança</a></li>--}}
                     <li><a><i class="fa fa-user"></i>Pacientes <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu" style="display: none">
-                            @role(['admin','profissional','equipe'])
+                            @role(['profissional','dentista','equipe'])
                                 <li><a href="{{ route('pacientes.create') }}">Cadastrar pacientes</a></li>
                             @endrole
                             <li><a href="{{ route('pacientes.index') }}">Visualizar pacientes</a></li>
@@ -43,7 +43,7 @@
                     </li>
                     <li><a href="{{ url('agenda') }}"><i class="fa fa-table"></i> Agenda</a>
                     </li>
-                    @role(['admin', 'profissional'])
+                    @role(['profissional','dentista'])
                     <li><a><i class="fa fa-print"></i>Impressões <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu" style="display: none">
                             {{--<li><a href="#">Logo</a></li>--}}
@@ -60,7 +60,7 @@
                         </ul>
                     </li>
                     @endrole
-                    @role('admin')
+                    @role('profissional')
                         <li><a><i class="fa fa-cog"></i> Ajustes <span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu" style="display: none">
                                 <li><a href="{{ url('intervencoes') }}">Intervenções</a></li>
