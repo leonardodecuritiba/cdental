@@ -15,7 +15,7 @@
             <div class="row">
                 @if($Page->funcao == 'create')
                     {!! Form::open(['route'=>strtolower($Page->link).'.store', 'class' => 'form-horizontal form-label-left']) !!}
-                    @include('pages.ajustes.'.strtolower($Page->link).'.forms.form')
+                    @include('pages.'.strtolower($Page->link).'.forms.form')
                     <div class="divider"></div>
                     <div class="col-md-6 col-sm-6 col-xs-6 form-group">
                         <a href="{{ url(strtolower($Page->link)) }}" class="btn btn-warning btn-lg btn-block">Voltar</a>
@@ -26,7 +26,7 @@
                     {!! Form::close() !!}
                 @else
                     {!! Form::open(['route'=>[strtolower($Page->link).'.update', $Cheque->id], 'method' => 'PATCH', 'class' => 'form-horizontal form-label-left']) !!}
-                    @include('pages.ajustes.'.strtolower($Page->link).'.forms.form')
+                    @include('pages.'.strtolower($Page->link).'.forms.form')
                     <div class="divider"></div>
                     <div class="col-md-6 col-sm-6 col-xs-6 form-group">
                         <a href="{{ url(strtolower($Page->link)) }}" class="btn btn-warning btn-lg btn-block">Voltar</a>

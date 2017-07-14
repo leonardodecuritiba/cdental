@@ -17,8 +17,6 @@
 
 <!-- PNotify -->
 {!! Html::style('vendors/pnotify/dist/pnotify.css') !!}
-{{--<link href="../vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">--}}
-{{--<link href="../vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">--}}
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>

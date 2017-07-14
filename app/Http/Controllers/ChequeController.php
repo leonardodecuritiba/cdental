@@ -45,6 +45,7 @@ class ChequeController extends Controller
         $this->Page->extras = [
             'Planos' => Plano::orderBy('nome', 'ASC')->get(),
         ];
+
         return view('pages.' . $this->Page->link . '.master')
             ->with('Page', $this->Page);
     }
