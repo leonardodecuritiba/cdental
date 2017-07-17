@@ -111,7 +111,7 @@
                 @else
                     <div class="jumbotron">
                         <h1>Ops!</h1>
-                        <h3>Nenhum documento encontrado!</h3>
+                        <h3>Nenhuma imagem encontrado!</h3>
                     </div>
                 @endif
             </div>
