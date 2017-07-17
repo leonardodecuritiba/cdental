@@ -25,11 +25,9 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/maatwebsite/excel" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mockery/mockery" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/monolog/monolog" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/mpdf/mpdf" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mtdowling/cron-expression" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nesbot/carbon" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nikic/php-parser" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/niklasravnsborg/laravel-pdf" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/paragonie/random_compat" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phenx/php-font-lib" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phenx/php-svg-lib" />
@@ -56,7 +54,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/global-state" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/recursion-context" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/version" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/setasign/fpdi" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/db-dumper" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/dropbox-api" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/flysystem-dropbox" />
@@ -122,11 +119,9 @@
           <root url="file://$MODULE_DIR$/vendor/maatwebsite/excel" />
           <root url="file://$MODULE_DIR$/vendor/mockery/mockery" />
           <root url="file://$MODULE_DIR$/vendor/monolog/monolog" />
-          <root url="file://$MODULE_DIR$/vendor/mpdf/mpdf" />
           <root url="file://$MODULE_DIR$/vendor/mtdowling/cron-expression" />
           <root url="file://$MODULE_DIR$/vendor/nesbot/carbon" />
           <root url="file://$MODULE_DIR$/vendor/nikic/php-parser" />
-          <root url="file://$MODULE_DIR$/vendor/niklasravnsborg/laravel-pdf" />
           <root url="file://$MODULE_DIR$/vendor/paragonie/random_compat" />
           <root url="file://$MODULE_DIR$/vendor/phenx/php-font-lib" />
           <root url="file://$MODULE_DIR$/vendor/phenx/php-svg-lib" />
@@ -153,7 +148,6 @@
           <root url="file://$MODULE_DIR$/vendor/sebastian/global-state" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/recursion-context" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/version" />
-          <root url="file://$MODULE_DIR$/vendor/setasign/fpdi" />
           <root url="file://$MODULE_DIR$/vendor/spatie/db-dumper" />
           <root url="file://$MODULE_DIR$/vendor/spatie/dropbox-api" />
           <root url="file://$MODULE_DIR$/vendor/spatie/flysystem-dropbox" />
@@ -205,11 +199,9 @@
           <root url="file://$MODULE_DIR$/vendor/maatwebsite/excel" />
           <root url="file://$MODULE_DIR$/vendor/mockery/mockery" />
           <root url="file://$MODULE_DIR$/vendor/monolog/monolog" />
-          <root url="file://$MODULE_DIR$/vendor/mpdf/mpdf" />
           <root url="file://$MODULE_DIR$/vendor/mtdowling/cron-expression" />
           <root url="file://$MODULE_DIR$/vendor/nesbot/carbon" />
           <root url="file://$MODULE_DIR$/vendor/nikic/php-parser" />
-          <root url="file://$MODULE_DIR$/vendor/niklasravnsborg/laravel-pdf" />
           <root url="file://$MODULE_DIR$/vendor/paragonie/random_compat" />
           <root url="file://$MODULE_DIR$/vendor/phenx/php-font-lib" />
           <root url="file://$MODULE_DIR$/vendor/phenx/php-svg-lib" />
@@ -236,7 +228,6 @@
           <root url="file://$MODULE_DIR$/vendor/sebastian/global-state" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/recursion-context" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/version" />
-          <root url="file://$MODULE_DIR$/vendor/setasign/fpdi" />
           <root url="file://$MODULE_DIR$/vendor/spatie/db-dumper" />
           <root url="file://$MODULE_DIR$/vendor/spatie/dropbox-api" />
           <root url="file://$MODULE_DIR$/vendor/spatie/flysystem-dropbox" />

@@ -53,7 +53,7 @@
                     <li><a><i class="fa fa-money"></i>Financeiro <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu" style="display: none">
                             <li><a href="{{route('recebimentos')}}"> Recebimentos</a>
-                            {{--                            <li><a href="{{route('recibos')}}"> Recibos</a>--}}
+                            <li><a href="{{route('recibos')}}"> Recibos Emitidos</a>
                             <li><a href="{{route('cheques.index')}}"> Cheques</a>
                             <li><a href="{{route('valores.index','receitas')}}"> Receitas</a>
                             <li><a href="{{route('valores.index','despesas')}}"> Despesas</a>

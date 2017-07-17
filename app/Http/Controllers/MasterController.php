@@ -161,10 +161,19 @@ class MasterController extends Controller
         })->export('xls');
     }
 
-    public function recibos()
+    public function recibos(Request $request)
     {
-        $Page = (object)['Targets'=>'Recibos','Target'=>'Recibos','Titulo'=> 'Recibos'];
+        $request->merge(['emitidas' => true]);
+        $Buscas = ParcelaPagamento::filter($request->all());
+        $Page = (object)[
+            'Targets' => 'Recibos',
+            'Target' => 'Recibos',
+            'Titulo' => 'Recibos encontrados',
+            'Pacientes' => Paciente::orderBy('nome', 'ASC')->get(),
+            'Planos' => Plano::all(),
+            'Profissionais' => Profissional::all()];
         return view('pages.master.recibos')
+            ->with('Buscas', $Buscas)
             ->with('Page', $Page);
     }
 
