@@ -182,7 +182,7 @@ class Paciente extends Model
 
     public function consultas()
     {
-        return $this->hasMany('App\Consulta', 'idconsulta');
+        return $this->hasMany('App\Consulta', 'idpaciente');
     }
 
     public function orcamentos()

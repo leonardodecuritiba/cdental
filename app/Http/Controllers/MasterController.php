@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use App\Helpers\ExcelFile;
+use Illuminate\Support\Facades\Route;
 use Validator;
 use Illuminate\Http\Request;
 
@@ -177,13 +178,45 @@ class MasterController extends Controller
             ->with('Page', $Page);
     }
 
-    public function editar_perfil()
+    public function recibosCancelar($id)
     {
-        $Page = (object)['Targets'=>'Editar','Target'=>'Editar','Titulo'=> 'Editar'];
+        ParcelaPagamento::cancelar_recibo($id);
+        session()->forget('mensagem');
+        session(['mensagem' => 'Emissão de Recibo cancelada!']);
+        return Redirect::route('recibos');
+    }
 
-        return view('pages.master.editar_perfil')
-            ->with('Profissionais', $Profissionais)
-            ->with('Page', $Page);
+    public function recibosExportar(Request $request, ExcelFile $export)
+    {
+        return $request->all();
+        $request->merge(['emitidas' => true]);
+        $ParcelaPagamentos = ParcelaPagamento::filter($request->all());
+        return $export->sheet('sheetName', function ($sheet) use ($ParcelaPagamentos) {
+            $dados = array(
+                'ID',
+                'Data',
+                'Paciente',
+                'CPF',
+                'Tratamento',
+                'Valor',
+                'Responsável',
+            ); //porcentagem
+
+            $sheet->row(1, $dados);
+            $i = 2;
+            foreach ($ParcelaPagamentos as $recebimento) {
+                $sheet->row($i, array(
+                    $recebimento->id,
+                    $recebimento->getDataPagamento(),
+                    $recebimento->paciente()->nome,
+                    $recebimento->paciente()->cpf,
+                    $recebimento->orcamento()->descricao,
+                    $recebimento->getValorReal(),
+                    $recebimento->profissional()->nome
+                ));
+                $i++;
+            }
+        })->export('xls');
     }
 
     public function clinica()
@@ -265,4 +298,13 @@ class MasterController extends Controller
             ->with('Page', $Page);
     }
 
+
+//    public function editar_perfil()
+//    {
+//        $Page = (object)['Targets'=>'Editar','Target'=>'Editar','Titulo'=> 'Editar'];
+//
+//        return view('pages.master.editar_perfil')
+//            ->with('Profissionais', $Profissionais)
+//            ->with('Page', $Page);
+//    }
 }

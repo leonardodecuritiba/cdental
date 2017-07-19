@@ -4,7 +4,6 @@
     <!-- Datatables -->
     @include('helpers.datatables.head')
     <!-- /Datatables -->
-{{--@include('admin.master.forms.search')--}}
 {{--<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />--}}
     <style>
         .select2 {
@@ -28,6 +27,7 @@
     @include('pages.pacientes.modals.financeiro.alterar')
     @include('pages.pacientes.modals.alerts.alerta')
     @include('pages.pacientes.modals.evolucao')
+    @include('pages.pacientes.modals.uploads')
 @endsection
 @section('page_content')
     <div class="row">
@@ -125,6 +125,7 @@
     <!-- dropzone -->
     {!! Html::script('vendors/dropzone/dist/min/dropzone.min.js') !!}
 
+    {{--Alertas--}}
     <script>
         $('#modalAlertas').on('show.bs.modal', function (event) {
             var $this = $(this);
@@ -401,6 +402,45 @@
         });
 
         //INICIALIZAÇÃO DE BOTÕES
+
+        function edit_orcamento($this) {
+            var $parent = $($this).closest('div.x_content').find('section#edit-orcamento');
+            var ORCAMENTO = $($this).data('dados');
+            var $data = $($this).data();
+            var URL = $($parent).find('form#form-edit').attr('action');
+
+            $($parent).find('form#form-edit').attr('action', URL.replace('_0_', ORCAMENTO.idorcamento))
+
+            $($INPUT_descricao_edit).val(ORCAMENTO.descricao);
+            $($INPUT_idprofissional_edit).val(ORCAMENTO.idprofissional).trigger("change");
+            $($INPUT_valor_entrada_edit).maskMoney('mask', parseFloat($data.valor_entrada));
+            $($INPUT_desconto_edit).maskMoney('mask', ORCAMENTO.desconto);
+            $($INPUT_parcelas_edit).val(ORCAMENTO.numero_parcelas);
+
+            console.log($data);
+
+            $.each($data.itens, function (i, v) {
+//                console.log(v);
+                cont++;
+                $($parent).find('section#tratamentos').append(get_campos(cont, 'edit', v.iditem_orcamento));
+
+                var $this_i = $($parent).find("select[name='idintervencao[" + cont + "]']");
+                popula_intervencao(cont, $this_i);
+                $($this_i).select2({width: 'resolve'}).val(v.idintervencao).trigger('change');
+//                popula_valores($this);
+
+                var $this_parent = $($this_i).parents("div.form-group");
+                //Região do tratamento
+                $($this_parent).find("input#regiao").val(v.regiao);
+                //Valor do tratamento
+                $($this_parent).find("input#valor").val(v.valor);
+            });
+
+            $($parent).toggle("slow");
+            $($parent).next().toggle("slide");
+            atualiza_total('edit');
+        }
+
         $(document).ready(function () {
 
             $('button#add-orcamento').click(function () {
@@ -412,42 +452,6 @@
                 add_campos(cont, $(this));
             });
 
-            $('a.edit-orcamento').click(function () {
-                $parent = $(this).closest('div.x_content').find('section#edit-orcamento');
-                var ORCAMENTO = $(this).data('dados');
-                $data = $(this).data();
-                console.log($data);
-                var URL = $($parent).find('form#form-edit').attr('action');
-                $($parent).find('form#form-edit').attr('action', URL.replace('_0_', ORCAMENTO.idorcamento))
-
-                $($INPUT_descricao_edit).val(ORCAMENTO.descricao);
-                $($INPUT_idprofissional_edit).val(ORCAMENTO.idprofissional).trigger("change");
-                $($INPUT_valor_entrada_edit).maskMoney('mask', parseFloat($data.valor_entrada));
-                $($INPUT_desconto_edit).maskMoney('mask', ORCAMENTO.desconto);
-                $($INPUT_parcelas_edit).val(ORCAMENTO.numero_parcelas);
-
-                $.each($data.itens, function (i, v) {
-//                console.log(v);
-                    cont++;
-                    $($parent).find('section#tratamentos').append(get_campos(cont, 'edit', v.iditem_orcamento));
-
-                    $this = $($parent).find("select[name='idintervencao[" + cont + "]']");
-                    popula_intervencao(cont, $this);
-                    $($this).select2({width: 'resolve'}).val(v.idintervencao).trigger('change');
-//                popula_valores($this);
-
-                    $this_parent = $($this).parents("div.form-group");
-                    //Região do tratamento
-                    $($this_parent).find("input#regiao").val(v.regiao);
-                    //Valor do tratamento
-                    $($this_parent).find("input#valor").val(v.valor);
-                });
-
-                $parent = $(this).closest('div.x_content').find('section#edit-orcamento');
-                $($parent).toggle("slow");
-                $($parent).next().toggle("slide");
-                atualiza_total('edit');
-            });
 
             $('a.edit-orcamento-cancel').click(function () {
                 $parent = $(this).closest('section#edit-orcamento');
@@ -602,9 +606,14 @@
                                     '<td>' + v.id + '</td>' +
                                     '<td><p class="price-recebido">' + v.valor_formatado + '</p></td>' +
                                     '<td>' + v.data_pagamento_formatado + '</td>' +
-                                    '<td class="td-receber">' +
-                                    '<a target="_blank" href="' + url_imprimir + '" class="btn btn-info btn-xs"><i class="fa fa-print"></i> Recibo</a>' +
-                                    '<a href="' + url_estornar + '" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Estornar</a>';
+                                    '<td class="td-receber">';
+
+                                if (v.recibo_em == null) {
+                                    tabela += '<a target="_blank" href="' + url_imprimir + '" class="btn btn-info btn-xs"><i class="fa fa-print"></i> Recibo</a>';
+                                } else {
+                                    tabela += '<a target="_blank" href="' + url_imprimir + '" class="btn btn-warning btn-xs"><i class="fa fa-print"></i> Reemitir</a>';
+                                }
+                                tabela += '<a href="' + url_estornar + '" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Estornar</a>';
                                 '</td>' +
                                 '</tr>';
                             });
