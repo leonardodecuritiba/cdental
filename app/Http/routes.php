@@ -28,6 +28,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('recebimentos', 'MasterController@recebimentos')->name('recebimentos');
     Route::get('recebimentos/imprimir', 'MasterController@recebimentosExportar')->name('recebimentos.imprimir');
     Route::get('recibos', 'MasterController@recibos')->name('recibos');
+    Route::get('recibos/cancelar/{id}', 'MasterController@recibosCancelar')->name('recibos.cancelar');
+    Route::get('recibos/exportar', 'MasterController@recibosExportar')->name('recebimentos.exportar');
 
 //Ajustes
     Route::resource('planos', 'PlanoController');
@@ -67,6 +69,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('pacientes', 'PacientesController');
     Route::get('pacientes/{idparcela}/{tab}', 'PacientesController@show')->name('pacientes.tab');
     Route::post('documentos/pacientes/store', 'PacientesController@documentosStore')->name('documentos.pacientes.store');
+    Route::delete('documentos/pacientes/destroy/{id}', 'PacientesController@documentosDestroy')->name('documentos.pacientes.destroy');
+    Route::post('imagens/pacientes/store', 'PacientesController@imagensStore')->name('imagens.pacientes.store');
+    
+    Route::delete('imagens/pacientes/destroy/{id}', 'PacientesController@imagensDestroy')->name('imagens.pacientes.destroy');
     Route::get('alertas/{idpaciente}/pacientes', 'PacientesController@alertas_paciente')->name('alertas.pacientes');
 
     Route::resource('documentos', 'DocumentoController');
