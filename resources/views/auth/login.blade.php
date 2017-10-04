@@ -50,7 +50,7 @@
                         @if(env('APP_DEMO'))
                             <div class="form-group">
                                 <p>Email: admin@cdental.com</p>
-                                <p>Senha: 123456</p>
+                                <p>Senha: 123</p>
                             </div>
                         @endif
                         <div class="form-group">
