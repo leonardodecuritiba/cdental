@@ -38,7 +38,7 @@
                 <section class="login_content">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}
-                        <h1>Login</h1>
+                        <h1>Login {{env('APP_ENV')}}</h1>
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
@@ -61,7 +61,7 @@
 
                             <div>
                                 <h1><i class="fa fa-paw"></i> Control-Dental</h1>
-                                <p>©2016 Todos os direitos reservados. Control dental</p>
+                                <p>©{{\Carbon\Carbon::now()}} Todos os direitos reservados. Control dental</p>
                             </div>
                         </div>
                     </form>

@@ -20,7 +20,6 @@ class Contato extends Model
         'cidade',
         'bairro',
         'logradouro',
-        'numero',
         'complemento'
     ];
 
