@@ -38,19 +38,25 @@
                 <section class="login_content">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}
-                        <h1>Login {{env('APP_ENV')}}</h1>
+                        <h1>Login</h1>
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
+                            <input id="email" type="email" class="form-control" name="email" placeholder="Email"
+                                   value="{{ old('email') }}">
                         </div>
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <input type="password" name="password" class="form-control" placeholder="Password" required="" />
                         </div>
+                        @if(env('APP_DEMO'))
+                            <div class="form-group">
+                                <p>Email: admin@cdental.com</p>
+                                <p>Senha: 123456</p>
+                            </div>
+                        @endif
                         <div class="form-group">
                             <button class="btn btn-default submit">Entrar</button>
                         </div>
                         <div class="clearfix"></div>
-
                         <div class="separator">
                             <p class="change_link">Esqueceu a senha?
                                 <a href="#signup" class="to_remember"> Lembrar </a>

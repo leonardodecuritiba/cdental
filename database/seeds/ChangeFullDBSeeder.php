@@ -38,6 +38,32 @@ class ChangeFullDBSeeder extends Seeder {
 			];
 			$dt->update( $data );
 		}
+		$this->command->info( 'Contato complete: in ' . round( ( microtime( true ) - $start ), 3 ) . 's ...' );
+
+		foreach ( \App\Models\Cheque::all() as $dt ) {
+			$data = [
+				'nome'      => $faker->name,
+				'banco'     => $faker->word,
+				'numeracao' => $faker->randomNumber( $nbDigits = 8 ),
+				'destino'   => $faker->word . $faker->randomNumber( $nbDigits = 3 ),
+			];
+			$dt->update( $data );
+		}
+		$this->command->info( 'Cheque complete: in ' . round( ( microtime( true ) - $start ), 3 ) . 's ...' );
+
+		foreach ( \App\Evolucao::all() as $dt ) {
+			$data = [
+				'texto' => $faker->sentence( $nbWords = 6, $variableNbWords = true ),
+			];
+			$dt->update( $data );
+		}
+		$this->command->info( 'Evolucao complete: in ' . round( ( microtime( true ) - $start ), 3 ) . 's ...' );
+		foreach ( \App\Orcamento::all() as $dt ) {
+			$data = [
+				'descricao' => $faker->sentence( $nbWords = 6, $variableNbWords = true ),
+			];
+			$dt->update( $data );
+		}
 
 		$this->command->info( 'ChangeFullDBSeeder complete: in ' . round( ( microtime( true ) - $start ), 3 ) . 's ...' );
 
