@@ -168,12 +168,17 @@ class UserController extends Controller
                 ->withErrors($validator)
                 ->withInput($request->all());
         } else {
-            $User = User::find($id);
-            $User->update([
-                'password' => bcrypt($request->get('password'))
-            ]);
-            session()->forget('mensagem');
-            session(['mensagem' => $this->Page->Target . ' atualizado com sucesso!']);
+	        if ( env( 'APP_DEMO' ) ) {
+		        $msg = $this->Page->Target . ' atualizado com sucesso! Obs: A versão demonstrativa não altera a senha!';
+	        } else {
+		        $msg  = $this->Page->Target . ' atualizado com sucesso!';
+		        $User = User::find( $id );
+		        $User->update( [
+			        'password' => bcrypt( $request->get( 'password' ) )
+		        ] );
+	        }
+	        session()->forget( 'mensagem' );
+	        session( [ 'mensagem' => $msg ] );
             return Redirect::route($this->Page->link.'.edit', ['idusers' => $id]);
         }
     }
