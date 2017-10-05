@@ -265,9 +265,18 @@ class OrcamentoController extends Controller
             'response' => 'Removido com sucesso']);
     }
 
-    public function imprimir($id)
-    {
-        $Orcamento = Orcamento::find($id);
-        return PrintHelper::orcamento($Orcamento);
+    public function imprimir($id) {
+	    $Orcamento = Orcamento::find( $id );
+
+	    return PrintHelper::orcamento( $Orcamento );
     }
+
+	public function sendByEmail( $id ) {
+		$Orcamento = Orcamento::find($id);
+		$msg       = PrintHelper::sendByEmail( $Orcamento );
+		session()->forget( 'mensagem' );
+		session( [ 'mensagem' => $msg ] );
+
+		return redirect()->route( 'pacientes.show', $Orcamento->idpaciente );
+	}
 }

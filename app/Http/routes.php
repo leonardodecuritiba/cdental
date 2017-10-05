@@ -52,6 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('orcamento/aprovar/{idorcamento}', 'OrcamentoController@aprovar')->name('orcamento.aprovar');
     Route::get('remove/item_orcamento/{id}', 'OrcamentoController@destroy_item')->name('item_orcamento.remove');
         Route::get('orcamento/imprimir/{idorcamento}', 'OrcamentoController@imprimir')->name('orcamento.imprimir');
+	Route::get( 'orcamento/enviar/{idorcamento}', 'OrcamentoController@sendByEmail' )->name( 'orcamento.enviar' );
 
 
     Route::post('receber/parcelas', 'PagamentoController@receber')->name('parcelas.receber');

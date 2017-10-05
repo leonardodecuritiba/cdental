@@ -318,6 +318,9 @@
                                 </td>
                                 <td>
                                     <a class="btn btn-default btn-xs"
+                                       href="{{route('orcamento.enviar',$orcamento->idorcamento)}}"><i
+                                                class="fa fa-envelope"></i></a>
+                                    <a class="btn btn-default btn-xs"
                                        target="_blank"
                                        href="{{route('orcamento.imprimir',$orcamento->idorcamento)}}"><i
                                                 class="fa fa-print"></i></a>
