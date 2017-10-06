@@ -205,6 +205,7 @@
 
     {{--ORCAMENTOS--}}
     <script>
+
         var cont = 0;
         var VALOR_TOTAL = 0;
         var VALOR_TOTAL_DESCONTO = 0;
@@ -481,6 +482,7 @@
                 var $modal = $(this);
                 var $loading = $($modal).find('div.modal-content div.loading');
                 var $table_body = $($modal).find('.modal-body table tbody');
+                var table = $($modal).find('.modal-body table').DataTable();
                 $($table_body).empty();
                 var href = $($button).data('href');
                 console.log(href);
@@ -498,19 +500,18 @@
                         var tabela = '';
                         if ($(json).length > 0) {
                             $.each(json, function (i, v) {
-                                tabela += '<tr>' +
-                                    '<td>' + v.idparcela + '</td>' +
-                                    '<td><p class="price-total">' + v.valor_formatado + '</p></td>' +
-                                    '<td><p class="price-recebido">' + v.total_pago_formatado + '</p></td>' +
-                                    '<td><p class="price-pendente">' + v.total_pendente_formatado + '</p></td>' +
-                                    '<td>' + v.data_vencimento +
+
+                                table.row.add([
+                                    v.idparcela,
+                                    '<p class="price-total">' + v.valor_formatado + '</p>',
+                                    '<p class="price-recebido">' + v.total_pago_formatado + '</p>',
+                                    '<p class="price-pendente">' + v.total_pendente_formatado + '</p>',
+                                    v.data_vencimento +
                                     ' <a data-toggle="modal" ' +
                                     'data-idparcela="' + v.idparcela + '"' +
                                     'data-numero="' + v.numero + '"' +
                                     'data-data_vencimento="' + v.data_vencimento + '"' +
-                                    'data-target="#modalAlterarVencimento" class="btn btn-default btn-xs"><i class="fa fa-calendar"></i></a>' +
-                                    '</td>' +
-                                    '<td class="td-receber">' +
+                                    'data-target="#modalAlterarVencimento" class="btn btn-default btn-xs"><i class="fa fa-calendar"></i></a>',
                                     '<a data-toggle="modal" ' +
                                     'data-idparcela="' + v.idparcela + '"' +
                                     'data-numero="' + v.numero + '"' +
@@ -518,14 +519,38 @@
                                     'data-total_pago_formatado="' + v.total_pago_formatado + '"' +
                                     'data-total_pendente_formatado="' + v.total_pendente_formatado + '"' +
                                     'data-data_vencimento="' + v.data_vencimento + '"' +
-                                    'data-target="#modalFormaPgto" class="btn btn-primary btn-xs"><i class="fa fa-money"></i> Receber</a>';
-                                '</td>' +
-                                '</tr>';
+                                    'data-target="#modalFormaPgto" class="btn btn-primary btn-xs"><i class="fa fa-money"></i> Receber</a>'
+
+                                ]).draw();
+
+//                                tabela += '<tr>' +
+//                                    '<td>' + v.idparcela + '</td>' +
+//                                    '<td><p class="price-total">' + v.valor_formatado + '</p></td>' +
+//                                    '<td><p class="price-recebido">' + v.total_pago_formatado + '</p></td>' +
+//                                    '<td><p class="price-pendente">' + v.total_pendente_formatado + '</p></td>' +
+//                                    '<td>' + v.data_vencimento +
+//                                    ' <a data-toggle="modal" ' +
+//                                    'data-idparcela="' + v.idparcela + '"' +
+//                                    'data-numero="' + v.numero + '"' +
+//                                    'data-data_vencimento="' + v.data_vencimento + '"' +
+//                                    'data-target="#modalAlterarVencimento" class="btn btn-default btn-xs"><i class="fa fa-calendar"></i></a>' +
+//                                    '</td>' +
+//                                    '<td class="td-receber">' +
+//                                    '<a data-toggle="modal" ' +
+//                                    'data-idparcela="' + v.idparcela + '"' +
+//                                    'data-numero="' + v.numero + '"' +
+//                                    'data-valor_formatado="' + v.valor_formatado + '"' +
+//                                    'data-total_pago_formatado="' + v.total_pago_formatado + '"' +
+//                                    'data-total_pendente_formatado="' + v.total_pendente_formatado + '"' +
+//                                    'data-data_vencimento="' + v.data_vencimento + '"' +
+//                                    'data-target="#modalFormaPgto" class="btn btn-primary btn-xs"><i class="fa fa-money"></i> Receber</a>';
+//                                '</td>' +
+//                                '</tr>';
                             });
                         } else {
                             tabela += '<tr><td class="text-center" colspan="6">Todas as parcelas já foram pagas!</td></tr>';
                         }
-                        $($table_body).html(tabela);
+//                        $($table_body).html(tabela);
                     }
                 });
             });

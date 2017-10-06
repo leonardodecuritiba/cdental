@@ -21,6 +21,16 @@
                     </thead>
                     <tbody>
                     </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>#</th>
+                        <th>Valor</th>
+                        <th>Pago</th>
+                        <th>Pendente</th>
+                        <th>Vencimento</th>
+                        <th>Ações</th>
+                    </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
