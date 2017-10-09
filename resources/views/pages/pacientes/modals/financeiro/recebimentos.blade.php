@@ -20,6 +20,14 @@
                     </thead>
                     <tbody>
                     </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>#</th>
+                        <th>Valor</th>
+                        <th>Data</th>
+                        <th>Ação</th>
+                    </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

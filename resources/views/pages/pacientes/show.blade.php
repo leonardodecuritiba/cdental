@@ -497,10 +497,8 @@
                     },
                     success: function (json) {
                         console.log(json);
-                        var tabela = '';
                         if ($(json).length > 0) {
                             $.each(json, function (i, v) {
-
                                 table.row.add([
                                     v.idparcela,
                                     '<p class="price-total">' + v.valor_formatado + '</p>',
@@ -522,37 +520,18 @@
                                     'data-target="#modalFormaPgto" class="btn btn-primary btn-xs"><i class="fa fa-money"></i> Receber</a>'
 
                                 ]).draw();
-
-//                                tabela += '<tr>' +
-//                                    '<td>' + v.idparcela + '</td>' +
-//                                    '<td><p class="price-total">' + v.valor_formatado + '</p></td>' +
-//                                    '<td><p class="price-recebido">' + v.total_pago_formatado + '</p></td>' +
-//                                    '<td><p class="price-pendente">' + v.total_pendente_formatado + '</p></td>' +
-//                                    '<td>' + v.data_vencimento +
-//                                    ' <a data-toggle="modal" ' +
-//                                    'data-idparcela="' + v.idparcela + '"' +
-//                                    'data-numero="' + v.numero + '"' +
-//                                    'data-data_vencimento="' + v.data_vencimento + '"' +
-//                                    'data-target="#modalAlterarVencimento" class="btn btn-default btn-xs"><i class="fa fa-calendar"></i></a>' +
-//                                    '</td>' +
-//                                    '<td class="td-receber">' +
-//                                    '<a data-toggle="modal" ' +
-//                                    'data-idparcela="' + v.idparcela + '"' +
-//                                    'data-numero="' + v.numero + '"' +
-//                                    'data-valor_formatado="' + v.valor_formatado + '"' +
-//                                    'data-total_pago_formatado="' + v.total_pago_formatado + '"' +
-//                                    'data-total_pendente_formatado="' + v.total_pendente_formatado + '"' +
-//                                    'data-data_vencimento="' + v.data_vencimento + '"' +
-//                                    'data-target="#modalFormaPgto" class="btn btn-primary btn-xs"><i class="fa fa-money"></i> Receber</a>';
-//                                '</td>' +
-//                                '</tr>';
                             });
                         } else {
-                            tabela += '<tr><td class="text-center" colspan="6">Todas as parcelas já foram pagas!</td></tr>';
+                            $($table_body).html('<tr ><td colspan="6" class="text-center">Todas as parcelas já foram pagas!</td></tr>');
                         }
-//                        $($table_body).html(tabela);
                     }
                 });
+
+            });
+            $($_MODAL_RECEBER_).on('shown.bs.modal', function (event) {
+                var $modal = $(this);
+                var table = $($modal).find('.modal-body table').DataTable();
+                table.responsive.recalc();
             });
 
             //MODAL DA FORMA DE PAGAMENTO
@@ -608,7 +587,7 @@
                 var $modal = $(this);
                 var $loading = $($modal).find('div.modal-content div.loading');
                 var $table_body = $($modal).find('.modal-body table tbody');
-                $($table_body).empty();
+                var table = $($modal).find('.modal-body table').DataTable();
                 var href = $($button).data('href');
                 console.log(href);
                 $.ajax({
@@ -622,37 +601,36 @@
                     },
                     success: function (json) {
                         console.log(json);
-                        var tabela = '';
                         if ($(json).length > 0) {
                             $.each(json, function (i, v) {
                                 var url_imprimir = _URL_IMPRIMIR_PARCELA_PAGAMENTO_.replace('_IDPARCELA_PAGAMENTO_', v.id);
                                 var url_estornar = _URL_ESTORNAR_PARCELA_PAGAMENTO_.replace('_IDPARCELA_PAGAMENTO_', v.id);
-                                tabela += '<tr>' +
-                                    '<td>' + v.id + '</td>' +
-                                    '<td><p class="price-recebido">' + v.valor_formatado + '</p></td>' +
-                                    '<td>' + v.data_pagamento_formatado + '</td>' +
-                                    '<td class="td-receber">';
-
+                                var link = '';
                                 if (v.recibo_em == null) {
-                                    tabela += '<a target="_blank" href="' + url_imprimir + '" class="btn btn-info btn-xs"><i class="fa fa-print"></i> Recibo</a>';
+                                    link = '<a target="_blank" href="' + url_imprimir + '" class="btn btn-info btn-xs"><i class="fa fa-print"></i> Recibo</a>';
                                 } else {
-                                    tabela += '<a target="_blank" href="' + url_imprimir + '" class="btn btn-warning btn-xs"><i class="fa fa-print"></i> Reemitir</a>';
+                                    link = '<a target="_blank" href="' + url_imprimir + '" class="btn btn-warning btn-xs"><i class="fa fa-print"></i> Reemitir</a>';
                                 }
-                                tabela += '<a href="' + url_estornar + '" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Estornar</a>';
-                                '</td>' +
-                                '</tr>';
+                                table.row.add([
+                                    v.id,
+                                    '<p class="price-recebido">' + v.valor_formatado + '</p>',
+                                    v.data_pagamento_formatado,
+                                    link,
+                                    '<a href="' + url_estornar + '" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Estornar</a>'
+                                ]).draw();
                             });
                         } else {
-                            tabela += '<tr><td class="text-center" colspan="4">Não há nenhum recebimento!</td></tr>';
+                            $($table_body).html('<tr ><td colspan="4" class="text-center">Não há nenhum recebimento!</td></tr>');
                         }
-                        $($table_body).html(tabela);
-                        $($loading).hide();
                     }
                 });
-
-
             });
 
+            $($_MODAL_RECEBIMENTOS_).on('shown.bs.modal', function (event) {
+                var $modal = $(this);
+                var table = $($modal).find('.modal-body table').DataTable();
+                table.responsive.recalc();
+            });
 
             {{--//MODAL RECIBO--}}
             {{--$($_MODAL_RECIBO_).on('show.bs.modal', function (event) {--}}
