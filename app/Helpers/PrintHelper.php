@@ -70,13 +70,13 @@ class PrintHelper {
 
 		$filename = 'orcamento-' . $hora . '.pdf';
 		$filePath = '';//'../app/storage/';
-
 		$pdf->save( $filePath . $filename );
-
-
 		$mailAttachment = $filePath . $filename;
-		Mail::raw( 'Segue orçamento.', function ( $message ) use ( $mailAttachment, $paciente ) {
-			$message->to( $paciente->contato->email, $paciente->nome )->subject( 'Orçamento Odontológico!' );
+		$msg            = "Este email é automático e não deve ser respondido.
+		\nPara respostas utilizar o vinicius@drviniciussilva.com.br";
+
+		Mail::raw( $msg, function ( $message ) use ( $mailAttachment, $paciente ) {
+			$message->to( $paciente->email, $paciente->nome )->subject( 'Orçamento Odontológico!' );
 			$message->attach( $mailAttachment );
 
 		} );
