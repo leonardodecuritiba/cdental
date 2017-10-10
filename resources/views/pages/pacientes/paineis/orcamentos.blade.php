@@ -328,8 +328,9 @@
                                         <a href="{{route('orcamento.aprovar',$orcamento->idorcamento)}}"
                                            class="btn btn-aprovar btn-default btn-xs"><i
                                                     class="fa fa-thumbs-o-up"></i> Aprovar</a>
-                                        <a class="btn btn-info btn-xs edit-orcamento"
-                                           data-dados="{{$orcamento}}"
+                                        <a class="btn btn-info btn-xs"
+                                           onclick="edit_orcamento(this)"
+                                           data-dados='{{$orcamento}}'
                                            data-valor_entrada="{{$orcamento->valor_entrada_float()}}"
                                            data-itens="{{$orcamento->itens_orcamento}}"><i
                                                     class="fa fa-pencil"></i></a>
