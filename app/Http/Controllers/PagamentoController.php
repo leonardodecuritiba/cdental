@@ -30,39 +30,6 @@ class PagamentoController extends Controller
             'Titulo'    => 'Orçamento',
             'funcao'    => 'index'];
     }
-    /*
-    public function update(Request $request)
-    {
-        $data=Orcamento::find($request['idconsulta']);
-        $validator = Validator::make($request->all(), [
-            'idpaciente'     => 'required',
-            'dia_inteiro'    => 'required',
-            'data_consulta'  => 'required',
-            'tipo_consulta'  => 'required',
-        ]);
-
-        if ($validator->fails())
-        {
-            return redirect('agenda')
-                ->withErrors($validator)
-                ->withInput();
-        } else {
-
-            //atualizar intervencao
-            $dataUpdate = $request->all();
-
-            if($dataUpdate['dia_inteiro']){
-                $dataUpdate["hora_inicio"] = '00:00';
-                $dataUpdate["hora_termino"] = '23:59';
-            }
-//            return $dataUpdate;
-            $data->update($dataUpdate);
-            session()->forget('mensagem');
-            session(['mensagem' => $this->Page->Target.' atualizada!']);
-            return redirect('agenda');
-        }
-    }
-    */
     public function store(Request $request)
     {
         $idpaciente = $request->get('idpaciente');
@@ -134,7 +101,7 @@ class PagamentoController extends Controller
 
     public function imprimir($id)
     {
-        return PrintHelper::recibo(ParcelaPagamento::findOrFail($id));
+	    return PrintHelper::recibo( ParcelaPagamento::gerarRecibo( $id ) );
     }
 
     public function estornar($idparcela_pagamento)

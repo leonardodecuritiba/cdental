@@ -61,6 +61,7 @@ class PrintHelper {
 
 	static public function sendByEmail( Orcamento $orcamento ) {
 		$paciente = $orcamento->paciente;
+		$Clinica  = Clinica::first();
 		$pdf      = PDF::loadView( 'print.orcamento', [
 			'paciente'  => $paciente,
 			'clinica'   => Clinica::find( 1 ),
@@ -75,8 +76,8 @@ class PrintHelper {
 		$msg            = "Este email é automático e não deve ser respondido.
 		\nPara respostas utilizar o vinicius@drviniciussilva.com.br";
 
-		Mail::raw( $msg, function ( $message ) use ( $mailAttachment, $paciente ) {
-			$message->to( $paciente->email, $paciente->nome )->subject( 'Orçamento Odontológico!' );
+		Mail::raw( $msg, function ( $message ) use ( $mailAttachment, $paciente, $Clinica ) {
+			$message->to( $paciente->email, $paciente->nome )->subject( $Clinica->nome );
 			$message->attach( $mailAttachment );
 
 		} );

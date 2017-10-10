@@ -2,8 +2,9 @@
 
 namespace App;
 
-use App\Helpers\DataHelper;
+use  App\Helpers\DataHelper;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class ParcelaPagamento extends Model
 {
@@ -13,12 +14,22 @@ class ParcelaPagamento extends Model
         'idparcela',
         'idtipo_pagamento',
         'data_pagamento',
+	    'recibo_em',
         'valor'
     ];
 
 
     // ******************** BELONGSTO ****************************
     // Relação ParcelaPagamento - 1 <-> N - parcela.
+	static public function gerarRecibo( $id ) {
+		$self = self::findOrFail( $id );
+		$self->update( [
+			'recibo_em' => Carbon::now()
+		] );
+
+		return $self;
+	}
+
     static public function filter($data)
     {
         //buscando a partir dos orçamentos

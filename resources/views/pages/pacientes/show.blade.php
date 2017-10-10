@@ -483,6 +483,9 @@
                 var $loading = $($modal).find('div.modal-content div.loading');
                 var $table_body = $($modal).find('.modal-body table tbody');
                 var table = $($modal).find('.modal-body table').DataTable();
+                table
+                    .clear()
+                    .draw();
                 $($table_body).empty();
                 var href = $($button).data('href');
                 console.log(href);
@@ -588,6 +591,9 @@
                 var $loading = $($modal).find('div.modal-content div.loading');
                 var $table_body = $($modal).find('.modal-body table tbody');
                 var table = $($modal).find('.modal-body table').DataTable();
+                table
+                    .clear()
+                    .draw();
                 var href = $($button).data('href');
                 console.log(href);
                 $.ajax({
@@ -615,8 +621,7 @@
                                     v.id,
                                     '<p class="price-recebido">' + v.valor_formatado + '</p>',
                                     v.data_pagamento_formatado,
-                                    link,
-                                    '<a href="' + url_estornar + '" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Estornar</a>'
+                                    link + ' <a href="' + url_estornar + '" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Estornar</a>'
                                 ]).draw();
                             });
                         } else {
