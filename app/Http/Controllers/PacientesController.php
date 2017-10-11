@@ -7,6 +7,7 @@ use App\Helpers\ImageHelper;
 use App\Helpers\PrintHelper;
 use App\Intervencao;
 use App\Orcamento;
+use App\PacienteImages;
 use App\Pagamento;
 use App\Anamnese;
 use App\Contato;
@@ -82,34 +83,52 @@ class PacientesController extends Controller
             ->with('Page', $this->Page);
     }
 
-    public function documentosStore(Request $request)
+	public function imagensStore( Request $request )
     {
-        $Documentos = new DocumentoController();
-        return $Documentos->store($request);
+	    $rules      = array(
+		    'file' => 'image|max:3000',
+	    );
+	    $validation = Validator::make( $request->all(), $rules );
+	    if ( $validation->fails() ) {
+		    return Response::make( $validation->errors->first(), 400 );
+	    }
 
-//        return $request->file;
-        return $input['idpaciente'];
-        $rules = array(
-            'file' => 'image|max:3000',
-        );
+	    $file           = $request->file( 'upload' );
+	    $img            = new ImageHelper();
+	    $upload_success = $img->store( $file, PacienteImages::DEFAULT_PATH );
 
-        $validation = Validator::make($input, $rules);
+	    PacienteImages::create( [
+		    'idprofissional_criador' => $this->idprofissional_criador,
+		    'idpaciente'             => $request->get( 'idpaciente' ),
+		    'titulo'                 => $request->get( 'titulo' ),
+		    'descricao'              => $request->get( 'descricao' ),
+		    'link'                   => $upload_success
+	    ] );
+	    session()->forget( 'mensagem' );
+	    session( [ 'mensagem' => utf8_encode( 'Imagem do paciente adicionada com sucesso!' ) ] );
 
-        if ($validation->fails()) {
-            return Response::make($validation->errors->first(), 400);
-        }
-
-        $file = Input::file('file');
-
-        $img = new ImageHelper();
-        $upload_success = $img->store($file, 'documentos');
-        return $upload_success;
-        if ($upload_success > 0) {
-            return Response::json('success', 200);
-        } else {
-            return Response::json('error', 400);
-        }
+	    return Redirect::route( 'pacientes.show', $request->get( 'idpaciente' ) );
     }
+
+	public function imagensDestroy( Request $request, $id ) {
+		$Image      = PacienteImages::findOrFail( $id );
+		$idpaciente = $Image->idpaciente;
+		$img        = new ImageHelper();
+		$img->remove( $Image->link, PacienteImages::DEFAULT_PATH );
+		$Image->delete();
+		session()->forget( 'mensagem' );
+		session( [ 'mensagem' => utf8_encode( 'Imagem do paciente removida com sucesso!' ) ] );
+
+		return Redirect::route( 'pacientes.show', $idpaciente );
+	}
+
+	public function documentosStore( Request $request ) {
+		return 1;
+	}
+
+	public function documentosDestroy( Request $request ) {
+		return 1;
+	}
 
     public function store(Request $request)
     {

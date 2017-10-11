@@ -100,7 +100,7 @@
                                        href="{{$selecao->getLink()}}"><i class="fa fa-eye"></i> Abrir</a>
                                     <a class="btn btn-danger btn-xs"
                                        data-nome="Documento #{{$selecao->id}}"
-                                       data-href="{{route('documentos.pacientes.destroy',$selecao->id)}}"
+                                       data-href="{{route('imagens.pacientes.destroy',$selecao->id)}}"
                                        data-toggle="modal"
                                        data-target="#modalExclusao"><i class="fa fa-trash-o fa-sm"></i> Excluir </a>
                                 </td>

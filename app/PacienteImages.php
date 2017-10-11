@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PacienteImages extends Model
 {
+	const DEFAULT_PATH = 'paciente_images';
     protected $fillable = [
         'idprofissional_criador',
         'idpaciente',
@@ -18,12 +19,12 @@ class PacienteImages extends Model
     // ******************** FUNCTIONS ****************************
     public function getLink()
     {
-        return asset('uploads/paciente_images/' . $this->attributes['link']);
+	    return asset( 'uploads/' . self::DEFAULT_PATH . '/' . $this->attributes['link'] );
     }
 
     public function getDocumentoThumb()
     {
-        return ImageHelper::getFullPath('paciente_images') . $this->attributes['link'];
+	    return ImageHelper::getFullPath( self::DEFAULT_PATH ) . $this->attributes['link'];
     }
     // ******************** BELONGSTO ****************************
     // Relação orcamento - 1 <-> 1 - pagamento.

@@ -72,9 +72,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('documentos/pacientes/store', 'PacientesController@documentosStore')->name('documentos.pacientes.store');
     Route::delete('documentos/pacientes/destroy/{id}', 'PacientesController@documentosDestroy')->name('documentos.pacientes.destroy');
     Route::post('imagens/pacientes/store', 'PacientesController@imagensStore')->name('imagens.pacientes.store');
-    
     Route::delete('imagens/pacientes/destroy/{id}', 'PacientesController@imagensDestroy')->name('imagens.pacientes.destroy');
-    Route::get('alertas/{idpaciente}/pacientes', 'PacientesController@alertas_paciente')->name('alertas.pacientes');
+
+	Route::get('alertas/{idpaciente}/pacientes', 'PacientesController@alertas_paciente')->name('alertas.pacientes');
 
     Route::resource('documentos', 'DocumentoController');
 
