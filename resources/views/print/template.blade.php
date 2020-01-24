@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
+<html><head>
         <meta charset="UTF-8">
         <title>Title</title>
         <style type="text/css">
@@ -93,10 +92,8 @@
             }
         </style>
         @yield('style_content')
-    </head>
-    <body>
+    </head><body>
         @yield('body_content')
-    </body>
-</html>
+    </body></html>
 <style>
 </style>

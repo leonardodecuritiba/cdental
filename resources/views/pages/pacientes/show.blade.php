@@ -20,6 +20,7 @@
 @endsection
 @section('modal_content')
     @include('layouts.modals.exclui')
+    @include('layouts.modals.modalRetorno')
     @include('pages.pacientes.modals.financeiro.forma_pagamento')
     @include('pages.pacientes.modals.financeiro.receber')
     @include('pages.pacientes.modals.financeiro.recibo')
@@ -124,6 +125,17 @@
 
     <!-- dropzone -->
     {!! Html::script('vendors/dropzone/dist/min/dropzone.min.js') !!}
+
+    {{--Retorno--}}
+    <script>
+        $(document).ready(function () {
+            $('div#modalRetorno').on('show.bs.modal', function(e) {
+                $origem = $(e.relatedTarget);
+                idpaciente_ = $($origem).data('idpaciente');
+                $(this).find('.modal-body input#idpaciente').val(idpaciente_);
+            });
+        });
+    </script>
 
     {{--Alertas--}}
     <script>

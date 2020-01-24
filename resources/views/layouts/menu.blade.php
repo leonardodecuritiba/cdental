@@ -24,19 +24,10 @@
                 <h3>. . . . . . . . . . . . . . . . . . . . . . . . . . . </h3>
                 <ul class="nav side-menu">
                     <li><a href="{{ url('/') }}"><i class="fa fa-desktop"></i>Painel de controle</a></li>
-                    {{--<li><a><i class="fa fa-print"></i>Impressos <span class="fa fa-chevron-down"></span></a>--}}
-                        {{--<ul class="nav child_menu" style="display: none">--}}
-                            {{--@role('profissional')--}}
-                            {{--<li><a href="{{ route('documentos.create') }}">Cadastrar Impresso</a></li>--}}
-                            {{--@endrole--}}
-                            {{--<li><a href="{{ route('documentos.index') }}">Visualizar Impressos</a></li>--}}
-                        {{--</ul>--}}
-                    {{--</li>--}}
-                    {{--<li><a href="#"><i class="fa fa-key"></i>Segurança</a></li>--}}
                     <li><a><i class="fa fa-user"></i>Pacientes <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu" style="display: none">
                             @role(['profissional','dentista','equipe'])
-                                <li><a href="{{ route('pacientes.create') }}">Cadastrar pacientes</a></li>
+                            <li><a href="{{ route('pacientes.create') }}">Cadastrar pacientes</a></li>
                             @endrole
                             <li><a href="{{ route('pacientes.index') }}">Visualizar pacientes</a></li>
                         </ul>
@@ -53,7 +44,7 @@
                     <li><a><i class="fa fa-money"></i>Financeiro <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu" style="display: none">
                             <li><a href="{{route('recebimentos')}}"> Recebimentos</a>
-                            {{--                            <li><a href="{{route('recibos')}}"> Recibos Emitidos</a>--}}
+                            <li><a href="{{route('recibos')}}"> Recibos Emitidos</a>
                             <li><a href="{{route('cheques.index')}}"> Cheques</a>
                             <li><a href="{{route('valores.index','receitas')}}"> Receitas</a>
                             <li><a href="{{route('valores.index','despesas')}}"> Despesas</a>
@@ -61,38 +52,22 @@
                     </li>
                     @endrole
                     @role('profissional')
-                        <li><a><i class="fa fa-cog"></i> Ajustes <span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu" style="display: none">
-                                <li><a href="{{ url('intervencoes') }}">Intervenções</a></li>
-                                <li><a href="{{ url('planos') }}">Planos</a></li>
-                                <li><a href="{{ url('caixas') }}">Caixas</a></li>
-                                <li><a href="{{ url('anamneses') }}">Anamnese</a></li>
-                                <li><a href="{{ route('usuarios.index') }}">Equipe</a></li>
-                                <li><a href="{{ route('backups.index') }}">Backup</a></li>
-                            </ul>
-                        </li>
+                    <li><a><i class="fa fa-cog"></i> Ajustes <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu" style="display: none">
+                            <li><a href="{{ url('intervencoes') }}">Intervenções</a></li>
+                            <li><a href="{{ url('planos') }}">Planos</a></li>
+                            <li><a href="{{ url('caixas') }}">Caixas</a></li>
+                            <li><a href="{{ url('anamneses') }}">Anamnese</a></li>
+                            <li><a href="{{ route('usuarios.index') }}">Equipe</a></li>
+                            <li><a href="{{ route('backups.index') }}">Backup</a></li>
+                        </ul>
+                    </li>
                     @endrole
                 </ul>
             </div>
         </div>
         <!-- /sidebar menu -->
 
-        <!-- /menu footer buttons -->
-        {{--<div class="sidebar-footer hidden-small">--}}
-            {{--<a data-toggle="tooltip" data-placement="top" title="Conta">--}}
-                {{--<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>--}}
-            {{--</a>--}}
-            {{--<a data-toggle="tooltip" data-placement="top" title="FullScreen">--}}
-                {{--<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>--}}
-            {{--</a>--}}
-            {{--<a data-toggle="tooltip" data-placement="top" title="Lock">--}}
-                {{--<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>--}}
-            {{--</a>--}}
-            {{--<a data-toggle="tooltip" data-placement="top" title="Sair">--}}
-                {{--<span class="glyphicon glyphicon-off" aria-hidden="true"></span>--}}
-            {{--</a>--}}
-        {{--</div>--}}
-        <!-- /menu footer buttons -->
     </div>
 </div>
 <!-- top navigation -->
@@ -114,7 +89,7 @@
                         <li><a href="{{ route('usuarios.edit',Auth::user()->idusers) }}"> Perfil</a></li>
                         <li><a href="{{ url('clinica') }}"><span>Clínica</span></a></li>
                         <li><a href="{{ url('logout') }}"> <span class="badge bg-red pull-right"><i
-                            class="fa fa-sign-out pull-right"></i></span>Sair</a></li>
+                                            class="fa fa-sign-out pull-right"></i></span>Sair</a></li>
                     </ul>
                 </li>
                 <li role="presentation" class="dropdown">

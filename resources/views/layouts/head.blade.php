@@ -28,6 +28,15 @@
 <![endif]-->
 
 <style>
+    body, .left_col, .nav_title{
+        background: #635194;
+    }
+    .nav.side-menu>li.active>a {
+        background: linear-gradient(#403356, #3d2c57),#3a2a54;
+    }
+    .nav-md ul.nav.child_menu li:before {
+        background: #403356;
+    }
     .daterangepicker {
         position: absolute;
         z-index: 9999999;

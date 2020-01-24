@@ -20,8 +20,8 @@
                             <thead>
                             <tr>
                                 <th>Paciente</th>
-                                <th>Telefone/Celular</th>
                                 <th>Data/Hora</th>
+                                <th>Telefone/Celular</th>
                                 <th>Ações</th>
                             </tr>
                             </thead>
@@ -69,8 +69,8 @@
                             <thead>
                             <tr>
                                 <th>Paciente</th>
-                                <th>Celular/Telefone</th>
                                 <th>Data/Hora</th>
+                                <th>Celular/Telefone</th>
                                 <th>Ações</th>
                             </tr>
                             </thead>
@@ -122,8 +122,8 @@
                             <thead>
                             <tr>
                                 <th>Paciente</th>
-                                <th>Telefone/Celular</th>
                                 <th>Data</th>
+                                <th>Telefone/Celular</th>
                                 <th>Ações</th>
                             </tr>
                             </thead>

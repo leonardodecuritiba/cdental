@@ -42,6 +42,12 @@
            data-href="{{route(strtolower($Page->link).'.destroy',$Paciente->idpaciente)}}"
            data-toggle="modal"
            data-target="#modalExclusao"><i class="fa fa-trash-o fa-sm"></i> Remover</a>
+        <button type="button" class="btn btn-info btn-xs add-retorno"
+                data-idpaciente="{{$Paciente->idpaciente}}"
+                data-toggle="modal"
+                data-target="#modalRetorno">
+            <i class="fa fa-plus"></i> Agendar retorno
+        </button>
     </li>
 </ul>
 @if($Paciente->has_evolucao())
