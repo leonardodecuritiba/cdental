@@ -49,8 +49,8 @@
                         </div>
                         @if(env('APP_DEMO'))
                             <div class="form-group">
-                                <p>Email: admin@teste.com</p>
-                                <p>Senha: 123</p>
+                                <h2 class="red">email: admin@teste.com</h2>
+                                <h2 class="red">senha: 123</h2>
                             </div>
                         @endif
                         <div class="form-group">
