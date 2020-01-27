@@ -49,7 +49,7 @@
                         </div>
                         @if(env('APP_DEMO'))
                             <div class="form-group">
-                                <p>Email: admin@cdental.com</p>
+                                <p>Email: admin@teste.com</p>
                                 <p>Senha: 123</p>
                             </div>
                         @endif
