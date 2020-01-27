@@ -31,44 +31,6 @@ class OrcamentoController extends Controller
             'funcao'    => 'index'];
     }
 
-    /*
-    public function index(Request $request)
-    {
-        $this->Page->Titulo = "Busca de Intervenções";
-        if(isset($request['busca'])){
-            $busca = $request['busca'];
-            $Buscas = Intervencao::where('nome', 'like', '%'.$busca.'%')
-                ->orderBy('nome','ASC')
-                ->get();
-        } else {
-            $Buscas = Intervencao::orderBy('nome','ASC')->get();
-        }
-
-        return view('pages.ajustes.'.$this->Page->link.'.index')
-            ->with('Buscas', $Buscas)
-            ->with('Page', $this->Page);
-    }
-
-    public function create()
-    {
-        $this->Page->Titulo = "Cadastro de Intervenções";
-        $this->Page->funcao = "create";
-        return view('pages.ajustes.'.$this->Page->link.'.master')
-            ->with('Page', $this->Page);
-    }
-
-    public function edit($id)
-    {
-        $Intervencao = Intervencao::find($id);
-        $this->Page->Titulo = "Edição de Intervenção";
-        $this->Page->funcao = "edit";
-        return view('pages.ajustes.'.$this->Page->link.'.master')
-            ->with('Intervencao', $Intervencao)
-            ->with('Page', $this->Page);
-    }
-
-    */
-
     public function store(Request $request)
     {
         $idpaciente = $request->get('idpaciente');
@@ -267,6 +229,7 @@ class OrcamentoController extends Controller
 
     public function imprimir($id) {
 	    $Orcamento = Orcamento::find( $id );
+//	    return $Orcamento;
 
 	    return PrintHelper::orcamento( $Orcamento );
     }

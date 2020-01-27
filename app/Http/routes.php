@@ -29,7 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('recebimentos/imprimir', 'MasterController@recebimentosExportar')->name('recebimentos.imprimir');
     Route::get('recibos', 'MasterController@recibos')->name('recibos');
     Route::get('recibos/cancelar/{id}', 'MasterController@recibosCancelar')->name('recibos.cancelar');
-    Route::get('recibos/exportar', 'MasterController@recibosExportar')->name('recebimentos.exportar');
+    Route::get('recibos/imprimir', 'MasterController@recibosExportar')->name('recibos.imprimir');
 
 //Ajustes
     Route::resource('planos', 'PlanoController');

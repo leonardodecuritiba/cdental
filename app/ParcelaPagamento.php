@@ -18,6 +18,11 @@ class ParcelaPagamento extends Model
         'valor'
     ];
 
+    protected $appends = [
+        'recibo_em_f'
+    ];
+
+
 
     // ******************** BELONGSTO ****************************
     // Relação ParcelaPagamento - 1 <-> N - parcela.
@@ -46,6 +51,7 @@ class ParcelaPagamento extends Model
             $queryPacientes->where('idpaciente', $data['idpaciente']);
         }
 
+
         $query->whereIn('idpaciente', $queryPacientes->pluck('idpaciente'));
 
         //filtro profissionais
@@ -64,6 +70,11 @@ class ParcelaPagamento extends Model
                 DataHelper::setDateToDateTime($data['data_inicial']),
                 DataHelper::setDateToDateTime($data['data_final'])
             ]);
+        }
+
+        //filtro recbidos gerados
+        if (isset($data['emitidas']) && ($data['emitidas'] != '')) {
+            $query->whereNotNull('recibo_em');
         }
 
         return $query->get();
@@ -88,7 +99,8 @@ class ParcelaPagamento extends Model
     {
         $ParcelaPagamento = self::find($id);
         $ParcelaPagamento->delete();
-        return $Parcela = $ParcelaPagamento->parcela;
+        $Parcela = $ParcelaPagamento->parcela;
+        return $Parcela;
     }
 
     static public function parcelasPagas($idparcelas)
@@ -100,6 +112,11 @@ class ParcelaPagamento extends Model
         });;
     }
 
+
+    public function getReciboEmFAttribute()
+    {
+        return DataHelper::getPrettyDateTime($this->attributes['recibo_em']);
+    }
 
     public function valor_extenso()
     {

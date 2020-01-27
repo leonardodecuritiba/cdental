@@ -188,7 +188,6 @@ class MasterController extends Controller
 
     public function recibosExportar(Request $request, ExcelFile $export)
     {
-        return $request->all();
         $request->merge(['emitidas' => true]);
         $ParcelaPagamentos = ParcelaPagamento::filter($request->all());
         return $export->sheet('sheetName', function ($sheet) use ($ParcelaPagamentos) {
@@ -200,6 +199,7 @@ class MasterController extends Controller
                 'Tratamento',
                 'Valor',
                 'Responsável',
+                'Emitido em',
             ); //porcentagem
 
             $sheet->row(1, $dados);
@@ -212,7 +212,8 @@ class MasterController extends Controller
                     $recebimento->paciente()->cpf,
                     $recebimento->orcamento()->descricao,
                     $recebimento->getValorReal(),
-                    $recebimento->profissional()->nome
+                    $recebimento->profissional()->nome,
+                    $recebimento->recibo_em_f
                 ));
                 $i++;
             }

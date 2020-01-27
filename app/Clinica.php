@@ -24,8 +24,14 @@ class Clinica extends Model
         return ($this->foto != NULL) ? ImageHelper::getFullPath('ajustes') . $this->foto : asset('imgs/empresa.png');
     }
 
+    public function getFotoPrint()
+    {
+        return public_path(($this->foto != NULL) ? 'ajustes/' . $this->foto  : 'imgs/empresa.png');
+    }
+
     public function getImpressoOrcamentoPath()
     {
+        return public_path('imgs/impresso_orcamento.jpg');
         return asset('imgs/impresso_orcamento.jpg');
     }
 

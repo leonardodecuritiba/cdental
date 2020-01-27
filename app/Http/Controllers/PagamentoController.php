@@ -101,6 +101,7 @@ class PagamentoController extends Controller
 
     public function imprimir($id)
     {
+
 	    return PrintHelper::recibo( ParcelaPagamento::gerarRecibo( $id ) );
     }
 

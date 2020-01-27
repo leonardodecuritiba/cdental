@@ -10,12 +10,11 @@ use App\Parcela;
 use App\ParcelaPagamento;
 use App\Resposta;
 use Carbon\Carbon;
-//use \niklasravnsborg\LaravelPdf\Facades\PDF as PDF;
 use \Barryvdh\DomPDF\Facade as PDF;
 class PrintHelper {
 
 	static public function recibo(ParcelaPagamento $ParcelaPagamento) {
-		return view('print.recibo')->with('ParcelaPagamento', $ParcelaPagamento)->with('clinica', Clinica::find(1));
+//		return view('print.recibo')->with('ParcelaPagamento', $ParcelaPagamento)->with('clinica', Clinica::find(1));
 		$pdf      = PDF::loadView('print.recibo',[ 'ParcelaPagamento' =>$ParcelaPagamento, 'clinica'=>Clinica::find(1)]);
 		$hora     = Carbon::now()->format('HidmY');
 		$filename = 'recibo-'.$hora;
@@ -47,14 +46,18 @@ class PrintHelper {
 
 	static public function orcamento(Orcamento $orcamento) {
 		$paciente = $orcamento->paciente;
-//        return view('print.prontuario')->with('paciente',$paciente);
-		$pdf      = PDF::loadView( 'print.orcamento', [
+		$clinica =  Clinica::find( 1 );
+//        view('print.orcamento')
+//            ->with('paciente',$paciente)
+//            ->with('clinica',$clinica)
+//            ->with('orcamento',$orcamento);
+         $pdf      = PDF::loadView( 'print.orcamento', [
 			'paciente'  => $paciente,
-			'clinica'   => Clinica::find( 1 ),
+			'clinica'   => $clinica,
 			'orcamento' => $orcamento
 		] );
 		$hora     = Carbon::now()->format( 'HidmY' );
-		$filename = 'orcamento-' . $paciente->nome . '-' . $paciente->idpaciente . '-' . $hora;
+		$filename = 'orcamento-' . str_slug($paciente->nome) . '-' . $paciente->idpaciente . '-' . $hora;
 
 		return $pdf->stream( $filename . '.pdf' );
 	}

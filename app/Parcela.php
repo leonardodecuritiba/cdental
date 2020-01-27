@@ -19,7 +19,6 @@ class Parcela extends Model
         'data_pagamento',
         'valor'
     ];
-
     // ******************** FUNCTIONS ****************************
     static public function getFromPagamento($ids)
     {
@@ -71,15 +70,6 @@ class Parcela extends Model
         return $Parcela;
     }
 
-    static public function alterarVencimento($data)
-    {
-        $Parcela = self::find($data['idparcela']);
-        $Parcela->update([
-            'data_vencimento' => DataHelper::setDate($data['data_vencimento']),
-        ]);
-        return $Parcela;
-    }
-
     static public function estornar($idparcela_pagamento)
     {
         $Parcela = ParcelaPagamento::estornar($idparcela_pagamento);
@@ -95,6 +85,15 @@ class Parcela extends Model
             ];
         }
         $Parcela->update($update);
+        return $Parcela;
+    }
+
+    static public function alterarVencimento($data)
+    {
+        $Parcela = self::find($data['idparcela']);
+        $Parcela->update([
+            'data_vencimento' => DataHelper::setDate($data['data_vencimento']),
+        ]);
         return $Parcela;
     }
 
@@ -177,10 +176,6 @@ class Parcela extends Model
 	
 	// ******************** HASONE ******************************
 	// Relação parcela - 1 <-> 1 - recibo.
-    public function recibo()
-    {
-        return $this->hasOne('App\Recibo', 'idrecibo');
-    }
     public function parcela_pagamentos()
     {
         return $this->hasMany('App\ParcelaPagamento', 'idparcela');
