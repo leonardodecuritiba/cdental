@@ -90,21 +90,13 @@
     {!! Html::script('js/editor/external/google-code-prettify/prettify.js') !!}
     <!-- select2 -->
     <!-- form validation -->
-    {!! Html::script('js/parsley/parsley.min.js') !!}
+    @include('helpers.parseleyjs.foot')
     <!-- textarea resize -->
 
 
     <!-- Select2 -->
     {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>--}}
-    {!! Html::script('vendors/select2/dist/js/select2.min.js') !!}
-
-    <!-- Select2 -->
-    <script>
-        $(document).ready(function() {
-            $(".select2").select2({ width: 'resolve' });
-        });
-    </script>
-    <!-- /Select2 -->
+    @include('helpers.select2.foot')
 
     <!-- Datatables -->
     @include('helpers.datatables.foot')
@@ -112,7 +104,7 @@
         $(document).ready(function () {
             $('.dt-responsive').DataTable(
                 {
-                    "language": language_pt_br,
+                    "language": "cdn.datatables.net/plug-ins/1.10.20/i18n/Portuguese-Brasil.json",
                     "pageLength": 10,
                     "bLengthChange": false, //used to hide the property
                     "bFilter": false,

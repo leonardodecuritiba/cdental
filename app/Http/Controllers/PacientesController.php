@@ -40,7 +40,7 @@ class PacientesController extends Controller
             $this->Empresa = (Auth::user()->empresa == "")?'*':Auth::user()->empresa;
         }
         */
-        $this->idprofissional_criador = Auth::user()->profissional->idprofissional;
+
         $this->Page = (object)[
             'link'              => "pacientes",
             'Target'            => "Paciente",
@@ -160,7 +160,7 @@ class PacientesController extends Controller
 
 
             $data['idcontato'] = $Contato->idcontato;
-            $data['idprofissional_criador'] = $this->idprofissional_criador;
+            $data['idprofissional_criador'] = Auth::user()->profissional->idprofissional;
             $Paciente = Paciente::create($data);
 
             session()->forget('mensagem');

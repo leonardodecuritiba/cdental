@@ -22,7 +22,7 @@ class PagamentoController extends Controller
     protected $Page;
     public function __construct()
     {
-        $this->idprofissional_criador = Auth::user()->profissional->idprofissional;
+
         $this->Page = (object)[
             'link'      => 'orcamentos',
             'Targets'   => 'Orçamentos',

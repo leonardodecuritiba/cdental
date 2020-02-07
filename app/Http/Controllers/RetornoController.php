@@ -13,7 +13,7 @@ class RetornoController extends Controller
     protected $Page;
     public function __construct()
     {
-        $this->idprofissional_criador = Auth::user()->profissional->idprofissional;
+
         $this->Page = (object)[
             'link'      => 'retornos',
             'Targets'   => 'Retornos',
@@ -91,7 +91,7 @@ class RetornoController extends Controller
     {
         $idpaciente = $request->get('idpaciente');
         $data = $request->all();
-        $data['idprofissional_criador'] = $this->idprofissional_criador;
+        $data['idprofissional_criador'] = Auth::user()->profissional->idprofissional;
         $Retorno = Retorno::create($data);
         session()->forget('mensagem');
         session(['mensagem' => $this->Page->Target . ' cadastrado!']);

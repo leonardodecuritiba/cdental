@@ -21,7 +21,7 @@ class RespostaController extends Controller
     public $tipo_respostas;
     public function __construct()
     {
-        $this->idprofissional_criador = Auth::user()->profissional->idprofissional;
+
         $this->Page = (object)[
             'link'      => 'respostas',
             'Targets'   => 'Respostas',
@@ -100,7 +100,7 @@ class RespostaController extends Controller
                 ->withInput();
         } else {
             $data = $request->all();
-            $data['idprofissional_criador'] = $this->idprofissional_criador;
+            $data['idprofissional_criador'] = Auth::user()->profissional->idprofissional;
             $Pergunta = Pergunta::create($data);
             session()->forget('mensagem');
             session(['mensagem' => $this->Page->Target . ' cadastrada!']);

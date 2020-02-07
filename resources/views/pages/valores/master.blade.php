@@ -41,5 +41,5 @@
 @endsection
 @section('scripts_content')
     <!-- form validation -->
-    {!! Html::script('js/parsley/parsley.min.js') !!}
+    @include('helpers.parseleyjs.foot')
 @endsection

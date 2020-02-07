@@ -16,7 +16,7 @@ class UploadController extends Controller
 
     public function __construct()
     {
-        $this->idprofissional_criador = Auth::user()->profissional->idprofissional;
+
         $this->Page = (object)[
             'link' => 'uploads_docs',
             'Targets' => 'Impressão PDFs',
@@ -80,7 +80,7 @@ class UploadController extends Controller
                 $ImageHelper = new ImageHelper();
                 $data['link'] = $ImageHelper->store($request->file('link'), 'documentos');
             }
-            $data['idprofissional_criador'] = $this->idprofissional_criador;
+            $data['idprofissional_criador'] = Auth::user()->profissional->idprofissional;
             Upload::create($data);
             session()->forget('mensagem');
             session(['mensagem' => $this->Page->Target . ' adicionado com sucesso!']);

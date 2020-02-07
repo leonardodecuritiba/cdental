@@ -42,9 +42,9 @@
 @endsection
 @section('scripts_content')
     <!-- form validation -->
-    {!! Html::script('js/parsley/parsley.min.js') !!}
+    @include('helpers.parseleyjs.foot')
     <!-- Select2 -->
-    {!! Html::script('vendors/select2/dist/js/select2.min.js') !!}
+    @include('helpers.select2.foot')
     <!-- Select2 -->
     <script>
         $(document).ready(function () {

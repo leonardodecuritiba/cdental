@@ -73,18 +73,5 @@
     </script>
     <!-- Datatables -->
     @include('helpers.datatables.foot')
-    <script>
-        $(document).ready(function () {
-            $('.dt-responsive').DataTable(
-                {
-                    "language": language_pt_br,
-                    "pageLength": 10,
-                    "bLengthChange": false, //used to hide the property
-                    "bFilter": false,
-                    "order": [0, "desc"]
-                }
-            );
-        });
-    </script>
     <!-- /Datatables -->
 @endsection

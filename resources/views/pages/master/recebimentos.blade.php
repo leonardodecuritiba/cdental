@@ -157,7 +157,7 @@
 @endsection
 @section('scripts_content')
     <!-- form validation -->
-    {!! Html::script('js/parsley/parsley.min.js') !!}
+    @include('helpers.parseleyjs.foot')
     @include('helpers.select2.foot')
     <!-- Datatables -->
     <script type="text/javascript">
@@ -172,7 +172,7 @@
         $(document).ready(function () {
             $('.dt-responsive').DataTable(
                 {
-                    "language": language_pt_br,
+                    "language": "cdn.datatables.net/plug-ins/1.10.20/i18n/Portuguese-Brasil.json",
                     "pageLength": 20,
                     "bLengthChange": false, //used to hide the property
                     "bFilter": false,

@@ -170,7 +170,7 @@
         $(document).ready(function () {
             $('.dt-responsive').DataTable(
                 {
-                    "language": language_pt_br,
+                    "language": "cdn.datatables.net/plug-ins/1.10.20/i18n/Portuguese-Brasil.json",
                     "pageLength": 10,
                     "bLengthChange": false, //used to hide the property
                     "bFilter": false,
@@ -181,12 +181,6 @@
     </script>
     <!-- /Datatables -->
     <!-- Select2 -->
-    {!! Html::script('vendors/select2/dist/js/select2.min.js') !!}
-    <!-- Select2 -->
-    <script>
-        $(document).ready(function () {
-            $(".select2").select2({width: 'resolve'});
-        });
-    </script>
+    @include('helpers.select2.foot')
     <!-- /Select2 -->
 @endsection

@@ -14,7 +14,6 @@ class ImpressoController extends Controller
     protected $Page;
     public function __construct()
     {
-        $this->idprofissional_criador = Auth::user()->profissional->idprofissional;
         $this->Page = (object)[
             'link'      => 'impressos',
             'Targets'   => 'Impressos',
@@ -54,7 +53,7 @@ class ImpressoController extends Controller
             return redirect('agenda');
         }
     }
-    
+
     public function store(Request $request)
     {
         $data = $request->all();
@@ -71,7 +70,7 @@ class ImpressoController extends Controller
             $img = new ImageHelper();
             $data['documento'] = $img->store($request->file('file'),'documentos');
             if( $data['documento'] > 0 ) {
-                $data['idprofissional_criador'] = $this->idprofissional_criador;
+                $data['idprofissional_criador'] = Auth::user()->profissional->idprofissional;
                 $Impresso = Impresso::create($data);
                 return 1;
             } else {

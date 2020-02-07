@@ -1,7 +1,6 @@
 @extends('layouts.template')
 @section('style_content')
-    {!! Html::style('vendors/select2/dist/css/select2.min.css') !!}
-    {!! Html::style('vendors/pnotify/dist/pnotify.css') !!}
+    @include('helpers.select2.head')
 @endsection
 @section('page_content')
     <div class="page-title">
@@ -44,10 +43,9 @@
 @endsection
 @section('scripts_content')
     <!-- select2 -->
-    {!! Html::script('vendors/select2/dist/js/select2.min.js') !!}
+    @include('helpers.select2.foot')
     <!-- form validation -->
-    {!! Html::script('js/parsley/parsley.min.js') !!}
-
+    @include('helpers.inputmask.foot')
 
     <!-- GET CEP CODE -->
     <script>

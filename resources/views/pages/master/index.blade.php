@@ -216,12 +216,13 @@
         $(document).ready(function () {
             $('.dt-responsive').DataTable(
                 {
-                    "language": language_pt_br,
+                    "language": "cdn.datatables.net/plug-ins/1.10.20/i18n/Portuguese-Brasil.json",
                     "pageLength": 4,
                     "bLengthChange": false, //used to hide the property
                     "bFilter": false,
                     "order": [0, "desc"]
                 }
+                //cdn.datatables.net/plug-ins/1.10.20/i18n/Portuguese-Brasil.json
             );
         });
     </script>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CDENTAL</title>
 
-    <!-- Bootstrap -->
-    {!! Html::style('css/bootstrap.min.css') !!}
-    {!! Html::style('fonts/css/font-awesome.min.css') !!}
-    {!! Html::style('css/animate.min.css') !!}
-    {!! Html::style('build/css/custom.min.css') !!}
+    @include('layouts.head')
 </head>
 <body class="login">
     @if (count($errors) > 0)

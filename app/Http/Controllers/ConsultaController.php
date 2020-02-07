@@ -14,7 +14,6 @@ class ConsultaController extends Controller
     protected $Page;
     public function __construct()
     {
-        $this->idprofissional_criador = Auth::user()->profissional->idprofissional;
         $this->Page = (object)[
             'link'      => 'consultas',
             'Targets'   => 'Consultas',
@@ -91,7 +90,7 @@ class ConsultaController extends Controller
             return redirect('agenda');
         }
     }
-    
+
     public function store(Request $request)
     {
         $data = $request->all();
@@ -121,7 +120,7 @@ class ConsultaController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         } else {
-            $data['idprofissional_criador'] = $this->idprofissional_criador;
+            $data['idprofissional_criador'] = Auth::user()->profissional->idprofissional;
             Consulta::create($data);
             session()->forget('mensagem');
             session(['mensagem' => $this->Page->Target . ' cadastrada!']);

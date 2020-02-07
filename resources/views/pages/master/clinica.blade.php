@@ -1,6 +1,6 @@
 @extends('layouts.template')
 @section('style_content')
-    {!! Html::style('vendors/select2/dist/css/select2.min.css') !!}
+    @include('helpers.select2.head')
 @endsection
 @section('page_content')
     <?php
@@ -166,9 +166,9 @@
     </div>
 @endsection
 @section('scripts_content')
-    {!! Html::script('vendors/select2/dist/js/select2.min.js') !!}
+    @include('helpers.select2.foot')
     <!-- form validation -->
-    {!! Html::script('js/parsley/parsley.min.js') !!}
+    @include('helpers.parseleyjs.foot')
 
     <!-- GET CEP CODE -->
     <script>

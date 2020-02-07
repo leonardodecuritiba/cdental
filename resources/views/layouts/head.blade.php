@@ -1,63 +1,41 @@
-{!! Html::script('js/jquery.min.js') !!}
+{!! Html::script('vendors/jquery/dist/jquery.min.js') !!}
 
 <!-- Bootstrap core CSS -->
-{!! Html::style('css/bootstrap.min.css') !!}
-{!! Html::style('fonts/css/font-awesome.min.css') !!}
-{!! Html::style('css/animate.min.css') !!}
-
-{{--{!! Html::style('css/maps/jquery-jvectormap-2.0.1.css') !!}--}}
-{!! Html::style('css/icheck/flat/green.css') !!}
-{!! Html::style('css/floatexamples.css') !!}
-
-<!-- Select2 -->
-{!! Html::style('vendors/select2/dist/css/select2.css') !!}
+{!! Html::style('vendors/bootstrap/dist/css/bootstrap.min.css') !!}
+{!! Html::style('vendors/font-awesome/css/font-awesome.min.css') !!}
+{!! Html::style('vendors/animate.css/animate.min.css') !!}
 
 <!-- Custom styling plus plugins -->
 {!! Html::style('build/css/custom.min.css') !!}
 
-<!-- PNotify -->
-{!! Html::style('vendors/pnotify/dist/pnotify.css') !!}
-
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
-<!--[if lt IE 9]>
-<script src="../assets/js/ie8-responsive-file-warning.js"></script>
-<![endif]-->
+{!! Html::style('vendors/nprogress/nprogress.css') !!}
+{!! Html::script('vendors/nprogress/nprogress.js') !!}
 
 <style>
-    body, .left_col, .nav_title{
-        background: #635194;
+    .loading {
+        background: #fff url("{{asset('images/ajax-loader.gif')}}") no-repeat center center !important;
     }
-    .nav.side-menu>li.active>a {
-        background: linear-gradient(#403356, #3d2c57),#3a2a54;
-    }
-    .nav-md ul.nav.child_menu li:before {
-        background: #403356;
-    }
-    .daterangepicker {
-        position: absolute;
-        z-index: 9999999;
+    .esconde {
+        display: none;
     }
 
-    .select2-container {
-        z-index: 9999999;
+    .price-total, .price-recebido, .price-pendente {
+        font-weight: 700 !important;
     }
-    .loading {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        display: none;
-        background: #fff url("{{asset('images/ajax-loader.gif')}}") no-repeat center center;
-        opacity: .75;
-        filter: alpha(opacity=75);
-        z-index: 999999999;
+
+    .price-recebido {
+        color: #26B99A !important;
+    }
+
+    .price-total {
+        color: #1A82C3 !important;
+    }
+
+    .price-pendente {
+        color: #d9534f !important;
+    }
+
+    .modal {
+        z-index: 9999;
     }
 </style>
-
-@yield('style_content')
-

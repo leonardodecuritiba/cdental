@@ -30,7 +30,7 @@ class MasterController extends Controller
     private $idprofissional_criador;
     public function __construct()
     {
-        $this->idprofissional_criador = Auth::user()->profissional->idprofissional;
+//        $this->idprofissional_criador = optional(Auth::user())->profissional->idprofissional;
         $this->tipo_consulta = array('Atendimento','Cirurgia','Emergência','Retorno');
         $this->backup_path = DIRECTORY_SEPARATOR . 'home'
             . DIRECTORY_SEPARATOR . 'drvinici'

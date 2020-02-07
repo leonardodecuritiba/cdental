@@ -14,7 +14,6 @@ class AnamneseController extends Controller
     protected $Page;
     public function __construct()
     {
-        $this->idprofissional_criador = Auth::user()->profissional->idprofissional;
         $this->Page = (object)[
             'link'      => 'anamneses',
             'Targets'   => 'Anamneses',
@@ -75,14 +74,14 @@ class AnamneseController extends Controller
             //atualizar plano
             //atualizar plano_intervencao
             $data = $request->all();
-            $data['idprofissional_criador'] = $this->idprofissional_criador;
+            $data['idprofissional_criador'] = Auth::user()->profissional->idprofissional;
             $Anamnese = Anamnese::create($data);
             session()->forget('mensagem');
             session(['mensagem' => utf8_encode($this->Page->Target . ' adicionado com sucesso!')]);
             return $this->edit($Anamnese->idanamnese);
         }
     }
-    
+
     public function update(Request $request, $id)
     {
         $data=Anamnese::find($id);

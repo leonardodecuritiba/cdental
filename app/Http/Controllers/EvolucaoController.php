@@ -13,7 +13,6 @@ class EvolucaoController extends Controller
     protected $Page;
     public function __construct()
     {
-        $this->idprofissional_criador = Auth::user()->profissional->idprofissional;
         $this->Page = (object)[
             'link'      => 'evolucoes',
             'Targets'   => 'Evoluções',
@@ -93,7 +92,7 @@ class EvolucaoController extends Controller
     {
         $idpaciente = $request->get('idpaciente');
         $data = $request->all();
-        $data['idprofissional_criador'] = $this->idprofissional_criador;
+        $data['idprofissional_criador'] = Auth::user()->profissional->idprofissional;
         $Evolucao = Evolucao::create($data);
         session()->forget('mensagem');
         session(['mensagem' => $this->Page->Target . ' cadastrada!']);
