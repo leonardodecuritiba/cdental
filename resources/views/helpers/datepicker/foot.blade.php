@@ -1,8 +1,7 @@
-
-
 <!-- daterangepicker -->
-{!! Html::script('js/datepicker/moment.min.js') !!}
-{!! Html::script('js/datepicker/daterangepicker.js') !!}
+{!! Html::script('vendors/moment/moment.js') !!}
+{!! Html::script('vendors/moment/locale/pt-br.js') !!}
+{!! Html::script('vendors/daterangepicker/daterangepicker.js') !!}
 <script type="text/javascript">
     //    calender_style: "picker_4"
     var locale = {
@@ -42,17 +41,20 @@
         locale: locale,
         maxDate: new Date(),
         singleDatePicker: true,
+        singleClasses: "picker_1",
         autoUpdateInput: false
     };
     var dateOptionsFromNow = {
         locale: locale,
         minDate: new Date(),
         singleDatePicker: true,
+        singleClasses: "picker_1",
         autoUpdateInput: false
     };
     var dateOptionsEvery = {
         locale: locale,
         singleDatePicker: true,
+        singleClasses: "picker_1",
         autoUpdateInput: false
     };
     $(document).ready(function () {

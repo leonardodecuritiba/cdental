@@ -3,6 +3,9 @@
     <!-- Datatables -->
     @include('helpers.datatables.head')
     <!-- /Datatables -->
+
+    @include('helpers.datepicker.head')
+
 @endsection
 @section('modal_content')
     @include('layouts.modals.modalRetorno')
@@ -17,7 +20,7 @@
             </div>
             <div class="x_content">
                 <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12 animated fadeInDown">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                         <table class="table table-striped dt-responsive table-bordered nowrap" cellspacing="0"
                                width="100%">
                             <thead>
@@ -74,4 +77,6 @@
     <!-- Datatables -->
     @include('helpers.datatables.foot')
     <!-- /Datatables -->
+
+    @include('helpers.datepicker.foot')
 @endsection

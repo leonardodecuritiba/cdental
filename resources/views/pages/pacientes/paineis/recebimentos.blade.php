@@ -14,7 +14,7 @@
                 <p class="price-tax text-center">À receber</p>
             </div>
             <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 animated fadeInDown">
+                <div class="col-md-12 col-sm-12 col-xs-12">
                     @if($Paciente->has_pagamentos())
                         <table class="table table-striped dt-responsive table-bordered nowrap" cellspacing="0"
                                width="100%">

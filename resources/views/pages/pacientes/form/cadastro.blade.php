@@ -13,7 +13,7 @@
     </div>
     <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">RG:</label>
     <div class="col-md-4 col-sm-4 col-xs-12 form-group">
-        <input type="text" class="form-control" name="rg" maxlength="12" placeholder="RG"
+        <input type="text" class="form-control show-rg" name="rg" maxlength="12" placeholder="RG"
                value="@if(isset($Paciente->rg)){{$Paciente->rg}}@else{{old('rg')}}@endif">
     </div>
 </div>
@@ -62,37 +62,14 @@
         <div class="col-md-4 col-sm-4 col-xs-12 form-group">
             <select class="select2_group form-control input-estado" name="estado">
                 <option value="">Estado</option>
-                <option value="AC">Acre</option>
-                <option value="AL">Alagoas</option>
-                <option value="AP">Amapá</option>
-                <option value="AM">Amazonas</option>
-                <option value="BA">Bahia</option>
-                <option value="CE">Ceará</option>
-                <option value="DF">Distrito Federal</option>
-                <option value="ES" >Espírito Santo</option>
-                <option value="GO" >Goiás</option>
-                <option value="MA">Maranhão</option>
-                <option value="MT" >Mato Grosso</option>
-                <option value="MS">Mato Grosso do Sul</option>
-                <option value="MG">Minas Gerais</option>
-                <option value="PA">Pará </option>
-                <option value="PB">Paraíba</option>
-                <option value="PR">Paraná</option>
-                <option value="AL" >Pernambuco</option>
-                <option value="PI">Piauí</option>
-                <option value="RJ" >Rio de Janeiro</option>
-                <option value="RN">Rio Grande do Norte</option>
-                <option value="RS" >Rio Grande do Sul</option>
-                <option value="RO" >Rondônia</option>
-                <option value="RR">Roraima</option>
-                <option value="SC">Santa Catarina</option>
-                <option value="SP">São Paulo</option>
-                <option value="SE">Sergipe</option>
-                <option value="TO">Tocantins</option>
+                @foreach($Estados as $key=> $estado)
+                    <option value="{{$key}}" @if($Paciente->contato->estado == $key) selected @endif>{{$estado}}</option>
+                @endforeach
             </select>
 
         </div>
     </div>
+
     <div class="form-group">
         <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">Cidade:</label>
         <div class="col-md-4 col-sm-4 col-xs-12 form-group input-cidade">

@@ -24,7 +24,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-3">Data retorno:</label>
                         <div class="col-md-9 col-sm-9 col-xs-9">
-                            <input class="form-control col-md-7 col-xs-12 data-from-now" required="required" type="text" name="data_retorno">
+                            <input class="form-control col-md-7 col-xs-12 data-from-now"  autocomplete="off" required="required" type="text" name="data_retorno">
                             <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>

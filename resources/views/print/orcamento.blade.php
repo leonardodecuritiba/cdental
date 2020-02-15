@@ -6,9 +6,9 @@
         <tr>
             <td colspan="10"></td>
         </tr>
-        <tr>
-            <td colspan="10"><img src="{{$clinica->getImpressoOrcamentoPath()}}"></td>
-        </tr>
+{{--        <tr>--}}
+{{--            <td colspan="10"><img src="{{$clinica->getImpressoOrcamentoPath()}}"></td>--}}
+{{--        </tr>--}}
         <tr class="fundo_cinza linha_titulo">
             <th colspan="10">Previsão de honorários</th>
         </tr>

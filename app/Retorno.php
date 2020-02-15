@@ -23,7 +23,7 @@ class Retorno extends Model
 
     public function scopeProximos($query)
     {
-        return $query->where('data_retorno', '>', Carbon::now());;
+        return $query->where('data_retorno', '>=', Carbon::now()->toDateString());
     }
 
     public function getNome()
@@ -64,10 +64,10 @@ class Retorno extends Model
     public function profissional()
     {
         return $this->belongsTo('App\Profissional', 'idprofissional');
-    }	
+    }
 	// Relação paciente - 1 <-> N - retorno.
     public function paciente()
     {
         return $this->belongsTo('App\Paciente', 'idpaciente');
-    }	
+    }
 }

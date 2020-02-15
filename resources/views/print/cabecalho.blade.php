@@ -1,6 +1,6 @@
 <tr>
     <td rowspan="3" colspan="3">
-        <img src="{{$clinica->getFotoPrint()}}">
+        <img style="max-width: 200px; max-height: 100px" src="{{$clinica->getFotoPrint()}}">
     </td>
 
     <td colspan="7">{{$clinica->nome}}</td>

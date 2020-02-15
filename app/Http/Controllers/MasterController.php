@@ -12,6 +12,7 @@ use App\ParcelaPagamento;
 use App\Plano;
 use App\Profissional;
 use App\Retorno;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -46,10 +47,10 @@ class MasterController extends Controller
         $this->tipo_consulta = array('Atendimento','Cirurgia','Emergência','Retorno');
         $Page = (object)['Targets'=>'Inteligência','Target'=>'Inteligência','Titulo'=> 'Inteligência',
             'Data' => [
-                'ProximaConsulta' => Consulta::getProximaConsulta(),
-                'ConsultasDoDia' => Consulta::getConsultasDoDia(),
-                'ParcelaVencidas' => Parcela::vencidas()->orderBy('data_vencimento')->get(),
-                'Retornos' => Retorno::proximos()->get()
+                'ProximaConsulta'   => Consulta::getProximaConsulta(),
+                'ConsultasDoDia'    => Consulta::getConsultasDoDia(),
+                'ParcelaVencidas'   => Parcela::vencidas()->orderBy('data_vencimento')->get(),
+                'Retornos'          => Retorno::proximos()->get()
             ]
         ];
         return view('pages.master.index')

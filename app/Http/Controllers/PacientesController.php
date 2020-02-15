@@ -65,7 +65,7 @@ class PacientesController extends Controller
             $Buscas = Paciente::all();
         }
 
-        return view('pages.'.$this->Page->link.'.index')
+        return view('pages.pacientes.index')
             ->with('Page', $this->Page)
             ->with('Title', $titulo)
             ->with('Buscas',$Buscas);
@@ -77,7 +77,7 @@ class PacientesController extends Controller
         $this->Page->titulo_secundario  = "Dados Pessoais";
         $Planos = Plano::where('plano_status',1)->get();
         $Profissionais = Profissional::profissionais();
-        return view('pages.'.$this->Page->link.'.master')
+        return view('pages.pacientes.master')
             ->with('Planos', $Planos)
             ->with('Profissionais', $Profissionais)
             ->with('Page', $this->Page);
@@ -179,6 +179,7 @@ class PacientesController extends Controller
         $Intervencoes = Intervencao::all();
         $Anamneses = Anamnese::all();
         $TipoPagamentos = TipoPagamento::all();
+        $Estados = parent::$Estados;
 
         return view('pages.' . $this->Page->link . '.show')
             ->with('Page', $this->Page)
@@ -187,6 +188,7 @@ class PacientesController extends Controller
             ->with('Profissionais', $Profissionais)
             ->with('Intervencoes', $Intervencoes)
             ->with('TipoPagamentos', $TipoPagamentos)
+            ->with('Estados', $Estados)
             ->with('Paciente', $Paciente);
     }
 

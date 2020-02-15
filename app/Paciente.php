@@ -27,14 +27,19 @@ class Paciente extends Model
 
     // ******************** FUNCTIONS ****************************
 
+    public function getEmail()
+    {
+        return ($this->contato->email);
+    }
+
     public function getFoto()
     {
-        return ($this->foto != NULL) ? ImageHelper::getFullPath('pacientes') . $this->foto : asset('imgs/user.png');
+        return ($this->foto != NULL) ? ImageHelper::getFullPath('pacientes') . $this->foto : asset('images/user.png');
     }
 
     public function getThumbFoto()
     {
-        return ($this->foto != NULL) ? ImageHelper::getFullThumbPath('pacientes') . $this->foto : asset('imgs/user.png');
+        return ($this->foto != NULL) ? ImageHelper::getFullThumbPath('pacientes') . $this->foto : asset('images/user.png');
     }
 
 
@@ -73,26 +78,26 @@ class Paciente extends Model
     {
         return ($value!='')?DataHelper::mask($value, '###.###.###-##'):$value;
     }
-	
-	// ******************** BELONGSTO ****************************
-	// Relação plano - 1 <-> N - paciente.
+
+    // ******************** BELONGSTO ****************************
+    // Relação plano - 1 <-> N - paciente.
     public function plano()
     {
         return $this->belongsTo('App\Plano', 'idplano');
-    }	
-	// Relação profissional - 1 <-> N - paciente (CRIAÇÃO).
+    }
+    // Relação profissional - 1 <-> N - paciente (CRIAÇÃO).
     public function profissional_criador()
     {
         return $this->belongsTo('App\Profissional', 'idprofissional_criador', 'idprofissional');
     }
-	// Relação contato - 1 <-> N - paciente.
+    // Relação contato - 1 <-> N - paciente.
     public function contato()
     {
         return $this->belongsTo('App\Contato', 'idcontato');
     }
-	
-	// ******************** HASMANY ****************************
-	// Relação paciente - 1 <-> N - retornos.
+
+    // ******************** HASMANY ****************************
+    // Relação paciente - 1 <-> N - retornos.
 
     public function getLastRetorno()
     {
@@ -172,8 +177,8 @@ class Paciente extends Model
         if($float) return $valores;
         return $valores;
     }
-    
-	// Relação paciente - 1 <-> N - consultas.
+
+    // Relação paciente - 1 <-> N - consultas.
 
     public function pagamentos()
     {

@@ -85,7 +85,7 @@
                         <span class=" fa fa-angle-down"></span>
                     </a>
 
-                    <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
+                    <ul class="dropdown-menu dropdown-usermenu pull-right">
                         <li><a href="{{ route('usuarios.edit',Auth::user()->idusers) }}"> Perfil</a></li>
                         <li><a href="{{ url('clinica') }}"><span>Clínica</span></a></li>
                         <li><a href="{{ url('logout') }}"> <span class="badge bg-red pull-right"><i
@@ -93,7 +93,7 @@
                     </ul>
                 </li>
                 <li role="presentation" class="dropdown">
-                    <ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menu">
+                    <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                         <li>
                             <a>
                                 <span class="image">

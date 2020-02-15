@@ -32,7 +32,7 @@ class IntervencaoController extends Controller
             $Buscas = Intervencao::orderBy('nome','ASC')->get();
         }
 
-        return view('pages.ajustes.'.$this->Page->link.'.index')
+        return view('pages.ajustes.intervencoes.index')
             ->with('Buscas', $Buscas)
             ->with('Page', $this->Page);
     }

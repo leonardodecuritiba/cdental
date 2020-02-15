@@ -41,8 +41,7 @@
                 background: #403356;
             }
             .daterangepicker {
-                position: absolute;
-                z-index: 9999999;
+                z-index: 10000 !important;
             }
 
             .select2-container {

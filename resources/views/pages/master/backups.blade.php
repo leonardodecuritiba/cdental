@@ -13,7 +13,7 @@
             </div>
             <div class="x_content">
                 <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12 animated fadeInDown">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                         <a href="{{route('backups.function','clean')}}" class="btn btn-primary"><i
                                     class="fa fa-refresh"></i> Fazer Limpeza</a>
                         <a target="_blank" href="{{route('backups.function','run')}}" class="btn btn-success"><i
@@ -22,7 +22,7 @@
                 </div>
                 @if(count($Backups) > 0)
                     <div class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12 animated fadeInDown">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
                             <table class="table table-striped dt-responsive table-bordered nowrap" cellspacing="0"
                                    width="100%">
                                 <thead>

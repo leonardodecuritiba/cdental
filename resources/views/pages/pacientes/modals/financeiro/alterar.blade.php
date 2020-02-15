@@ -14,13 +14,13 @@
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Vencimento:</label>
                     <div class="col-md-9 col-sm-9 col-xs-12 form-group">
-                        <input type="text" class="form-control show-data" id="data_vencimento_old" disabled>
+                        <input type="text" class="form-control data-every" id="data_vencimento_old" disabled>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Novo Vencimento:</label>
                     <div class="col-md-9 col-sm-9 col-xs-12 form-group">
-                        <input type="text" class="form-control show-data" name="data_vencimento">
+                        <input type="text" class="form-control data-every" name="data_vencimento">
                     </div>
                 </div>
             </div>

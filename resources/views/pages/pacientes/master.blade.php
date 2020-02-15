@@ -31,7 +31,7 @@
                         {{ Form::close() }}
                     @else
                         {!! Form::model($Paciente, ['method' => 'PATCH','route'=>[$Page->link.'.update',$Paciente->$Paciente]]) !!}
-                        @include('pages.'.$Page->link.'.form.cadastro')
+                        @include('pages.pacientes.form.cadastro')
                         {{ Form::close() }}
                     @endif
 

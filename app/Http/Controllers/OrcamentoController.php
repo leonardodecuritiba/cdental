@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\DataHelper;
 use App\Helpers\PrintHelper;
 use App\Parcela;
 use Carbon\Carbon;
@@ -36,6 +37,7 @@ class OrcamentoController extends Controller
         $idpaciente = $request->get('idpaciente');
         $validator = Validator::make($request->all(), [
             'idpaciente'        => 'required',
+            'regiao.*'          => 'required',
             'descricao'         => 'required',
             'numero_parcelas'   => 'required',
             'idintervencao'     => 'required',
@@ -46,52 +48,29 @@ class OrcamentoController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         } else {
-            $data = $request->all();
-
             //fazer laço nas intervencoes
             //calcular valor total
+            $data['idpaciente'] = $idpaciente;
+            $data['descricao'] = $request->get('descricao');
             $data['valor_total'] = 0;
-            foreach($data['idintervencao'] as $key => $intervencao){
-                $value = str_replace('.','',$data["valor"][$key]);
-                $data['valor_total'] += floatval(str_replace(',','.',$value));
+            foreach($request->get('idintervencao') as $key => $intervencao){
+                $data['valor_total'] += DataHelper::getReal2Float($request->get('valor')[$key]);
             }
-//            echo 'valor_total= '.$data['valor_total']."<br>";
-            $data['desconto'] = ($data['desconto']!="")?$data['desconto']:0;
-            $data['valor_entrada'] = ($data['valor_entrada']!="")?floatval(str_replace(',','.',str_replace('.','',$data["valor_entrada"]))):0;
-            $data['numero_parcelas'] = intval($data['numero_parcelas']);
+            $data['desconto'] = DataHelper::getReal2Float($request->get('desconto'));
+            $data['valor_entrada'] = DataHelper::getReal2Float($request->get('valor_entrada'));
+            $data['numero_parcelas'] = DataHelper::getReal2Float($request->get('numero_parcelas'));
+
             $Orcamento = Orcamento::create($data);
 
-            foreach($data['idintervencao'] as $key => $intervencao){
-                $value = str_replace('.','',$data["valor"][$key]);
+            foreach($request->get('idintervencao') as $key => $intervencao){
                 $item = [
                     'idorcamento'   => $Orcamento->idorcamento,
                     'idintervencao' => $intervencao,
-                    'regiao'        => $data["regiao"][$key],
-                    'valor'         => floatval(str_replace(',','.',$value))
+                    'regiao'        => $request->get('regiao')[$key],
+                    'valor'         => DataHelper::getReal2Float($request->get('valor')[$key])
                 ];
-                $ItemOrcamento = ItemOrcamento::create($item);
+                ItemOrcamento::create($item);
             }
-            /*
-            //verificar se tem desconto. se tiver, calcular novo valor
-            $valor_total_desconto = $data['valor_total'];
-            //verificar se tem desconto. se tiver, calcular novo valor
-            $valor_total_desconto = $data['valor_total'];
-            if($request->has('desconto')){
-                $valor_total_desconto -= ($valor_total_desconto * $data['desconto']/100);
-                echo 'valor_total_desconto= '.$valor_total_desconto."<br>";
-            }
-            //verificar se tem entrada. se tiver calcular valor restante
-            if($request->has('valor_entrada')){
-                $value = str_replace('.','',$data["valor_entrada"]);
-                $valor_total_desconto -= floatval(str_replace(',','.',$value));
-                echo 'valor_total_desconto (com entrada) = '.$valor_total_desconto."<br>";
-            }
-            //verificar se tem parcelamento. se tiver, calcular valor de parcelas
-            if($request->has('numero_parcelas')){
-                $valor_total_final = floatval(str_replace(',','.',$value));
-                echo 'valor_total_desconto (com entrada) = '.$valor_total_desconto."<br>";
-            }
-            */
 
             session()->forget('mensagem');
             session(['mensagem' => $this->Page->Target . ' cadastrado!']);
@@ -105,6 +84,7 @@ class OrcamentoController extends Controller
         $validator = Validator::make($request->all(), [
             'idpaciente'        => 'required',
             'descricao'         => 'required',
+            'regiao'            => 'required',
             'numero_parcelas'   => 'required',
             'idintervencao'     => 'required',
         ]);
@@ -114,42 +94,36 @@ class OrcamentoController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         } else {
-            $data = $request->all();
 
-//            return $data;
-            //fazer laço nas intervencoes
-            //calcular valor total
+            $data['idpaciente'] = $request->get('idpaciente');
+            $data['descricao'] = $request->get('descricao');
             $data['valor_total'] = 0;
-            foreach($data['idintervencao'] as $key => $intervencao){
-                $value = str_replace('.','',$data["valor"][$key]);
-                $data['valor_total'] += floatval(str_replace(',','.',$value));
+            foreach($request->get('idintervencao') as $key => $intervencao){
+                $data['valor_total'] += DataHelper::getReal2Float($request->get('valor')[$key]);
             }
-//            echo 'valor_total= '.$data['valor_total']."<br>";
-            $data['desconto'] = ($data['desconto']!="")?str_replace('%','',$data['desconto']):0;
-            $data['valor_entrada'] = ($data['valor_entrada']!="")?floatval(str_replace(',','.',str_replace('.','',$data["valor_entrada"]))):0;
-            $data['numero_parcelas'] = intval($data['numero_parcelas']);
+            $data['desconto'] = DataHelper::getReal2Float($request->get('desconto'));
+            $data['valor_entrada'] = DataHelper::getReal2Float($request->get('valor_entrada'));
+            $data['numero_parcelas'] = DataHelper::getReal2Float($request->get('numero_parcelas'));
 
 //            return $data;
             $Orcamento = Orcamento::find($idorcamento);
 //            $Orcamento->remove_itens();
             $Orcamento->update($data);
 
-            foreach($data['idintervencao'] as $key => $intervencao){
-                $value = floatval(str_replace(',','.',str_replace('.','',$data["valor"][$key])));
+            foreach($request->get('idintervencao') as $key => $intervencao){
                 $item = [
                     'idorcamento'   => $Orcamento->idorcamento,
                     'idintervencao' => $intervencao,
-                    'regiao'        => $data["regiao"][$key],
-                    'valor'         => $value
+                    'regiao'        => $request->get('regiao')[$key],
+                    'valor'         => DataHelper::getReal2Float($request->get('valor')[$key])
                 ];
-                if(isset($data["iditem_orcamento"][$key])){
-                    $ItemOrcamento = ItemOrcamento::find($data["iditem_orcamento"][$key]);
+                if(isset($request->get('iditem_orcamento')[$key])){
+                    $ItemOrcamento = ItemOrcamento::find($request->get('iditem_orcamento')[$key]);
                     $ItemOrcamento->update($item);
                 } else {
-                    $ItemOrcamento = ItemOrcamento::create($item);
+                    ItemOrcamento::create($item);
                 }
             }
-
             session()->forget('mensagem');
             session(['mensagem' => $this->Page->Target . ' atualizado!']);
             return redirect('pacientes/'.$Orcamento->idpaciente.'/orcamentos');
@@ -219,6 +193,7 @@ class OrcamentoController extends Controller
         session(['mensagem' => $this->Page->Target . ' removido!']);
         return redirect()->route('pacientes.show', $idpaciente);
     }
+
     public function destroy_item($id)
     {
         $data=ItemOrcamento::find($id);
@@ -229,8 +204,6 @@ class OrcamentoController extends Controller
 
     public function imprimir($id) {
 	    $Orcamento = Orcamento::find( $id );
-//	    return $Orcamento;
-
 	    return PrintHelper::orcamento( $Orcamento );
     }
 
@@ -239,7 +212,6 @@ class OrcamentoController extends Controller
 		$msg       = PrintHelper::sendByEmail( $Orcamento );
 		session()->forget( 'mensagem' );
 		session( [ 'mensagem' => $msg ] );
-
 		return redirect()->route( 'pacientes.show', $Orcamento->idpaciente );
 	}
 }

@@ -4,11 +4,7 @@
     <!-- Datatables -->
     @include('helpers.datatables.head')
     <!-- /Datatables -->
-{{--<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />--}}
     <style>
-        .select2 {
-            width: 100%;
-        }
         .preco {
             font-size: 13px;
             font-weight: 400;
@@ -16,7 +12,14 @@
         }
     </style>
 
-    {!! Html::style('vendors/dropzone/dist/min/dropzone.min.css') !!}
+    @include('helpers.tagsinput.head')
+
+    @include('helpers.dropzone.head')
+
+    @include('helpers.icheck.head')
+
+    @include('helpers.pnotify.head')
+
 @endsection
 @section('modal_content')
     @include('layouts.modals.exclui')
@@ -80,26 +83,30 @@
     {{--/Documentos--}}
 @endsection
 @section('scripts_content')
-    <!-- tags -->
-    {!! Html::script('js/tags/jquery.tagsinput.min.js') !!}
-    <!-- switchery -->
-    {!! Html::script('js/switchery/switchery.min.js') !!}
-    <!-- richtext editor -->
-    {!! Html::script('js/editor/bootstrap-wysiwyg.js') !!}
-    {!! Html::script('js/editor/external/jquery.hotkeys.js') !!}
-    {!! Html::script('js/editor/external/google-code-prettify/prettify.js') !!}
-    <!-- select2 -->
-    <!-- form validation -->
+
+    @include('helpers.tagsinput.foot')
+
+    @include('helpers.icheck.foot')
+
+    @include('helpers.bootstrap-wysiwyg.foot')
+
     @include('helpers.parseleyjs.foot')
-    <!-- textarea resize -->
 
-
-    <!-- Select2 -->
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>--}}
     @include('helpers.select2.foot')
+
+    @include('helpers.dropzone.foot')
+
+    @include('helpers.maskmoney.foot')
+
+    @include('helpers.inputmask.foot')
 
     <!-- Datatables -->
     @include('helpers.datatables.foot')
+
+    @include('helpers.datepicker.foot')
+
+    @include('helpers.pnotify.foot')
+
     <script>
         $(document).ready(function () {
             $('.dt-responsive').DataTable(
@@ -115,8 +122,6 @@
     </script>
     <!-- /Datatables -->
 
-    <!-- dropzone -->
-    {!! Html::script('vendors/dropzone/dist/min/dropzone.min.js') !!}
 
     {{--Retorno--}}
     <script>
@@ -162,7 +167,7 @@
     <script>
         $(document).ready(function () {
 
-            $('div#tab_anamnese div.x_content form').on('submit', function (e) {
+            $('form.anamnese').on('submit', function (e) {
                 // Prevent form submission
                 e.preventDefault();
 

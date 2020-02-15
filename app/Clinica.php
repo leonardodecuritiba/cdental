@@ -26,7 +26,7 @@ class Clinica extends Model
 
     public function getFotoPrint()
     {
-        return public_path(($this->foto != NULL) ? 'ajustes/' . $this->foto  : 'imgs/empresa.png');
+        return public_path(($this->foto != NULL) ? 'uploads/ajustes/' . $this->foto  : 'imgs/empresa.png');
     }
 
     public function getImpressoOrcamentoPath()

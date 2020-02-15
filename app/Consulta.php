@@ -30,23 +30,28 @@ class Consulta extends Model
         return self::where('data_consulta', Carbon::now()->format('Y-m-d'))->
             where('hora_inicio','>', Carbon::now()->format('H:i'))->first();
     }
+
     static public function getConsultasDoDia()
     {
         return  self::where('data_consulta', Carbon::now()->format('Y-m-d'))->get();
     }
+
     public function getNome()
     {
         return ($this->idpaciente == NULL)?$this->nome:$this->paciente->nome;
     }
+
     public function getTelefone()
     {
         return ($this->idpaciente == NULL)?DataHelper::mask($this->telefone, '(##) ####-####'):$this->paciente->contato->telefone;
     }
+
     public function data_consulta_inicio()
     {
         $date = $this->data_consulta_inicio_date();
         return ($date!=NULL) ? DataHelper::getPrettyDateTime($date) :'Dia inteiro';
     }
+
     public function data_consulta_inicio_date()
     {
         return (!$this->attributes['dia_inteiro'])?($this->attributes['data_consulta'].' '.$this->attributes['hora_inicio'].':00'):NULL;
@@ -103,5 +108,5 @@ class Consulta extends Model
     public function paciente()
     {
         return $this->belongsTo('App\Paciente', 'idpaciente');
-    }	
+    }
 }

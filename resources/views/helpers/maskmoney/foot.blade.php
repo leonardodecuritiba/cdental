@@ -1,4 +1,4 @@
-{!! Html::script('js/maskmoney/jquery.maskMoney.min.js') !!}
+{!! Html::script('vendors/jquery-maskmoney/dist/jquery.maskMoney.min.js') !!}
 <script type="text/javascript">
     function initMaskMoney(selector) {
         $(selector).maskMoney({prefix:'R$ ', allowNegative: false, thousands:'.', decimal:',', affixesStay: false});

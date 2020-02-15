@@ -1,8 +1,7 @@
 @extends('layouts.template')
 
 @section('style_content')
-    {!! Html::style('css/calendar/fullcalendar.css') !!}
-    {!! Html::style('css/calendar/fullcalendar.print.css', array('media'=>'print')) !!}
+    @include('helpers.calendar.head')
 
 @endsection
 @section('page_content')
@@ -43,9 +42,7 @@
 @endsection
 
 @section('scripts_content')
-    {!! Html::script('js/moment.min.js') !!}
-    {!! Html::script('js/calendar/fullcalendar.min.js') !!}
-    {!! Html::script('js/calendar/lang/pt-br.js') !!}
+    @include('helpers.calendar.foot')
 
     <script>
         var formattedEventData = [];

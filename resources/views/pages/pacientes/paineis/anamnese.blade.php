@@ -6,7 +6,7 @@
         </div>
         <div class="x_content">
             @if($Anamneses->count()>0)
-                {!! Form::open(['method' => 'PATCH','route'=>['respostas.update',$Paciente->idpaciente], 'class' => 'form-horizontal form-label-left']) !!}
+                {!! Form::open(['method' => 'PATCH','route'=>['respostas.update',$Paciente->idpaciente], 'class' => 'anamnese form-horizontal form-label-left']) !!}
                 <div class="form-group">
                     <label class="control-label col-md-2 col-sm-4 col-xs-12">Modelo:</label>
                     <div class="col-md-5 col-sm-4 col-xs-8">
@@ -33,9 +33,6 @@
                 foreach ($_PERGUNTAS_ as $i => $perguntas) {
                     echo "<div data-id='" . $i . "' class='anamnese hide'>";
                     foreach ($perguntas as $pergunta) {
-//                        echo 'id:'.$pergunta->idpergunta;
-//                        echo ' idpaciente:'.$Paciente->idpaciente;
-//                        echo ' resp:'.$pergunta->has_resposta($Paciente->idpaciente);
                         if ($pergunta->has_resposta($Paciente->idpaciente)) {
                             $resposta = $pergunta->resposta($Paciente->idpaciente);
 //                            print_r($resposta->resposta);
