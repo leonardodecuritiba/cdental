@@ -80,6 +80,7 @@ class PacientesController extends Controller
         return view('pages.pacientes.master')
             ->with('Planos', $Planos)
             ->with('Profissionais', $Profissionais)
+            ->with('Estados', parent::$Estados)
             ->with('Page', $this->Page);
     }
 
@@ -179,8 +180,6 @@ class PacientesController extends Controller
         $Intervencoes = Intervencao::all();
         $Anamneses = Anamnese::all();
         $TipoPagamentos = TipoPagamento::all();
-        $Estados = parent::$Estados;
-
         return view('pages.' . $this->Page->link . '.show')
             ->with('Page', $this->Page)
             ->with('Planos', $Planos)
@@ -188,7 +187,7 @@ class PacientesController extends Controller
             ->with('Profissionais', $Profissionais)
             ->with('Intervencoes', $Intervencoes)
             ->with('TipoPagamentos', $TipoPagamentos)
-            ->with('Estados', $Estados)
+            ->with('Estados', parent::$Estados)
             ->with('Paciente', $Paciente);
     }
 
