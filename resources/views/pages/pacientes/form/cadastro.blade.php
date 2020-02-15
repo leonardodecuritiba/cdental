@@ -63,7 +63,7 @@
             <select class="select2_group form-control input-estado" name="estado">
                 <option value="">Estado</option>
                 @foreach($Estados as $key=> $estado)
-                    <option value="{{$key}}" @if($Paciente->contato->estado == $key) selected @endif>{{$estado}}</option>
+                    <option value="{{$key}}" @if(isset($Paciente) && $Paciente->contato->estado == $key) selected @endif>{{$estado}}</option>
                 @endforeach
             </select>
 

@@ -180,7 +180,7 @@ class PacientesController extends Controller
         $Intervencoes = Intervencao::all();
         $Anamneses = Anamnese::all();
         $TipoPagamentos = TipoPagamento::all();
-        return view('pages.' . $this->Page->link . '.show')
+        return view('pages.pacientes.show')
             ->with('Page', $this->Page)
             ->with('Planos', $Planos)
             ->with('Anamneses', $Anamneses)
