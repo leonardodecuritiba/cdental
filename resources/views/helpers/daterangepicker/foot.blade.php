@@ -1,7 +1,7 @@
 <!-- daterangepicker -->
 {!! Html::script('vendors/moment/moment.js') !!}
 {!! Html::script('vendors/moment/locale/pt-br.js') !!}
-{!! Html::script('vendors/daterangepicker/daterangepicker.js') !!}
+{!! Html::script('vendors/bootstrap-daterangepicker/daterangepicker.js') !!}
 <script type="text/javascript">
     //    calender_style: "picker_4"
     var locale = {

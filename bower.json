@@ -35,7 +35,7 @@
     "bootstrap-wysiwyg": "*",
     "jquery.hotkeys": "*",
     "gentelella": "^1.4.0",
-    "daterangepicker": "bootstrap-daterangepicker#^3.0.5",
+    "bootstrap-daterangepicker": "*",
     "moment": "^2.24.0",
     "iCheck": "^1.0.2",
     "fullcalendar": "2.7.3"

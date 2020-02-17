@@ -40,13 +40,6 @@
             .nav-md ul.nav.child_menu li:before {
                 background: #403356;
             }
-            .daterangepicker {
-                z-index: 10000 !important;
-            }
-
-            .select2-container {
-                z-index: 9999999;
-            }
             .loading {
                 position: absolute;
                 top: 0;

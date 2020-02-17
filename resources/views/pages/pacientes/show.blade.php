@@ -20,6 +20,8 @@
 
     @include('helpers.pnotify.head')
 
+    @include('helpers.daterangepicker.head')
+
 @endsection
 @section('modal_content')
     @include('layouts.modals.exclui')
@@ -103,7 +105,7 @@
     <!-- Datatables -->
     @include('helpers.datatables.foot')
 
-    @include('helpers.datepicker.foot')
+    @include('helpers.daterangepicker.foot')
 
     @include('helpers.pnotify.foot')
 

@@ -4,7 +4,7 @@
     @include('helpers.datatables.head')
     <!-- /Datatables -->
 
-    @include('helpers.datepicker.head')
+    @include('helpers.daterangepicker.head')
 
 @endsection
 @section('modal_content')
@@ -78,5 +78,5 @@
     @include('helpers.datatables.foot')
     <!-- /Datatables -->
 
-    @include('helpers.datepicker.foot')
+    @include('helpers.daterangepicker.foot')
 @endsection
