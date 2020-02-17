@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\HumanResources\Patients\PatientImage;
 use App\Observers\Financials\BudgetObserver;
+use App\Observers\HumanResources\Patients\PatientDocumentObserver;
+use App\Observers\HumanResources\Patients\PatientImageObserver;
 use App\Orcamento;
+use App\Models\HumanResources\Patients\PatientDocument;
 use Faker\Factory as FakerFactory;
 use Faker\Generator as FakerGenerator;
 use Illuminate\Support\Facades\Schema;
@@ -33,5 +37,7 @@ class AppServiceProvider extends ServiceProvider
         } );
         Schema::defaultStringLength( 191 );
         Orcamento::observe( BudgetObserver::class );
+        PatientDocument::observe( PatientDocumentObserver::class );
+        PatientImage::observe( PatientImageObserver::class );
     }
 }

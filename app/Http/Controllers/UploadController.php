@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\ImageHelper;
+use App\Helpers\UploadHelper;
 use App\Upload;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -77,8 +77,8 @@ class UploadController extends Controller
             //store TipoPagamento
             $data = $request->all();
             if ($request->hasfile('link')) {
-                $ImageHelper = new ImageHelper();
-                $data['link'] = $ImageHelper->store($request->file('link'), 'documentos');
+                $UploadHelper = new UploadHelper();
+                $data['link'] = $UploadHelper->store($request->file('link'), 'documentos');
             }
             $data['idprofissional_criador'] = Auth::user()->profissional->idprofissional;
             Upload::create($data);
@@ -103,8 +103,8 @@ class UploadController extends Controller
             $Upload = Upload::find($id);
             $dataUpload = $request->all();
             if ($request->hasfile('link')) {
-                $ImageHelper = new ImageHelper();
-                $dataUpload['link'] = $ImageHelper->update($request->file('link'), 'documentos', $Upload->link);
+                $UploadHelper = new UploadHelper();
+                $dataUpload['link'] = $UploadHelper->update($request->file('link'), 'documentos', $Upload->link);
             }
             $Upload->update($dataUpload);
             session()->forget('mensagem');
@@ -116,8 +116,8 @@ class UploadController extends Controller
     public function destroy($id)
     {
         $Upload = Upload::find($id);
-        $ImageHelper = new ImageHelper();
-        $dataUpload['link'] = $ImageHelper->remove($Upload->link, 'documentos');
+        $UploadHelper = new UploadHelper();
+        $dataUpload['link'] = $UploadHelper->remove($Upload->link, 'documentos');
         $Upload->delete();
         return response()->json(['status' => '1',
             'response' => 'Removido com sucesso']);

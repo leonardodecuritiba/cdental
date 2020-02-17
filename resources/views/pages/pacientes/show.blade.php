@@ -136,6 +136,23 @@
         });
     </script>
 
+    {{--Documents--}}
+    <script>
+        $(document).ready(function () {
+            $('div#modalUploads').on('show.bs.modal', function(e) {
+                $origem = $(e.relatedTarget);
+                $(this).find('form input[name=idpaciente]').val($($origem).data('idpaciente'));
+                $(this).find('form input[name=type]').val($($origem).data('type'));
+                $(this).find('form').attr('action',"{{route('documentos.pacientes.store')}}");
+                $(this).find('.modal-title').html("Novo documento");
+                if($($origem).data('type') != 'document'){
+                    $(this).find('.modal-title').html("Nova imagem");
+                    $(this).find('form').attr('action',"{{route('imagens.pacientes.store')}}");
+                }
+            });
+        });
+    </script>
+
     {{--Alertas--}}
     <script>
         $('#modalAlertas').on('show.bs.modal', function (event) {

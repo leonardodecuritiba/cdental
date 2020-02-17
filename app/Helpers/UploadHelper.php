@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-class ImageHelper
+class UploadHelper
 {
     const PATH_NAME = 'uploads';
     const THUMB_PREFIX = 'thumb_';
@@ -15,7 +15,7 @@ class ImageHelper
     public function __construct()
     {
 //        $this->path = "/home/drvinici/public_html/cdental/" . self::PATH_NAME;
-        $this->path = public_path(self::PATH_NAME . DIRECTORY_SEPARATOR);
+        $this->path = public_path(self::PATH_NAME );
     }
 
     static public function getFullThumbPath($folder)
@@ -98,7 +98,8 @@ class ImageHelper
         $this->setFilename($file);
         // uploading file to given path
         if ($file->move($this->destinationPath, $this->filename)) { // Faz o upload da imagem para seu respectivo caminho
-            if (getimagesize($this->destinationPath . $this->filename)) {
+
+            if ($file->getClientMimeType() != "application/pdf" && getimagesize($this->destinationPath . $this->filename)) {
                 $this->GenerateThumb(); // é imagem
             }
         } else { // Erro no envio

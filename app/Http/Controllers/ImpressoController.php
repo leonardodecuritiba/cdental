@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Impresso;
-use App\Helpers\ImageHelper;
+use App\Helpers\UploadHelper;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Orcamento;
@@ -67,7 +67,7 @@ class ImpressoController extends Controller
         } else {
             //fazer upload da imagem
             //store documentos
-            $img = new ImageHelper();
+            $img = new UploadHelper();
             $data['documento'] = $img->store($request->file('file'),'documentos');
             if( $data['documento'] > 0 ) {
                 $data['idprofissional_criador'] = Auth::user()->profissional->idprofissional;

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Clinica;
 use App\Contato;
-use App\Helpers\ImageHelper;
+use App\Helpers\UploadHelper;
 use App\Paciente;
 use App\Consulta;
 use App\Parcela;
@@ -251,7 +251,7 @@ class MasterController extends Controller
             //store CLINICA
             $data['idcontato'] = $Contato->idcontato;
             if ($request->hasfile('foto')) {
-                $img = new ImageHelper();
+                $img = new UploadHelper();
                 $data['foto'] = $img->store($request->file('foto'), 'ajustes');
             } else {
                 $data['foto'] = NULL;
@@ -281,7 +281,7 @@ class MasterController extends Controller
             $Clinica = Clinica::find($id);
 
             if ($request->hasfile('foto')) {
-                $img = new ImageHelper();
+                $img = new UploadHelper();
                 $dataUpdate['foto'] = $img->update($request->file('foto'), 'ajustes', $Clinica->foto);
             }
             $Clinica->update($dataUpdate);

@@ -34,8 +34,8 @@
                                 <td>
                                     {{$selecao->id}}
                                 </td>
-                                <td>{{$selecao->titulo}}</td>
-                                <td>{{$selecao->descricao}}</td>
+                                <td>{{$selecao->name}}</td>
+                                <td>{{$selecao->description}}</td>
                                 <td>
                                     <a class="btn btn-default btn-xs" target="_blank"
                                        href="{{$selecao->getDocumentoThumb()}}"><i class="fa fa-eye"></i> Abrir</a>
@@ -93,8 +93,8 @@
                                 <td>
                                     {{$selecao->id}}
                                 </td>
-                                <td>{{$selecao->titulo}}</td>
-                                <td>{{$selecao->descricao}}</td>
+                                <td>{{$selecao->name}}</td>
+                                <td>{{$selecao->description}}</td>
                                 <td>
                                     <a class="btn btn-default btn-xs" target="_blank"
                                        href="{{$selecao->getLink()}}"><i class="fa fa-eye"></i> Abrir</a>

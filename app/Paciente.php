@@ -3,7 +3,9 @@
 namespace App;
 
 use App\Helpers\DataHelper;
-use App\Helpers\ImageHelper;
+use App\Helpers\UploadHelper;
+use App\Models\HumanResources\Patients\PatientDocument;
+use App\Models\HumanResources\Patients\PatientImage;
 use DB;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -34,12 +36,12 @@ class Paciente extends Model
 
     public function getFoto()
     {
-        return ($this->foto != NULL) ? ImageHelper::getFullPath('pacientes') . $this->foto : asset('images/user.png');
+        return ($this->foto != NULL) ? UploadHelper::getFullPath('pacientes') . $this->foto : asset('images/user.png');
     }
 
     public function getThumbFoto()
     {
-        return ($this->foto != NULL) ? ImageHelper::getFullThumbPath('pacientes') . $this->foto : asset('images/user.png');
+        return ($this->foto != NULL) ? UploadHelper::getFullThumbPath('pacientes') . $this->foto : asset('images/user.png');
     }
 
 
@@ -124,7 +126,7 @@ class Paciente extends Model
     }
     public function documentos()
     {
-        return $this->hasMany('App\PacienteDocumentos', 'idpaciente');
+        return $this->hasMany(PatientDocument::class, 'idpaciente');
     }
 
     public function has_images()
@@ -134,7 +136,7 @@ class Paciente extends Model
 
     public function images()
     {
-        return $this->hasMany('App\PacienteImages', 'idpaciente');
+        return $this->hasMany(PatientImage::class, 'idpaciente');
     }
 
     public function total_pendente($float = false)
