@@ -1,12 +1,12 @@
 {
-  "name": "obras",
+  "name": "cdental",
   "description": "",
   "main": "",
   "authors": [
     "suj3it0culto <silva.zanin@gmail.com>"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/leonardodecuritiba/obras",
+  "homepage": "https://github.com/leonardodecuritiba/cdental",
   "ignore": [
     "**/.*",
     "node_modules",
