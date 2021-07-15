@@ -18,6 +18,9 @@ class Retorno extends Model
         'observacao'
     ];
 
+    protected $appends = [
+        'data_retorno_ts'
+    ];
 
     // ******************** FUNCTIONS ****************************
 
@@ -39,6 +42,12 @@ class Retorno extends Model
     public function data_retorno_date()
     {
         return ($this->attributes['data_retorno']);
+    }
+
+    public function getDataRetornoTsAttribute( )
+    {
+        $value = $this->attributes['data_retorno'];
+        return ($value != NULL) ? Carbon::createFromFormat('Y-m-d', $value)->timestamp : NULL;
     }
 
     public function getDataRetornoAttribute($value)

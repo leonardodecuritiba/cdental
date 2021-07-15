@@ -38,6 +38,12 @@
     "bootstrap-daterangepicker": "*",
     "moment": "^2.24.0",
     "iCheck": "^1.0.2",
-    "fullcalendar": "2.7.3"
+    "fullcalendar": "2.7.3",
+    "animate.css": "^4.1.1",
+    "nprogress": "^0.2.0",
+    "datatables.net-bs": "^2.1.1",
+    "datatables.net-responsive-bs": "^2.2.9",
+    "jquery.nicescroll": "^3.7.6",
+    "bootstrap-progressbar": "^0.9.0"
   }
 }

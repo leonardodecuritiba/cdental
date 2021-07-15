@@ -19,6 +19,10 @@ class Parcela extends Model
         'data_pagamento',
         'valor'
     ];
+    protected $appends = [
+        'data_vencimento_ts',
+        'data_pagamento_ts'
+    ];
     // ******************** FUNCTIONS ****************************
     static public function getFromPagamento($ids)
     {
@@ -117,6 +121,19 @@ class Parcela extends Model
     public function paciente()
     {
         return $this->pagamento->paciente();
+    }
+
+    public function getDataVencimentoTsAttribute( )
+    {
+        $value = $this->attributes['data_vencimento'];
+        return ($value != NULL) ? Carbon::createFromFormat('Y-m-d', $value)->timestamp : NULL;
+    }
+
+
+    public function getDataPagamentoTsAttribute( )
+    {
+        $value = $this->attributes['data_pagamento'];
+        return ($value != NULL) ? Carbon::createFromFormat('Y-m-d', $value)->timestamp : NULL;
     }
 
     public function getDataVencimentoAttribute($value)

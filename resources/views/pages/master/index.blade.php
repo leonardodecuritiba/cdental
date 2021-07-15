@@ -133,7 +133,7 @@
                                     <td>
                                         {{$retorno->getNome()}}
                                     </td>
-                                    <td>
+                                    <td data-order="{{$retorno->data_retorno_ts}}">
                                         {{$retorno->data_retorno}}
                                     </td>
                                     <td>
@@ -190,7 +190,7 @@
                                     <td>
                                         {{$parcela->getValorPendenteReal()}}
                                     </td>
-                                    <td>
+                                    <td data-order="{{$parcela->data_vencimento_ts}}">
                                         {{$parcela->data_vencimento}}
                                     </td>
                                 </tr>

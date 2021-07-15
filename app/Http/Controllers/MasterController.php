@@ -53,6 +53,7 @@ class MasterController extends Controller
                 'Retornos'          => Retorno::proximos()->get()
             ]
         ];
+//        return($Page->Data) ;
         return view('pages.master.index')
             ->with('Page', $Page);
     }
