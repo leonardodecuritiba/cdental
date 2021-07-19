@@ -38,7 +38,7 @@ class Contato extends Model
 	// ******************** HASMANY ******************************
 	// Relação contato - 1 <-> N - profissional.
     public function getCidadeEstado(){
-        $retorno = NULL;
+        $retorno = [];
         if($this->cidade != ""){
             $retorno[] = $this->cidade;
         }
@@ -47,12 +47,14 @@ class Contato extends Model
         }
         if(count($retorno)>1){
             return implode(', ',$retorno);
+        } else if(count($retorno) == 1){
+            return $retorno[0];
         }
-        return $retorno[0];
+        return NULL;
     }
 
     public function getEnderecoCompleto(){
-        $retorno = NULL;
+        $retorno = [];
         if($this->logradouro != ""){
             $retorno[] = $this->logradouro;
         }
