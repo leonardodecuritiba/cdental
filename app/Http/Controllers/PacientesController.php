@@ -132,7 +132,7 @@ class PacientesController extends Controller
             'idplano'           => 'required|exists:plano',
             'rg'                => 'unique:paciente',
             'nome'              => 'required',
-            'data_nascimento' => 'required',
+            'data_nascimento'   => 'required',
             'foto'              => 'image'
         ]);
 
